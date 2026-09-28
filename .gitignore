@@ -1,0 +1,28 @@
+# Local secrets and the virtual environment.
+.env
+.env.*
+!.env.example
+.venv/
+
+# Python caches and build output.
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+dist/
+build/
+
+# Dataset files stay local. metadata/ is the only tracked part of datasets/.
+datasets/*
+!datasets/metadata/
+!datasets/metadata/**
+
+# Model weights stay local.
+models/
+
+# Node dependencies and Next.js build output.
+node_modules/
+frontend/node_modules/
+frontend/.next/
+frontend/out/

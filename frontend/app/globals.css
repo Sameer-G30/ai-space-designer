@@ -1,0 +1,12 @@
+/* Load Tailwind utility classes. */
+@import "tailwindcss";
+
+/* Page background and text color. */
+body {
+  /* Light background for the health page. */
+  background: #fafafa;
+  /* Default text color. */
+  color: #171717;
+  /* System font stack. */
+  font-family: Arial, Helvetica, sans-serif;
+}

@@ -1,0 +1,29 @@
+# PhotoSpace local Postgres with the pgvector extension.
+name: photospace
+
+services:
+  # Database service used by Alembic and later API routes.
+  db:
+    # Postgres 16 image that already includes pgvector.
+    image: pgvector/pgvector:pg16
+    # Role, password, and database created on first start.
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    # Publish Postgres on the host port from .env.
+    ports:
+      - "${POSTGRES_PORT}:5432"
+    # Keep the data directory across container restarts.
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    # Report healthy once the role can connect to the database.
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  # Named volume for the Postgres data directory.
+  pgdata:
