@@ -67,6 +67,8 @@ The public page no longer lists the archives. It asks people who need the legacy
 
 These are the full 256×256 train and val archives. Phase 1 does not choose indoor class names, extract a subset, balance classes, or remove duplicates. That work is Phase 2a. The train archive was paused on 2026-09-29 and its partial file was removed. The MIT terms forbid distributing the images, so there is no torrent for it. The val archive is still downloaded. The official train file, if resumed later, is https://data.csail.mit.edu/places/places365/train_256_places365standard.tar (MD5 `53ca1c756c3d1e7809517cc47c5561c5`).
 
+Phase 2a found that `val_256.tar` holds 36,500 images and no labels or category names. With approval, two small official text files were added to `datasets/raw/places365/` (script `scripts/download_places365_labels.py`): `categories_places365.txt` (6833 bytes, from the Places365 GitHub repository) and `places365_val.txt` (1120499 bytes, read as one member of `filelist_places365-standard.tar` with HTTP Range requests, so the rest of that tar was not downloaded). Both are checksummed in `acquisition_log.json`.
+
 High-resolution archives, the test set, and the 6.2-million-image challenge set are not part of Phase 1.
 
 ## CubiCasa5K

@@ -7,11 +7,14 @@ requires-python = ">=3.11.9"
 dependencies = [
     "alembic>=1.20.0",
     "fastapi>=0.141.1",
+    "h5py>=3.16.0",
     "objaverse==0.1.7",
     "pgvector>=0.5.0",
+    "pillow>=12.3.0",
     "psycopg[binary]>=3.3.6",
     "pydantic>=2",
     "python-dotenv>=1.2.3",
+    "scipy>=1.17.1",
     "sqlalchemy>=2",
     "uvicorn[standard]>=0.54.0",
 ]
@@ -37,3 +40,7 @@ src = ["src", "tests", "alembic"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I"]
+
+# Report prose in report.py is long Markdown text, so line length is not enforced there.
+[tool.ruff.lint.per-file-ignores]
+"src/spacedesigner/data/report.py" = ["E501"]

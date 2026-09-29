@@ -1,0 +1,70 @@
+{
+  "collection_plans": {
+    "colorful": 276,
+    "high_quality": 988,
+    "high_quality_architectural": 3728
+  },
+  "doors_total": 49901,
+  "floors_total": 6108,
+  "license": "CC BY-NC-SA 4.0 (Zenodo id cc-by-nc-sa-4.0)",
+  "official_split_entries": 5000,
+  "plans_dropped": 8,
+  "plans_dropped_by_reason": {
+    "plan_no_rooms": 8
+  },
+  "plans_kept": 4992,
+  "polygons_dropped_by_reason": {
+    "door_outside_canvas": 2,
+    "space_degenerate": 4,
+    "space_outside_canvas": 2,
+    "wall_degenerate": 11,
+    "wall_outside_canvas": 21,
+    "window_outside_canvas": 4
+  },
+  "room_class_histogram": {
+    "Alcove": 164,
+    "Attic": 93,
+    "Bar": 1,
+    "Basement": 51,
+    "Bath": 7155,
+    "Bedroom": 7993,
+    "CarPort": 278,
+    "Closet": 2695,
+    "Den": 306,
+    "Dining": 954,
+    "DraughtLobby": 1667,
+    "DressingRoom": 346,
+    "Elevated": 100,
+    "Elevator": 5,
+    "Entry": 4211,
+    "ExerciseRoom": 2,
+    "Garage": 413,
+    "Garbage": 3,
+    "Hall": 172,
+    "Kitchen": 4548,
+    "Library": 42,
+    "LivingRoom": 3958,
+    "Office": 135,
+    "OpenToBelow": 3,
+    "Outdoor": 7852,
+    "RecreationRoom": 84,
+    "RetailSpace": 7,
+    "Room": 1855,
+    "Sauna": 133,
+    "Storage": 1809,
+    "SwimmingPool": 7,
+    "TechnicalRoom": 474,
+    "Undefined": 11001,
+    "UserDefined": 1856,
+    "Utility": 1015
+  },
+  "rooms_total": 61388,
+  "split_plans": {
+    "test": 398,
+    "train": 4194,
+    "val": 400
+  },
+  "svg_plans_in_zip": 5000,
+  "walls_total": 131344,
+  "windows_total": 43968
+}

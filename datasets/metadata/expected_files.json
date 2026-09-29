@@ -192,6 +192,34 @@
       "note": "256x256 val archive. Content-Length 525158400. MD5 from the legacy page. Needs --accept-terms."
     },
     {
+      "file_id": "places365_categories",
+      "dataset_id": "places365",
+      "relative_path": "datasets/raw/places365/categories_places365.txt",
+      "url": "https://raw.githubusercontent.com/csailvision/places365/master/categories_places365.txt",
+      "expected_bytes": 6833,
+      "md5": "06c963b85866bd0649f97cb43dd16673",
+      "magic_prefix": null,
+      "requires_confirm_large": false,
+      "requires_accept_terms": false,
+      "phase1_required": false,
+      "disposition": "download",
+      "note": "Official 365 category strings. Added in Phase 2a with user approval because val_256.tar holds images only."
+    },
+    {
+      "file_id": "places365_val_labels",
+      "dataset_id": "places365",
+      "relative_path": "datasets/raw/places365/places365_val.txt",
+      "url": "https://data.csail.mit.edu/places/places365/filelist_places365-standard.tar#places365_val.txt",
+      "expected_bytes": 1120499,
+      "md5": "e9f2fd57bfd9d07630173f4e8708e4b1",
+      "magic_prefix": null,
+      "requires_confirm_large": false,
+      "requires_accept_terms": false,
+      "phase1_required": false,
+      "disposition": "download",
+      "note": "Val image-to-class labels, read from the file-list tar with HTTP Range (the member only, about 1.1 MB). Added in Phase 2a with user approval."
+    },
+    {
       "file_id": "cubicasa5k_zip",
       "dataset_id": "cubicasa5k",
       "relative_path": "datasets/raw/cubicasa5k/cubicasa5k.zip",

@@ -1,0 +1,50 @@
+{
+  "hull_area_m2_percentiles": {
+    "25": 4.48,
+    "5": 2.35,
+    "50": 7.99,
+    "75": 14.53,
+    "95": 50.13
+  },
+  "note": "Perspective RGB and depth zips are not on disk. Phase 7b cannot run Structured3D photo or depth checks until perspective parts are added.",
+  "perspective_instance_masks_in_bbox_zip": 82838,
+  "room_split_histogram": {
+    "test": 1703,
+    "train": 18264,
+    "val": 1775
+  },
+  "room_type_histogram": {
+    "balcony": 2639,
+    "bathroom": 3611,
+    "bedroom": 5817,
+    "corridor": 307,
+    "dining room": 165,
+    "garden": 10,
+    "kitchen": 2287,
+    "laundry room": 1,
+    "living room": 3081,
+    "office": 3,
+    "store room": 355,
+    "studio": 134,
+    "study": 699,
+    "undefined": 2633
+  },
+  "rooms_dropped_by_reason": {
+    "room_degenerate_footprint": 1010,
+    "room_implausible_height": 90,
+    "room_implausible_size": 181
+  },
+  "rooms_exported": 21742,
+  "scenes_complete_for_photo_or_depth_check": 0,
+  "scenes_exported": 3500,
+  "scenes_in_annotation_zip": 3500,
+  "scenes_with_bbox_3d": 3496,
+  "scenes_with_depth": 0,
+  "scenes_with_perspective_rgb": 0,
+  "scenes_without_bbox_3d": 4,
+  "split_scenes": {
+    "test": 250,
+    "train": 3000,
+    "val": 250
+  }
+}

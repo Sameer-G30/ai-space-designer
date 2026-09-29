@@ -139,6 +139,26 @@
       "md5": null,
       "status": "deferred",
       "url": "https://zju-kjl-jointlab-azure.kujiale.com/Structured3D/Structured3D_perspective_full_01.zip"
+    },
+    "places365_categories": {
+      "file_id": "places365_categories",
+      "dataset_id": "places365",
+      "relative_path": "datasets/raw/places365/categories_places365.txt",
+      "bytes": 6833,
+      "sha256": "2affba635eb657e7ca95f4e6cc69bd9fac29ef4c32aeb83cafdfcd06ec6a1ea6",
+      "md5": "06c963b85866bd0649f97cb43dd16673",
+      "status": "acquired",
+      "url": "https://raw.githubusercontent.com/csailvision/places365/master/categories_places365.txt"
+    },
+    "places365_val_labels": {
+      "file_id": "places365_val_labels",
+      "dataset_id": "places365",
+      "relative_path": "datasets/raw/places365/places365_val.txt",
+      "bytes": 1120499,
+      "sha256": "06d41c7ca5164a789a3dae2e997d8dd1ad2aef8d97ee474d4717a4dcce0a67be",
+      "md5": "e9f2fd57bfd9d07630173f4e8708e4b1",
+      "status": "acquired",
+      "url": "https://data.csail.mit.edu/places/places365/filelist_places365-standard.tar#places365_val.txt"
     }
   }
 }
