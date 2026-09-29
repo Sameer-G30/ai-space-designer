@@ -1,0 +1,293 @@
+{
+  "checked_on": "2026-09-29",
+  "budget_bytes": 90000000000,
+  "large_file_min_bytes": 1073741824,
+  "datasets": [
+    {
+      "dataset_id": "nyu_depth_v2",
+      "name": "NYU Depth V2 labeled",
+      "license_name": "Academic research use. Cite Silberman, Kohli, Hoiem, and Fergus, ECCV 2012. The dataset page states no SPDX license.",
+      "source_url": "https://cs.nyu.edu/~fergus/datasets/nyu_depth_v2.html",
+      "disposition": "download",
+      "notes": "Labeled .mat is about 2.77 GiB and needs approval. splits.mat is the official train/test index from the Silberman indoor-segmentation supplement on the same host. The raw 428 GB capture is not part of Phase 1."
+    },
+    {
+      "dataset_id": "sun_rgbd",
+      "name": "SUN RGB-D",
+      "license_name": "Academic research use. Cite Song, Lichtenberg, and Xiao, CVPR 2015, plus NYU Depth V2, B3DO, and SUN3D as the SUN RGB-D page requires. The page states no SPDX license.",
+      "source_url": "https://rgbd.cs.princeton.edu/",
+      "disposition": "download",
+      "notes": "SUNRGBD.zip, the toolbox, and SUNRGBDMeta2DBB_v2.mat are on disk. SUNRGBDMeta3DBB_v2.mat is left for a later phase."
+    },
+    {
+      "dataset_id": "places365",
+      "name": "Places365-Standard 256x256",
+      "license_name": "Non-commercial research and educational use only. By downloading, the user agrees not to distribute the images and to the MIT terms on the Places365 legacy download page.",
+      "source_url": "http://places2.csail.mit.edu/download-private.html",
+      "disposition": "download",
+      "notes": "Val 256 is on disk. The 24 GB train archive was deferred on 2026-09-29 because the MIT host was too slow. The terms forbid redistributing the images. Class filtering is Phase 2a."
+    },
+    {
+      "dataset_id": "cubicasa5k",
+      "name": "CubiCasa5K",
+      "license_name": "CC BY-NC-SA 4.0 (Zenodo license id cc-by-nc-sa-4.0, checked 2026-09-29). The blueprint and phase plan say CC BY-NC 4.0. The Zenodo record adds ShareAlike.",
+      "source_url": "https://zenodo.org/records/2613548",
+      "disposition": "download",
+      "notes": "cubicasa5k.zip is on disk: 5469495706 bytes, MD5 0ce0b203d1e3c125b51087b219bd23b9. Zenodo license is CC BY-NC-SA 4.0, which adds ShareAlike to the CC BY-NC 4.0 name in the blueprint."
+    },
+    {
+      "dataset_id": "3d_front_future",
+      "name": "3D-FRONT and 3D-FUTURE",
+      "license_name": "3D-FRONT Data Sets Use License Agreement, version June 18, 2020, with Tao Bao (China) Software Co., Ltd. Scientific research only. No commercialization and no redistribution of the data sets.",
+      "source_url": "https://tianchi.aliyun.com/specials/promotion/alibaba-3d-scene-dataset",
+      "disposition": "deferred",
+      "notes": "Deferred by the user on 2026-09-29. Not required for the optimizer. The Tianchi page returned HTTP 404. If resumed later, email the signed terms to 3dfront@list.alibaba-inc.com and take the house JSON archive, model_info.json, and only the furniture models the scenes reference."
+    },
+    {
+      "dataset_id": "structured3d",
+      "name": "Structured3D",
+      "license_name": "Structured3D Terms of Use. The user completed the agreement form. Code on GitHub is MIT. The data license is the Terms of Use, not MIT.",
+      "source_url": "https://structured3d-dataset.org/",
+      "disposition": "download",
+      "notes": "Annotation and bbox zips are on disk. Perspective parts 00 and 01 were deferred on 2026-09-29. Panorama, empty-room, and parts 02-17 were not taken. The terms forbid redistribution."
+    },
+    {
+      "dataset_id": "objaverse",
+      "name": "Objaverse furniture subset",
+      "license_name": "Per-asset Sketchfab license from each object's metadata license field. The Objaverse package README also states ODC-By 1.0 for use of the Objaverse-XL dataset as a whole. Each GLB is logged on its own license, not under ODC-By alone.",
+      "source_url": "https://huggingface.co/datasets/allenai/objaverse",
+      "disposition": "pending_user",
+      "local_files": [
+        "datasets/metadata/objaverse_furniture_categories.json"
+      ],
+      "notes": "Use objaverse 0.1.7 load_lvis_annotations and load_objects. Furniture category names are the LVIS keys in objaverse_furniture_categories.json. Target 160 GLB files. Not started until --confirm-download."
+    },
+    {
+      "dataset_id": "furniscene",
+      "name": "FurniScene",
+      "license_name": "No public dataset license. The paper is arXiv 2401.03470 and its abstract says the dataset and code will be publicly available soon.",
+      "source_url": "https://arxiv.org/abs/2401.03470",
+      "disposition": "skipped",
+      "notes": "Checked 2026-09-29. arXiv v2 (6 May 2024) still says the dataset and code will be publicly available soon. Web search found no official download or repository. Skipped. This does not block Phase 1."
+    },
+    {
+      "dataset_id": "rag_corpus",
+      "name": "Public accessibility standards",
+      "license_name": "2010 ADA Standards: U.S. government work, public domain under 17 U.S.C. 105. MoHUA Harmonised Guidelines 2021: copyright 2021 Gaurav Raheja, IIT Roorkee, NIUA and MoHUA. All rights reserved. The PDF is stored for project retrieval and is not reproduced here.",
+      "source_url": "https://www.ada.gov/law-and-regs/design-standards/2010-stds/",
+      "disposition": "download",
+      "notes": "Two public PDFs only. No retailer catalogs. ADA from ada.gov. MoHUA 2021 PDF from niua.in because cpwd.gov.in rejected the download from this network."
+    },
+    {
+      "dataset_id": "rag_summaries",
+      "name": "Hand-written clearance and ergonomic summaries",
+      "license_name": "Original short summaries written for this project. Each states the source it cites. They are not copies of the standards.",
+      "source_url": "https://www.ada.gov/law-and-regs/design-standards/2010-stds/",
+      "disposition": "local",
+      "local_files": [
+        "datasets/metadata/rag/ada_clearances.md",
+        "datasets/metadata/rag/mohua_clearances.md",
+        "datasets/metadata/rag/ergonomics.md"
+      ],
+      "notes": "Short cited summaries for the future RAG corpus. The PDFs themselves stay under datasets/raw/rag/."
+    }
+  ],
+  "files": [
+    {
+      "file_id": "nyu_splits",
+      "dataset_id": "nyu_depth_v2",
+      "relative_path": "datasets/raw/nyu_depth_v2/splits.mat",
+      "url": "https://horatio.cs.nyu.edu/mit/silberman/indoor_seg_sup/splits.mat",
+      "expected_bytes": 2626,
+      "md5": null,
+      "magic_prefix": "MATLAB",
+      "requires_confirm_large": false,
+      "requires_accept_terms": false,
+      "phase1_required": true,
+      "disposition": "download",
+      "note": "Official train/test index. Content-Length 2626 on 2026-09-29."
+    },
+    {
+      "file_id": "nyu_labeled",
+      "dataset_id": "nyu_depth_v2",
+      "relative_path": "datasets/raw/nyu_depth_v2/nyu_depth_v2_labeled.mat",
+      "url": "https://horatio.cs.nyu.edu/mit/silberman/nyu_depth_v2/nyu_depth_v2_labeled.mat",
+      "expected_bytes": 2972037809,
+      "md5": null,
+      "magic_prefix": "MATLAB",
+      "requires_confirm_large": true,
+      "requires_accept_terms": false,
+      "phase1_required": true,
+      "disposition": "download",
+      "note": "Labeled subset. Content-Length 2972037809 on 2026-09-29. Needs --confirm-large."
+    },
+    {
+      "file_id": "sun_rgbd_zip",
+      "dataset_id": "sun_rgbd",
+      "relative_path": "datasets/raw/sun_rgbd/SUNRGBD.zip",
+      "url": "https://rgbd.cs.princeton.edu/data/SUNRGBD.zip",
+      "expected_bytes": 6885481608,
+      "md5": null,
+      "magic_prefix": "PK",
+      "requires_confirm_large": true,
+      "requires_accept_terms": false,
+      "phase1_required": true,
+      "disposition": "download",
+      "note": "10335 RGB-D images. On disk, 6885481608 bytes, saved from the browser download on 2026-09-29."
+    },
+    {
+      "file_id": "sun_rgbd_2d_bb",
+      "dataset_id": "sun_rgbd",
+      "relative_path": "datasets/raw/sun_rgbd/SUNRGBDMeta2DBB_v2.mat",
+      "url": "https://rgbd.cs.princeton.edu/data/SUNRGBDMeta2DBB_v2.mat",
+      "expected_bytes": 4300305,
+      "md5": null,
+      "magic_prefix": "MATLAB",
+      "requires_confirm_large": false,
+      "requires_accept_terms": false,
+      "phase1_required": true,
+      "disposition": "download",
+      "note": "Updated 2D boxes. Content-Length 4300305 on 2026-09-29. Downloaded before the toolbox because the Princeton host is slow."
+    },
+    {
+      "file_id": "sun_rgbd_toolbox",
+      "dataset_id": "sun_rgbd",
+      "relative_path": "datasets/raw/sun_rgbd/SUNRGBDtoolbox.zip",
+      "url": "https://rgbd.cs.princeton.edu/data/SUNRGBDtoolbox.zip",
+      "expected_bytes": 570324301,
+      "md5": null,
+      "magic_prefix": "PK",
+      "requires_confirm_large": false,
+      "requires_accept_terms": false,
+      "phase1_required": true,
+      "disposition": "download",
+      "note": "Annotations and Matlab toolbox. Content-Length 570324301 on 2026-09-29."
+    },
+    {
+      "file_id": "places365_train_256",
+      "dataset_id": "places365",
+      "relative_path": "datasets/raw/places365/train_256_places365standard.tar",
+      "url": "https://data.csail.mit.edu/places/places365/train_256_places365standard.tar",
+      "expected_bytes": 26103685120,
+      "md5": "53ca1c756c3d1e7809517cc47c5561c5",
+      "magic_prefix": null,
+      "requires_confirm_large": true,
+      "requires_accept_terms": true,
+      "phase1_required": false,
+      "disposition": "deferred",
+      "note": "Paused on 2026-09-29. The 24 GB train archive was removed because the MIT host is too slow. Val is still downloaded. Same file and MD5 if resumed later from the official URL."
+    },
+    {
+      "file_id": "places365_val_256",
+      "dataset_id": "places365",
+      "relative_path": "datasets/raw/places365/val_256.tar",
+      "url": "https://data.csail.mit.edu/places/places365/val_256.tar",
+      "expected_bytes": 525158400,
+      "md5": "e27b17d8d44f4af9a78502beb927f808",
+      "magic_prefix": null,
+      "requires_confirm_large": false,
+      "requires_accept_terms": true,
+      "phase1_required": true,
+      "disposition": "download",
+      "note": "256x256 val archive. Content-Length 525158400. MD5 from the legacy page. Needs --accept-terms."
+    },
+    {
+      "file_id": "cubicasa5k_zip",
+      "dataset_id": "cubicasa5k",
+      "relative_path": "datasets/raw/cubicasa5k/cubicasa5k.zip",
+      "url": "https://zenodo.org/api/records/2613548/files/cubicasa5k.zip/content",
+      "expected_bytes": 5469495706,
+      "md5": "0ce0b203d1e3c125b51087b219bd23b9",
+      "magic_prefix": "PK",
+      "requires_confirm_large": true,
+      "requires_accept_terms": false,
+      "phase1_required": true,
+      "disposition": "download",
+      "note": "Zenodo record 2613548. Size and MD5 from the Zenodo API on 2026-09-29. Needs --confirm-large."
+    },
+    {
+      "file_id": "ada_2010_pdf",
+      "dataset_id": "rag_corpus",
+      "relative_path": "datasets/raw/rag/2010-ada-design-standards.pdf",
+      "url": "https://www.ada.gov/assets/pdfs/2010-design-standards.pdf",
+      "expected_bytes": 4208963,
+      "md5": null,
+      "magic_prefix": "%PDF",
+      "requires_confirm_large": false,
+      "requires_accept_terms": false,
+      "phase1_required": true,
+      "disposition": "download",
+      "note": "2010 ADA Standards PDF. Content-Length 4208963 on 2026-09-29."
+    },
+    {
+      "file_id": "mohua_2021_pdf",
+      "dataset_id": "rag_corpus",
+      "relative_path": "datasets/raw/rag/mohua-harmonised-guidelines-2021.pdf",
+      "url": "https://niua.in/intranet/sites/default/files/2262.pdf",
+      "expected_bytes": 66195648,
+      "md5": null,
+      "magic_prefix": "%PDF",
+      "requires_confirm_large": false,
+      "requires_accept_terms": false,
+      "phase1_required": true,
+      "disposition": "download",
+      "note": "Harmonised Guidelines PDF hosted by NIUA. Content-Length 66195648 on 2026-09-29. cpwd.gov.in returned a WAF rejection from this network."
+    },
+    {
+      "file_id": "structured3d_annotation",
+      "dataset_id": "structured3d",
+      "relative_path": "datasets/raw/structured3d/Structured3D_annotation_3d.zip",
+      "url": "https://zju-kjl-jointlab-azure.kujiale.com/Structured3D/Structured3D_annotation_3d.zip",
+      "expected_bytes": 39392097,
+      "md5": null,
+      "magic_prefix": "PK",
+      "requires_confirm_large": false,
+      "requires_accept_terms": false,
+      "phase1_required": true,
+      "disposition": "download",
+      "note": "Structure annotations for every scene. Content-Length 39392097 on 2026-09-29."
+    },
+    {
+      "file_id": "structured3d_bbox",
+      "dataset_id": "structured3d",
+      "relative_path": "datasets/raw/structured3d/Structured3D_bbox.zip",
+      "url": "https://zju-kjl-jointlab-azure.kujiale.com/Structured3D/Structured3D_bbox.zip",
+      "expected_bytes": 1142587307,
+      "md5": null,
+      "magic_prefix": "PK",
+      "requires_confirm_large": true,
+      "requires_accept_terms": false,
+      "phase1_required": true,
+      "disposition": "download",
+      "note": "3D bounding boxes. Content-Length 1142587307 on 2026-09-29. Needs --confirm-large."
+    },
+    {
+      "file_id": "structured3d_perspective_full_00",
+      "dataset_id": "structured3d",
+      "relative_path": "datasets/raw/structured3d/Structured3D_perspective_full_00.zip",
+      "url": "https://zju-kjl-jointlab-azure.kujiale.com/Structured3D/Structured3D_perspective_full_00.zip",
+      "expected_bytes": 12626434579,
+      "md5": null,
+      "magic_prefix": "PK",
+      "requires_confirm_large": true,
+      "requires_accept_terms": false,
+      "phase1_required": false,
+      "disposition": "deferred",
+      "note": "Paused on 2026-09-29 and the partial was removed. Official Azure URL remains the allowed source. Redistribution is not permitted by the Structured3D terms."
+    },
+    {
+      "file_id": "structured3d_perspective_full_01",
+      "dataset_id": "structured3d",
+      "relative_path": "datasets/raw/structured3d/Structured3D_perspective_full_01.zip",
+      "url": "https://zju-kjl-jointlab-azure.kujiale.com/Structured3D/Structured3D_perspective_full_01.zip",
+      "expected_bytes": 14242379576,
+      "md5": null,
+      "magic_prefix": "PK",
+      "requires_confirm_large": true,
+      "requires_accept_terms": false,
+      "phase1_required": false,
+      "disposition": "deferred",
+      "note": "Paused on 2026-09-29 and the partial was removed. Official Azure URL remains the allowed source. Redistribution is not permitted by the Structured3D terms."
+    }
+  ]
+}

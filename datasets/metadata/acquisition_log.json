@@ -1,0 +1,144 @@
+{
+  "files": {
+    "nyu_splits": {
+      "file_id": "nyu_splits",
+      "dataset_id": "nyu_depth_v2",
+      "relative_path": "datasets/raw/nyu_depth_v2/splits.mat",
+      "bytes": 2626,
+      "sha256": "6e081404491a8bfba2f066beaa9713ef6046f9007aa5f799f2a350506a580cee",
+      "md5": "08e3c3aea27130ac7c01ffd739a4535f",
+      "status": "acquired",
+      "url": "https://horatio.cs.nyu.edu/mit/silberman/indoor_seg_sup/splits.mat"
+    },
+    "nyu_labeled": {
+      "file_id": "nyu_labeled",
+      "dataset_id": "nyu_depth_v2",
+      "relative_path": "datasets/raw/nyu_depth_v2/nyu_depth_v2_labeled.mat",
+      "bytes": 2972037809,
+      "sha256": "2d724b0c0ab358aa1ce5df855e5bd14a2279ab7202efe22f32a30d612dcb86aa",
+      "md5": "520609c519fba3ba5ac58c8fefcc3530",
+      "status": "acquired",
+      "url": "https://horatio.cs.nyu.edu/mit/silberman/nyu_depth_v2/nyu_depth_v2_labeled.mat"
+    },
+    "places365_train_256": {
+      "file_id": "places365_train_256",
+      "dataset_id": "places365",
+      "relative_path": "datasets/raw/places365/train_256_places365standard.tar",
+      "bytes": null,
+      "sha256": null,
+      "md5": "53ca1c756c3d1e7809517cc47c5561c5",
+      "status": "deferred",
+      "url": "https://data.csail.mit.edu/places/places365/train_256_places365standard.tar"
+    },
+    "places365_val_256": {
+      "file_id": "places365_val_256",
+      "dataset_id": "places365",
+      "relative_path": "datasets/raw/places365/val_256.tar",
+      "bytes": 525158400,
+      "sha256": "24b4e639ef12a0012af525bc4cb443e4ab4aaea8369a1fb009b70e4a4aad5d48",
+      "md5": "e27b17d8d44f4af9a78502beb927f808",
+      "status": "acquired",
+      "url": "https://data.csail.mit.edu/places/places365/val_256.tar"
+    },
+    "cubicasa5k_zip": {
+      "file_id": "cubicasa5k_zip",
+      "dataset_id": "cubicasa5k",
+      "relative_path": "datasets/raw/cubicasa5k/cubicasa5k.zip",
+      "bytes": 5469495706,
+      "sha256": "a4a3398534d6abb7db7b8c6ca8877a6edf18897dcbd20f4582b3fdd3c46632a5",
+      "md5": "0ce0b203d1e3c125b51087b219bd23b9",
+      "status": "acquired",
+      "url": "https://zenodo.org/api/records/2613548/files/cubicasa5k.zip/content"
+    },
+    "sun_rgbd_zip": {
+      "file_id": "sun_rgbd_zip",
+      "dataset_id": "sun_rgbd",
+      "relative_path": "datasets/raw/sun_rgbd/SUNRGBD.zip",
+      "bytes": 6885481608,
+      "sha256": "1a6dbf2a1c9044c4805a35ee648d616ea39a231fd5bd6f77e84cd2b8287fe41c",
+      "md5": "59a6919f60ecd6acb1c9a850fcb543b8",
+      "status": "acquired",
+      "url": "https://rgbd.cs.princeton.edu/data/SUNRGBD.zip"
+    },
+    "ada_2010_pdf": {
+      "file_id": "ada_2010_pdf",
+      "dataset_id": "rag_corpus",
+      "relative_path": "datasets/raw/rag/2010-ada-design-standards.pdf",
+      "bytes": 4208963,
+      "sha256": "7925d75c58cde5551da73e451986b9fbfe35a9398d10a4e14be58314a8d86389",
+      "md5": "a9a459233bef8dc6370c2695f702baa8",
+      "status": "acquired",
+      "url": "https://www.ada.gov/assets/pdfs/2010-design-standards.pdf"
+    },
+    "sun_rgbd_2d_bb": {
+      "file_id": "sun_rgbd_2d_bb",
+      "dataset_id": "sun_rgbd",
+      "relative_path": "datasets/raw/sun_rgbd/SUNRGBDMeta2DBB_v2.mat",
+      "bytes": 4300305,
+      "sha256": "d42020e95c6b654b2c81f0e04c8dba615b98733075e0c8605e6bd43bbb9b2899",
+      "md5": "27397cfaf79277b70493940317817a51",
+      "status": "acquired",
+      "url": "https://rgbd.cs.princeton.edu/data/SUNRGBDMeta2DBB_v2.mat"
+    },
+    "mohua_2021_pdf": {
+      "file_id": "mohua_2021_pdf",
+      "dataset_id": "rag_corpus",
+      "relative_path": "datasets/raw/rag/mohua-harmonised-guidelines-2021.pdf",
+      "bytes": 66195648,
+      "sha256": "70301f5e8a945755ba104bf3064cdc7cb99694bb99976fe57aca8cd56a8d34c9",
+      "md5": "97c8faaaf82d7443922bb1227f22a53b",
+      "status": "acquired",
+      "url": "https://niua.in/intranet/sites/default/files/2262.pdf"
+    },
+    "structured3d_annotation": {
+      "file_id": "structured3d_annotation",
+      "dataset_id": "structured3d",
+      "relative_path": "datasets/raw/structured3d/Structured3D_annotation_3d.zip",
+      "bytes": 39392097,
+      "sha256": "c3caea0861c7ca1dbdedafe3fa72994264d0d985d1f879d10158cf540bb700bc",
+      "md5": "f4259e476d08ba21a23a6648d2be5d94",
+      "status": "acquired",
+      "url": "https://zju-kjl-jointlab-azure.kujiale.com/Structured3D/Structured3D_annotation_3d.zip"
+    },
+    "sun_rgbd_toolbox": {
+      "file_id": "sun_rgbd_toolbox",
+      "dataset_id": "sun_rgbd",
+      "relative_path": "datasets/raw/sun_rgbd/SUNRGBDtoolbox.zip",
+      "bytes": 570324301,
+      "sha256": "946ee4dada878d508bcc0b754066c6d20e80160563d0277782cddaaee7b6e193",
+      "md5": "18d22e1761d36352f37232cba102f91f",
+      "status": "acquired",
+      "url": "https://rgbd.cs.princeton.edu/data/SUNRGBDtoolbox.zip"
+    },
+    "structured3d_bbox": {
+      "file_id": "structured3d_bbox",
+      "dataset_id": "structured3d",
+      "relative_path": "datasets/raw/structured3d/Structured3D_bbox.zip",
+      "bytes": 1142587307,
+      "sha256": "220d2752acd0897b927ce44d0bfcf01b74978523c60e392b1faa6920ae9125dc",
+      "md5": "1fb8b5da29793f7ae09307b53927bee6",
+      "status": "acquired",
+      "url": "https://zju-kjl-jointlab-azure.kujiale.com/Structured3D/Structured3D_bbox.zip"
+    },
+    "structured3d_perspective_full_00": {
+      "file_id": "structured3d_perspective_full_00",
+      "dataset_id": "structured3d",
+      "relative_path": "datasets/raw/structured3d/Structured3D_perspective_full_00.zip",
+      "bytes": null,
+      "sha256": null,
+      "md5": null,
+      "status": "deferred",
+      "url": "https://zju-kjl-jointlab-azure.kujiale.com/Structured3D/Structured3D_perspective_full_00.zip"
+    },
+    "structured3d_perspective_full_01": {
+      "file_id": "structured3d_perspective_full_01",
+      "dataset_id": "structured3d",
+      "relative_path": "datasets/raw/structured3d/Structured3D_perspective_full_01.zip",
+      "bytes": null,
+      "sha256": null,
+      "md5": null,
+      "status": "deferred",
+      "url": "https://zju-kjl-jointlab-azure.kujiale.com/Structured3D/Structured3D_perspective_full_01.zip"
+    }
+  }
+}

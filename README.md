@@ -1,7 +1,8 @@
 # PhotoSpace
 
-Phase 0 foundation for PhotoSpace, a photo-grounded interior redesign project.
-This repository contains the shared schemas, the Postgres tables, a FastAPI health check, and a Next.js page that displays that check.
+PhotoSpace is a photo-grounded interior redesign project. Phase 0 is the shared schemas, Postgres tables, FastAPI health check, and the Next.js page that displays that check. Phase 1 acquires the public datasets used later for cleaning, training, and geometry checks.
+
+Dataset bytes stay on disk under `datasets/raw/` and are not committed. The file list, licenses, and checksums are in `docs/DATASETS.md`, `docs/LICENSES.md`, and `datasets/metadata/`.
 
 ## Setup
 
@@ -37,4 +38,25 @@ Open http://localhost:3000. The page reads `API_URL` and shows the `/health` res
 ```bash
 uv run pytest
 uv run ruff check .
+uv run python scripts/verify_datasets.py
 ```
+
+## Phase 1 datasets
+
+These archives are on disk and recorded in `datasets/metadata/acquisition_log.json`:
+
+- NYU Depth V2 labeled set and the official `splits.mat`. The raw 428 GB capture was not taken.
+- SUN RGB-D images, toolbox, and updated 2D boxes. The separate updated 3D-box file was not taken.
+- Places365-Standard 256×256 validation set only.
+- CubiCasa5K, the full Zenodo zip. Zenodo lists CC BY-NC-SA 4.0, which adds ShareAlike to the CC BY-NC 4.0 name in the blueprint.
+- Objaverse, 160 furniture GLBs, with each asset license in `datasets/metadata/objaverse_asset_licenses.jsonl`.
+- Structured3D structure annotations and 3D bounding boxes.
+- 2010 ADA Standards and the MoHUA Harmonised Guidelines 2021, plus short cited summaries in `datasets/metadata/rag/`.
+
+Not taken:
+
+- Places365 256×256 train archive (about 24 GB). The MIT host was too slow, and the terms forbid redistributing the images, so there is no torrent. The official file remains `train_256_places365standard.tar`.
+- Structured3D perspective parts `00` and `01` (about 12 GB and 13 GB). The terms forbid reuploading, so the Azure links in `docs/DATASETS.md` are the allowed source. Panorama zips, empty-room zips, and parts `02`–`17` were never part of this phase.
+- 3D-FRONT and 3D-FUTURE. Deferred. The optimizer does not need them. Layout priors and the furniture catalog will use the data that is already on disk.
+- FurniScene. Skipped. The paper still says the dataset will be public soon, and no download was found.
+- NYU raw video, Places365 high-resolution and challenge sets, and the rest of Objaverse. Those were out of scope for this phase.

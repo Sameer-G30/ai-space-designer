@@ -1,0 +1,156 @@
+{
+  "entries": {
+    "nyu_depth_v2": {
+      "dataset_id": "nyu_depth_v2",
+      "name": "NYU Depth V2 labeled",
+      "license_name": "Academic research use. Cite Silberman, Kohli, Hoiem, and Fergus, ECCV 2012. The dataset page states no SPDX license.",
+      "source_url": "https://cs.nyu.edu/~fergus/datasets/nyu_depth_v2.html",
+      "status": "acquired",
+      "notes": "Labeled .mat is about 2.77 GiB and needs approval. splits.mat is the official train/test index from the Silberman indoor-segmentation supplement on the same host. The raw 428 GB capture is not part of Phase 1.",
+      "files": [
+        {
+          "file_id": "nyu_splits",
+          "status": "acquired"
+        },
+        {
+          "file_id": "nyu_labeled",
+          "status": "acquired"
+        }
+      ]
+    },
+    "places365": {
+      "dataset_id": "places365",
+      "name": "Places365-Standard 256x256",
+      "license_name": "Non-commercial research and educational use only. By downloading, the user agrees not to distribute the images and to the MIT terms on the Places365 legacy download page.",
+      "source_url": "http://places2.csail.mit.edu/download-private.html",
+      "status": "partial",
+      "notes": "Val 256 is on disk. The 24 GB train archive was deferred on 2026-09-29 because the MIT host was too slow. The terms forbid redistributing the images. Class filtering is Phase 2a.",
+      "files": [
+        {
+          "file_id": "places365_train_256",
+          "status": "deferred"
+        },
+        {
+          "file_id": "places365_val_256",
+          "status": "acquired"
+        }
+      ]
+    },
+    "cubicasa5k": {
+      "dataset_id": "cubicasa5k",
+      "name": "CubiCasa5K",
+      "license_name": "CC BY-NC-SA 4.0 (Zenodo license id cc-by-nc-sa-4.0, checked 2026-09-29). The blueprint and phase plan say CC BY-NC 4.0. The Zenodo record adds ShareAlike.",
+      "source_url": "https://zenodo.org/records/2613548",
+      "status": "acquired",
+      "notes": "cubicasa5k.zip is on disk: 5469495706 bytes, MD5 0ce0b203d1e3c125b51087b219bd23b9. Zenodo license is CC BY-NC-SA 4.0, which adds ShareAlike to the CC BY-NC 4.0 name in the blueprint.",
+      "files": [
+        {
+          "file_id": "cubicasa5k_zip",
+          "status": "acquired"
+        }
+      ]
+    },
+    "3d_front_future": {
+      "dataset_id": "3d_front_future",
+      "name": "3D-FRONT and 3D-FUTURE",
+      "license_name": "3D-FRONT Data Sets Use License Agreement, version June 18, 2020, with Tao Bao (China) Software Co., Ltd. Scientific research only. No commercialization and no redistribution of the data sets.",
+      "source_url": "https://tianchi.aliyun.com/specials/promotion/alibaba-3d-scene-dataset",
+      "status": "deferred",
+      "notes": "Deferred by the user on 2026-09-29. Not required for the optimizer. The Tianchi page returned HTTP 404. If resumed later, email the signed terms to 3dfront@list.alibaba-inc.com and take the house JSON archive, model_info.json, and only the furniture models the scenes reference.",
+      "files": []
+    },
+    "structured3d": {
+      "dataset_id": "structured3d",
+      "name": "Structured3D",
+      "license_name": "Structured3D Terms of Use. The user completed the agreement form. Code on GitHub is MIT. The data license is the Terms of Use, not MIT.",
+      "source_url": "https://structured3d-dataset.org/",
+      "status": "partial",
+      "notes": "Annotation and bbox zips are on disk. Perspective parts 00 and 01 were deferred on 2026-09-29. Panorama, empty-room, and parts 02-17 were not taken. The terms forbid redistribution.",
+      "files": [
+        {
+          "file_id": "structured3d_annotation",
+          "status": "acquired"
+        },
+        {
+          "file_id": "structured3d_bbox",
+          "status": "acquired"
+        },
+        {
+          "file_id": "structured3d_perspective_full_00",
+          "status": "deferred"
+        },
+        {
+          "file_id": "structured3d_perspective_full_01",
+          "status": "deferred"
+        }
+      ]
+    },
+    "furniscene": {
+      "dataset_id": "furniscene",
+      "name": "FurniScene",
+      "license_name": "No public dataset license. The paper is arXiv 2401.03470 and its abstract says the dataset and code will be publicly available soon.",
+      "source_url": "https://arxiv.org/abs/2401.03470",
+      "status": "skipped",
+      "notes": "Checked 2026-09-29. arXiv v2 (6 May 2024) still says the dataset and code will be publicly available soon. Web search found no official download or repository. Skipped. This does not block Phase 1.",
+      "files": []
+    },
+    "objaverse": {
+      "dataset_id": "objaverse",
+      "name": "Objaverse furniture subset",
+      "license_name": "Per-asset Sketchfab license from each object's metadata license field. The Objaverse package README also states ODC-By 1.0 for use of the Objaverse-XL dataset as a whole. Each GLB is logged on its own license, not under ODC-By alone.",
+      "source_url": "https://huggingface.co/datasets/allenai/objaverse",
+      "status": "awaiting_approval",
+      "notes": "Use objaverse 0.1.7 load_lvis_annotations and load_objects. Furniture category names are the LVIS keys in objaverse_furniture_categories.json. Target 160 GLB files. Not started until --confirm-download.",
+      "files": []
+    },
+    "rag_corpus": {
+      "dataset_id": "rag_corpus",
+      "name": "Public accessibility standards",
+      "license_name": "2010 ADA Standards: U.S. government work, public domain under 17 U.S.C. 105. MoHUA Harmonised Guidelines 2021: copyright 2021 Gaurav Raheja, IIT Roorkee, NIUA and MoHUA. All rights reserved. The PDF is stored for project retrieval and is not reproduced here.",
+      "source_url": "https://www.ada.gov/law-and-regs/design-standards/2010-stds/",
+      "status": "acquired",
+      "notes": "Two public PDFs only. No retailer catalogs. ADA from ada.gov. MoHUA 2021 PDF from niua.in because cpwd.gov.in rejected the download from this network.",
+      "files": [
+        {
+          "file_id": "ada_2010_pdf",
+          "status": "acquired"
+        },
+        {
+          "file_id": "mohua_2021_pdf",
+          "status": "acquired"
+        }
+      ]
+    },
+    "rag_summaries": {
+      "dataset_id": "rag_summaries",
+      "name": "Hand-written clearance and ergonomic summaries",
+      "license_name": "Original short summaries written for this project. Each states the source it cites. They are not copies of the standards.",
+      "source_url": "https://www.ada.gov/law-and-regs/design-standards/2010-stds/",
+      "status": "local",
+      "notes": "Short cited summaries for the future RAG corpus. The PDFs themselves stay under datasets/raw/rag/.",
+      "files": []
+    },
+    "sun_rgbd": {
+      "dataset_id": "sun_rgbd",
+      "name": "SUN RGB-D",
+      "license_name": "Academic research use. Cite Song, Lichtenberg, and Xiao, CVPR 2015, plus NYU Depth V2, B3DO, and SUN3D as the SUN RGB-D page requires. The page states no SPDX license.",
+      "source_url": "https://rgbd.cs.princeton.edu/",
+      "status": "acquired",
+      "notes": "SUNRGBD.zip, the toolbox, and SUNRGBDMeta2DBB_v2.mat are on disk. SUNRGBDMeta3DBB_v2.mat is left for a later phase.",
+      "files": [
+        {
+          "file_id": "sun_rgbd_zip",
+          "status": "acquired"
+        },
+        {
+          "file_id": "sun_rgbd_2d_bb",
+          "status": "acquired"
+        },
+        {
+          "file_id": "sun_rgbd_toolbox",
+          "status": "acquired"
+        }
+      ]
+    }
+  }
+}
