@@ -1,1 +1,1 @@
-"""Reserved for furniture recommendation in a later phase."""
+"""Phase 4 recommendation scoring."""

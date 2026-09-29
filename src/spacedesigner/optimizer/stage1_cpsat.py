@@ -289,8 +289,11 @@ def optimize(
     scene: SceneGraph,
     requirement: Requirement,
     catalog: tuple[CatalogItem, ...] | None = None,
+    selection: list[CatalogItem] | None = None,
+    variant: str | None = None,
+    term_overrides: dict[str, float] | None = None,
 ) -> OptimizationResult:
-    """Produce one hard-feasible Stage 1 design."""
+    """Produce one hard-feasible design, optionally for a caller-chosen item selection."""
     # Start wall-clock measurement before preflight checks.
     started = time.perf_counter()
     # Reject mismatched records before model construction.
@@ -339,6 +342,30 @@ def optimize(
         active_catalog,
         fixed_objects,
     )
+    # A Stage 2 caller may replace the cheapest default with its own chosen rows.
+    if selection is not None and selection_error is None:
+        # Categories that still need a purchase after retained furniture.
+        needed = sorted(item.category for item in selected)
+        # The override must cover exactly the same missing categories.
+        if sorted(item.category for item in selection) != needed:
+            # A mismatched override cannot satisfy must_have presence.
+            return InfeasibleOptimization(
+                reason="supplied selection does not match the missing required categories",
+                solve_time_ms=(time.perf_counter() - started) * 1000,
+            )
+        # Keep the caller's order so placement is deterministic.
+        selected = list(selection)
+        # Rebuild the rejected list relative to the supplied rows.
+        chosen_ids = {item.item_id for item in selected}
+        # Record same-category alternatives that Stage 2 scored lower.
+        rejected = [
+            RejectedItem(
+                item_id=item.item_id,
+                reason="lower Stage 2 objective score than the selected item of its category",
+            )
+            for item in active_catalog
+            if item.category in needed and item.item_id not in chosen_ids
+        ]
     # Return any catalog coverage failure directly.
     if selection_error is not None:
         # Preserve the readable selector reason.
@@ -564,9 +591,17 @@ def optimize(
         )
     # Compute all deterministic objective terms.
     terms = _objective_terms(scene, requirement, design_objects, selected, cost)
-    # Derive a stable identifier from the two input identifiers.
+    # Stage 2 replaces the placeholder aesthetics term with its CLIP-based value.
+    if term_overrides:
+        # Copy with the overridden bounded terms; validation re-checks the [0, 1] range.
+        terms = ObjectiveTerms.model_validate({**terms.model_dump(), **term_overrides})
+    # Derive a stable identifier from the two input identifiers (plus a variant for Stage 2).
+    suffix = "" if variant is None else f":{variant}"
     design_id = str(
-        uuid.uuid5(uuid.NAMESPACE_URL, f"photospace:{scene.scene_id}:{requirement.requirement_id}")
+        uuid.uuid5(
+            uuid.NAMESPACE_URL,
+            f"photospace:{scene.scene_id}:{requirement.requirement_id}{suffix}",
+        )
     )
     # Validate the final design against the locked contract.
     design = Design(

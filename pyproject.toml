@@ -19,6 +19,8 @@ dependencies = [
     "scipy>=1.17.1",
     "shapely>=2.1.2",
     "sqlalchemy>=2",
+    "torch>=2.14.0",
+    "transformers>=5.17.0",
     "trimesh>=5.1.0",
     "uvicorn[standard]>=0.54.0",
 ]
@@ -48,3 +50,13 @@ select = ["E", "F", "I"]
 # Report prose in report.py is long Markdown text, so line length is not enforced there.
 [tool.ruff.lint.per-file-ignores]
 "src/spacedesigner/data/report.py" = ["E501"]
+
+# CPU-only torch wheels keep the 8 GB GPU free and the install small (Phase 4 CLIP text tower).
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+# Route only torch to the CPU index.
+[tool.uv.sources]
+torch = { index = "pytorch-cpu" }

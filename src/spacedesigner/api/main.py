@@ -1,4 +1,4 @@
-"""FastAPI application for health and Phase 3 manual optimization."""
+"""FastAPI application for health, manual scenes, and Phase 4 Pareto optimization."""
 
 # Annotated attaches a dependency to a precise store type.
 from typing import Annotated
@@ -16,7 +16,15 @@ from spacedesigner.api.store import DesignStore, get_design_store
 from spacedesigner.critic import audit_design
 
 # Result models keep successful and failed HTTP payloads explicit.
-from spacedesigner.optimizer import InfeasibleOptimization, OptimizationResult, optimize
+from spacedesigner.optimizer import InfeasibleOptimization
+from spacedesigner.optimizer.models import ParetoResult
+
+# Stage 2 sweeps weights and returns one Pareto set per solve.
+from spacedesigner.optimizer.stage2_pareto import optimize_pareto
+
+# Cached-vector style scorer; CLIP itself is never loaded inside a request.
+from spacedesigner.recommend.scoring import StyleScorer
+from spacedesigner.recommend.service import get_style_scorer
 
 # Locked public inputs remain unchanged.
 from spacedesigner.schemas import Requirement, SceneGraph
@@ -46,6 +54,9 @@ class OptimizeRequest(SchemaModel):
 # Reusable injected store annotation.
 StoreDependency = Annotated[DesignStore, Depends(get_design_store)]
 
+# Reusable injected scorer annotation (tests override it with a fake embedder).
+ScorerDependency = Annotated[StyleScorer, Depends(get_style_scorer)]
+
 
 # Application object uvicorn loads as spacedesigner.api.main:app.
 app = FastAPI(title="PhotoSpace", version="0.1.0")
@@ -69,10 +80,12 @@ def create_scene(scene: SceneGraph, store: StoreDependency) -> SceneGraph:
     return scene
 
 
-# Stage 1 optimization route using a persisted scene and gold requirement.
-@app.post("/designs/optimize", response_model=OptimizationResult)
-def optimize_design(request: OptimizeRequest, store: StoreDependency) -> OptimizationResult:
-    """Solve, independently audit, and persist one feasible design."""
+# Stage 2 optimization route: a Pareto set from a persisted scene and gold requirement.
+@app.post("/designs/optimize", response_model=ParetoResult)
+def optimize_design(
+    request: OptimizeRequest, store: StoreDependency, scorer: ScorerDependency
+) -> ParetoResult:
+    """Solve a weight sweep, audit every point independently, and persist the set."""
     # Require both copies of the scene identifier to agree.
     if request.requirement.scene_id != request.scene_id:
         # Report a client error before storage lookup.
@@ -86,22 +99,26 @@ def optimize_design(request: OptimizeRequest, store: StoreDependency) -> Optimiz
     if scene is None:
         # Return the conventional resource status.
         raise HTTPException(status_code=404, detail="scene not found")
-    # Run the real CP-SAT optimizer against the tracked JSONL catalog.
-    result = optimize(scene, request.requirement)
+    # Run the Stage 2 sweep; Stage 2 already audits each point with the independent checker.
+    result = optimize_pareto(scene, request.requirement, scorer=scorer)
     # Return readable infeasibility without writing a design.
     if not result.feasible:
         # Preserve the solver reason and measured duration.
         return result
-    # Independently audit every hard constraint before persistence.
-    violations = audit_design(scene, request.requirement, result.design, result.bom)
-    # Never return a design that the checker rejects.
-    if violations:
-        # Convert checker findings into a no-design response.
-        return InfeasibleOptimization(
-            reason=f"independent checker rejected solution: {'; '.join(violations)}",
-            solve_time_ms=result.solve_time_ms,
-        )
-    # Persist only the requirement and audited feasible design.
-    store.save_design(request.requirement, result.design)
-    # Return design, trace, BOM, and timing.
+    # Re-audit at the API boundary so a broken design can never cross it.
+    for point in result.points:
+        # Independent Shapely findings for this point.
+        violations = audit_design(scene, request.requirement, point.design, point.bom)
+        # Convert any finding into a no-design response.
+        if violations:
+            # Nothing is persisted when a point fails.
+            return InfeasibleOptimization(
+                reason=f"independent checker rejected solution: {'; '.join(violations)}",
+                solve_time_ms=result.solve_time_ms,
+            )
+    # Persist the requirement and every audited design in the set.
+    for point in result.points:
+        # Each design has a distinct deterministic id.
+        store.save_design(request.requirement, point.design)
+    # Return the Pareto set with traces and BOMs.
     return result

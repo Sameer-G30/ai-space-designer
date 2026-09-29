@@ -1,4 +1,4 @@
-"""Phase 3 route tests with an in-memory persistence boundary."""
+"""Route tests (Phase 3 routes, Phase 4 Pareto response) with an in-memory store."""
 
 # FastAPI TestClient exercises request and response validation.
 from fastapi.testclient import TestClient
@@ -9,11 +9,17 @@ from spacedesigner.api.main import app
 # Store dependency function is the override key.
 from spacedesigner.api.store import get_design_store
 
+# Scorer dependency is overridden with a fake embedder so no weights load.
+from spacedesigner.optimizer.catalog import load_catalog
+from spacedesigner.recommend.scoring import load_style_scorer
+from spacedesigner.recommend.service import get_style_scorer
+
 # Locked records type fake-store state.
 from spacedesigner.schemas import Design, Requirement, SceneGraph
 
 # Shared fixtures provide valid API bodies.
 from tests.phase3_samples import sample_requirement, sample_scene
+from tests.recommend.fakes import FakeEmbedder
 
 
 # Minimal in-memory implementation of the Phase 3 store protocol.
@@ -48,12 +54,16 @@ class MemoryStore:
 
 
 # Exercise both required routes with real optimization.
-def test_scene_and_optimize_routes() -> None:
+def test_scene_and_optimize_routes(tmp_path) -> None:
     """Persist a scene and return an audited design response."""
     # Create one store for both HTTP calls.
     store = MemoryStore()
     # Override production PostgreSQL access.
     app.dependency_overrides[get_design_store] = lambda: store
+    # Deterministic style scoring without CLIP weights or the local cache.
+    scorer = load_style_scorer(load_catalog(), FakeEmbedder(), tmp_path / "c.npz", ("modern",))
+    # Override the scorer dependency.
+    app.dependency_overrides[get_style_scorer] = lambda: scorer
     # Ensure overrides are removed even when an assertion fails.
     try:
         # Create a synchronous test client.
@@ -74,14 +84,22 @@ def test_scene_and_optimize_routes() -> None:
             assert optimize_response.status_code == 200
             # Decode the returned union.
             payload = optimize_response.json()
-            # The spacious fixture should produce one feasible design.
+            # The spacious fixture should produce one feasible Pareto set.
             assert payload["feasible"] is True
-            # Trace must remain beside rather than inside Design.
-            assert "trace" in payload and "trace" not in payload["design"]
-            # BOM accounting must equal Design.cost.
-            assert sum(line["line_total"] for line in payload["bom"]) == payload["design"]["cost"]
-            # The feasible design must be persisted once.
-            assert len(store.saved) == 1
+            # One set with 1 to 8 labelled points.
+            assert 1 <= len(payload["points"]) <= 8
+            # Every point carries design, trace, BOM and labels; trace never sits inside Design.
+            for point in payload["points"]:
+                # Required keys.
+                assert {"labels", "design", "trace", "bom"} <= set(point)
+                # Trace stays beside the design.
+                assert "trace" not in point["design"]
+                # BOM accounting must equal Design.cost.
+                assert sum(x["line_total"] for x in point["bom"]) == point["design"]["cost"]
+                # Budget is never exceeded.
+                assert point["design"]["cost"] <= 10000.0
+            # Every point in the set is persisted.
+            assert len(store.saved) == len(payload["points"])
     # Always restore application dependency state.
     finally:
         # Remove all local overrides.

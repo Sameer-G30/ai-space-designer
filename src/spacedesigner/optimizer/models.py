@@ -54,5 +54,42 @@ class InfeasibleOptimization(SchemaModel):
     solve_time_ms: float = Field(ge=0)
 
 
+# One labelled non-dominated design in a Stage 2 Pareto set.
+class ParetoPoint(SchemaModel):
+    """Wrap a Stage 1-style result with the labels that name it."""
+
+    # Names such as cheapest, balanced, premium, most_sustainable (a point may have several).
+    labels: list[str] = Field(min_length=1)
+    # Schema-valid design placed by CP-SAT.
+    design: Design
+    # Trace beside the design, never inside it.
+    trace: OptimizerTrace
+    # Deterministic bill of materials whose total equals Design.cost.
+    bom: list[BomLine]
+    # Solver wall-clock time for this point in milliseconds.
+    solve_time_ms: float = Field(ge=0)
+
+
+# Successful Stage 2 output: one Pareto set per solve.
+class ParetoOptimization(SchemaModel):
+    """Return the labelled non-dominated designs for one scene and requirement."""
+
+    # Feasibility discriminator for API serialization.
+    feasible: bool = True
+    # Between one and eight labelled, non-dominated, audited designs.
+    points: list[ParetoPoint] = Field(min_length=1, max_length=8)
+    # Distinct item selections that were placed and audited.
+    candidates_evaluated: int = Field(ge=1)
+    # Placed candidates removed because another candidate dominated them.
+    dominated_removed: int = Field(ge=0)
+    # Style scoring backend: the CLIP checkpoint name or the tag-overlap fallback.
+    style_backend: str = Field(min_length=1)
+    # Total wall-clock time for the whole sweep in milliseconds.
+    solve_time_ms: float = Field(ge=0)
+
+
 # Public union used by scripts, tests, and the API.
 OptimizationResult = FeasibleOptimization | InfeasibleOptimization
+
+# Stage 2 response union used by POST /designs/optimize.
+ParetoResult = ParetoOptimization | InfeasibleOptimization

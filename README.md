@@ -129,3 +129,21 @@ Each entry says what the phase changed and how to check it.
   - `uv run python scripts/check_optimizer_200.py`
   - `uv run pytest tests/api/test_phase3_routes.py` exercises both new routes with `TestClient`.
   - Read `docs/reports/optimizer_stage1.md` for gate counts, constants, infeasibility handling, and scope limitations.
+
+### Phase 4: recommendation scoring and Stage 2 Pareto set
+
+- Changed:
+  - `src/spacedesigner/recommend/`: CLIP (`openai/clip-vit-base-patch32`, text tower, CPU, lazy) style similarity plus budget fit, space fit, category gate and the fixed material sustainability lookup. No rating term (the catalog has no ratings).
+  - `src/spacedesigner/optimizer/stage2_pareto.py`: a 27-vector weight sweep selects catalog items, Stage 1 CP-SAT places them, dominated designs are dropped, and 4–8 points are labelled (cheapest, balanced, premium, most_sustainable and others).
+  - `POST /designs/optimize` now returns that Pareto set (design, trace, and BOM per point) or a readable infeasible reason.
+  - Catalog vectors: gitignored cache `datasets/processed/phase4/clip_text.npz` and `furniture_catalog.embedding` (382 rows). `rag_chunks.embedding` stays null.
+  - New dependencies: `torch` (CPU wheel) and `transformers`. The CLIP weights were downloaded once with approval.
+- Not built: Phase 5 frontend, NL parser, RAG retrieval, migrations. 3D-FRONT and 3D-FUTURE were not used.
+- Check:
+  - `uv run ruff check .` and `uv run pytest` (76 passed, one known Starlette warning).
+  - `uv run python scripts/verify_datasets.py` and `uv run python scripts/check_optimizer_200.py` (unchanged).
+  - `uv run python scripts/check_pareto_200.py`: 109 feasible, 91 infeasible, 0 violations, 0 breaches, 0 dominated pairs.
+  - `uv run python scripts/eval_recommender.py`: Precision@5/10 and NDCG@5/10 against the synthetic ground truth.
+  - `uv run pytest tests/optimizer/test_stage2.py tests/api/test_phase3_routes.py` covers non-dominance and the route via `TestClient`.
+  - Rebuild vectors with `uv run python scripts/build_catalog_embeddings.py` (add `--write-db` with the database up and `DATABASE_URL` exported).
+  - Read `docs/reports/optimizer_stage2.md`.
