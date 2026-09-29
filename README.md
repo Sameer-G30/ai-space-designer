@@ -1,6 +1,6 @@
 # PhotoSpace
 
-PhotoSpace is a photo-grounded interior redesign project. Phase 0 is the shared schemas, Postgres tables, FastAPI health check, and the Next.js page that displays that check. Phase 1 acquires the public datasets used later for cleaning, training, and geometry checks. Phase 2a cleans the computer-vision datasets and writes a data quality report. Phase 2b mines layout priors, builds the furniture catalog, cleans the Objaverse meshes, chunks the RAG corpus, and adds a synthetic room generator.
+PhotoSpace is a photo-grounded interior redesign project. Phase 0 is the shared schemas, Postgres tables, FastAPI health check, and the Next.js page that displays that check. Phase 1 acquires the public datasets used later for cleaning, training, and geometry checks. Phase 2a cleans the computer-vision datasets and writes a data quality report. Phase 2b mines layout priors, builds the furniture catalog, cleans the Objaverse meshes, chunks the RAG corpus, and adds a synthetic room generator. Phase 3 adds the hard-constrained Stage 1 layout optimizer, independent checker, plan rendering, BOM, trace, and manual-scene optimization API.
 
 This README is updated at the end of every phase with what changed and how to check it. See the "Phase log" section at the bottom.
 
@@ -111,3 +111,21 @@ Each entry says what the phase changed and how to check it.
   - `docker compose up -d && uv run alembic upgrade head`, then `uv run python scripts/load_layout_db.py --counts` prints 382 catalog rows and 876 chunk rows, with the same number of null embeddings.
   - Rebuild in order: `scripts/mine_layout_priors.py`, `clean_objaverse.py`, `build_catalog.py`, `chunk_rag.py`, `generate_synthetic.py`, `load_layout_db.py`, `layout_report.py`.
   - Read `docs/reports/data_quality_layout.md` for counts, drop reasons, omitted priors, and what 3D-FRONT and 3D-FUTURE would have provided.
+
+### Phase 3: Stage 1 optimizer
+
+- Changed:
+  - OR-Tools CP-SAT placement on a 0.05 m grid with 0°/90° new-item rotation, fixed must-keep poses, no overlap, opening approach and circulation clearance, budget, required categories, low-confidence inset, and accessible turning-space constraints.
+  - Independent Shapely auditing, deterministic BOM aggregation, complete `OptimizerTrace`, and exact-coordinate PNG/SVG plan rendering.
+  - `POST /scenes` for validated manual scene graphs and `POST /designs/optimize` for a scene id plus gold `Requirement`; `GET /health` is unchanged.
+  - The tracked JSONL remains the solver source of truth. The 200-room check is database-independent; API persistence uses the existing tables without a migration.
+  - Fixed-seed gate: 109 feasible and 91 readable infeasible outcomes, 0 checker violations, 0 budget breaches, and 4.141 ms median solve time.
+  - New dependencies: `ortools` (Apache-2.0) and `shapely` (BSD-3-Clause).
+- Not built: Phase 4 recommendation scoring, embeddings, CLIP, Pareto/NSGA-II, natural-language parsing, RAG retrieval, frontend pages, 3D views, explanations, or version writes. 3D-FRONT and 3D-FUTURE were not used.
+- Check:
+  - `uv run ruff check .`
+  - `uv run pytest`
+  - `uv run python scripts/verify_datasets.py`
+  - `uv run python scripts/check_optimizer_200.py`
+  - `uv run pytest tests/api/test_phase3_routes.py` exercises both new routes with `TestClient`.
+  - Read `docs/reports/optimizer_stage1.md` for gate counts, constants, infeasibility handling, and scope limitations.
