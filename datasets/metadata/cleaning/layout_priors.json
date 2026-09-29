@@ -1,0 +1,2868 @@
+{
+  "cubicasa5k": {
+    "drops": {
+      "unmapped_room_class:Alcove": 164,
+      "unmapped_room_class:Attic": 93,
+      "unmapped_room_class:Bar": 1,
+      "unmapped_room_class:CarPort": 278,
+      "unmapped_room_class:Den": 306,
+      "unmapped_room_class:DraughtLobby": 1667,
+      "unmapped_room_class:DressingRoom": 346,
+      "unmapped_room_class:Elevated": 100,
+      "unmapped_room_class:Elevator": 5,
+      "unmapped_room_class:ExerciseRoom": 2,
+      "unmapped_room_class:Garage": 413,
+      "unmapped_room_class:Garbage": 3,
+      "unmapped_room_class:Hall": 172,
+      "unmapped_room_class:Library": 42,
+      "unmapped_room_class:OpenToBelow": 3,
+      "unmapped_room_class:Outdoor": 7852,
+      "unmapped_room_class:RecreationRoom": 84,
+      "unmapped_room_class:RetailSpace": 7,
+      "unmapped_room_class:Room": 1855,
+      "unmapped_room_class:Sauna": 133,
+      "unmapped_room_class:SwimmingPool": 7,
+      "unmapped_room_class:TechnicalRoom": 474,
+      "unmapped_room_class:Undefined": 11001,
+      "unmapped_room_class:UserDefined": 1856
+    },
+    "omitted": [
+      {
+        "min_n": 30,
+        "missing": "no mapped CubiCasa5K room class for this type",
+        "n": 0,
+        "prior": "room_shape:kids_room"
+      },
+      {
+        "min_n": 30,
+        "missing": "no mapped CubiCasa5K room class for this type",
+        "n": 0,
+        "prior": "room_shape:corridor"
+      },
+      {
+        "min_n": 30,
+        "missing": "no mapped CubiCasa5K room class for this type",
+        "n": 0,
+        "prior": "room_shape:pantry"
+      },
+      {
+        "min_n": 30,
+        "missing": "no mapped CubiCasa5K room class for this type",
+        "n": 0,
+        "prior": "room_shape:home_theater"
+      },
+      {
+        "min_n": 30,
+        "missing": "no mapped CubiCasa5K room class for this type",
+        "n": 0,
+        "prior": "room_shape:balcony"
+      }
+    ],
+    "room_shape": {
+      "basement": {
+        "aspect": {
+          "p05": 1.066,
+          "p25": 1.226,
+          "p50": 1.353,
+          "p75": 1.756,
+          "p95": 2.454
+        },
+        "min_n": 30,
+        "n": 51,
+        "plan_area_share": {
+          "p05": 0.005,
+          "p25": 0.008,
+          "p50": 0.01,
+          "p75": 0.014,
+          "p95": 0.059
+        },
+        "source": "datasets/processed/cubicasa5k/*/polygons (SVG units; not metres)"
+      },
+      "bathroom": {
+        "aspect": {
+          "p05": 1.025,
+          "p25": 1.143,
+          "p50": 1.311,
+          "p75": 1.573,
+          "p95": 2.096
+        },
+        "min_n": 30,
+        "n": 7155,
+        "plan_area_share": {
+          "p05": 0.003,
+          "p25": 0.008,
+          "p50": 0.014,
+          "p75": 0.028,
+          "p95": 0.054
+        },
+        "source": "datasets/processed/cubicasa5k/*/polygons (SVG units; not metres)"
+      },
+      "bedroom": {
+        "aspect": {
+          "p05": 1.021,
+          "p25": 1.111,
+          "p50": 1.243,
+          "p75": 1.429,
+          "p95": 1.756
+        },
+        "min_n": 30,
+        "n": 7993,
+        "plan_area_share": {
+          "p05": 0.018,
+          "p25": 0.033,
+          "p50": 0.05,
+          "p75": 0.079,
+          "p95": 0.124
+        },
+        "source": "datasets/processed/cubicasa5k/*/polygons (SVG units; not metres)"
+      },
+      "closet": {
+        "aspect": {
+          "p05": 1.037,
+          "p25": 1.176,
+          "p50": 1.38,
+          "p75": 1.731,
+          "p95": 2.521
+        },
+        "min_n": 30,
+        "n": 2695,
+        "plan_area_share": {
+          "p05": 0.004,
+          "p25": 0.007,
+          "p50": 0.012,
+          "p75": 0.018,
+          "p95": 0.031
+        },
+        "source": "datasets/processed/cubicasa5k/*/polygons (SVG units; not metres)"
+      },
+      "dining_room": {
+        "aspect": {
+          "p05": 1.014,
+          "p25": 1.078,
+          "p50": 1.219,
+          "p75": 1.469,
+          "p95": 2.162
+        },
+        "min_n": 30,
+        "n": 954,
+        "plan_area_share": {
+          "p05": 0.013,
+          "p25": 0.023,
+          "p50": 0.033,
+          "p75": 0.047,
+          "p95": 0.074
+        },
+        "source": "datasets/processed/cubicasa5k/*/polygons (SVG units; not metres)"
+      },
+      "entrance_hall": {
+        "aspect": {
+          "p05": 1.04,
+          "p25": 1.225,
+          "p50": 1.543,
+          "p75": 2.043,
+          "p95": 3.074
+        },
+        "min_n": 30,
+        "n": 4211,
+        "plan_area_share": {
+          "p05": 0.013,
+          "p25": 0.027,
+          "p50": 0.042,
+          "p75": 0.059,
+          "p95": 0.09
+        },
+        "source": "datasets/processed/cubicasa5k/*/polygons (SVG units; not metres)"
+      },
+      "home_office": {
+        "aspect": {
+          "p05": 1.025,
+          "p25": 1.132,
+          "p50": 1.29,
+          "p75": 1.483,
+          "p95": 1.873
+        },
+        "min_n": 30,
+        "n": 135,
+        "plan_area_share": {
+          "p05": 0.005,
+          "p25": 0.016,
+          "p50": 0.028,
+          "p75": 0.039,
+          "p95": 0.074
+        },
+        "source": "datasets/processed/cubicasa5k/*/polygons (SVG units; not metres)"
+      },
+      "kitchen": {
+        "aspect": {
+          "p05": 1.023,
+          "p25": 1.128,
+          "p50": 1.294,
+          "p75": 1.571,
+          "p95": 2.219
+        },
+        "min_n": 30,
+        "n": 4548,
+        "plan_area_share": {
+          "p05": 0.019,
+          "p25": 0.04,
+          "p50": 0.061,
+          "p75": 0.084,
+          "p95": 0.129
+        },
+        "source": "datasets/processed/cubicasa5k/*/polygons (SVG units; not metres)"
+      },
+      "living_room": {
+        "aspect": {
+          "p05": 1.023,
+          "p25": 1.134,
+          "p50": 1.29,
+          "p75": 1.499,
+          "p95": 1.914
+        },
+        "min_n": 30,
+        "n": 3958,
+        "plan_area_share": {
+          "p05": 0.041,
+          "p25": 0.08,
+          "p50": 0.119,
+          "p75": 0.162,
+          "p95": 0.237
+        },
+        "source": "datasets/processed/cubicasa5k/*/polygons (SVG units; not metres)"
+      },
+      "utility_room": {
+        "aspect": {
+          "p05": 1.031,
+          "p25": 1.212,
+          "p50": 1.459,
+          "p75": 1.825,
+          "p95": 2.573
+        },
+        "min_n": 30,
+        "n": 2824,
+        "plan_area_share": {
+          "p05": 0.006,
+          "p25": 0.013,
+          "p50": 0.02,
+          "p75": 0.029,
+          "p95": 0.048
+        },
+        "source": "datasets/processed/cubicasa5k/*/polygons (SVG units; not metres)"
+      }
+    }
+  },
+  "note": "Mined only from data on disk. No 3D-FRONT numbers. Structured3D bbox_3d.json has no class labels, so Structured3D gives room sizes only. CubiCasa5K has no metre scale.",
+  "structured3d": {
+    "drops": {
+      "unmapped_room_type:garden": 10,
+      "unmapped_room_type:store_room": 355,
+      "unmapped_room_type:studio": 134,
+      "unmapped_room_type:undefined": 2633
+    },
+    "omitted": [
+      {
+        "min_n": 30,
+        "missing": "Structured3D rooms.jsonl has no or too few rooms of this type",
+        "n": 0,
+        "prior": "room_size:kids_room"
+      },
+      {
+        "min_n": 30,
+        "missing": "Structured3D rooms.jsonl has no or too few rooms of this type",
+        "n": 0,
+        "prior": "room_size:basement"
+      },
+      {
+        "min_n": 30,
+        "missing": "Structured3D rooms.jsonl has no or too few rooms of this type",
+        "n": 0,
+        "prior": "room_size:closet"
+      },
+      {
+        "min_n": 30,
+        "missing": "Structured3D rooms.jsonl has no or too few rooms of this type",
+        "n": 0,
+        "prior": "room_size:entrance_hall"
+      },
+      {
+        "min_n": 30,
+        "missing": "Structured3D rooms.jsonl has no or too few rooms of this type",
+        "n": 1,
+        "prior": "room_size:utility_room"
+      },
+      {
+        "min_n": 30,
+        "missing": "Structured3D rooms.jsonl has no or too few rooms of this type",
+        "n": 0,
+        "prior": "room_size:pantry"
+      },
+      {
+        "min_n": 30,
+        "missing": "Structured3D rooms.jsonl has no or too few rooms of this type",
+        "n": 0,
+        "prior": "room_size:home_theater"
+      }
+    ],
+    "room_size": {
+      "balcony": {
+        "area_m2": {
+          "p05": 2.19,
+          "p25": 3.698,
+          "p50": 4.872,
+          "p75": 6.176,
+          "p95": 10.317
+        },
+        "aspect": {
+          "p05": 1.32,
+          "p25": 2.081,
+          "p50": 2.507,
+          "p75": 2.979,
+          "p95": 4.195
+        },
+        "height_m": {
+          "p05": 2.73,
+          "p25": 2.8,
+          "p50": 2.8,
+          "p75": 2.8,
+          "p95": 2.903
+        },
+        "long_edge_m": {
+          "p05": 1.88,
+          "p25": 3.005,
+          "p50": 3.58,
+          "p75": 4.017,
+          "p95": 6.128
+        },
+        "min_n": 30,
+        "n": 2639,
+        "short_edge_m": {
+          "p05": 0.96,
+          "p25": 1.226,
+          "p50": 1.38,
+          "p75": 1.6,
+          "p95": 2.206
+        },
+        "source": "datasets/processed/structured3d/rooms.jsonl (hull area is an upper bound)"
+      },
+      "bathroom": {
+        "area_m2": {
+          "p05": 2.002,
+          "p25": 3.163,
+          "p50": 3.933,
+          "p75": 4.705,
+          "p95": 6.614
+        },
+        "aspect": {
+          "p05": 1.027,
+          "p25": 1.147,
+          "p50": 1.339,
+          "p75": 1.599,
+          "p95": 2.058
+        },
+        "height_m": {
+          "p05": 2.7,
+          "p25": 2.8,
+          "p50": 2.8,
+          "p75": 2.8,
+          "p95": 3.0
+        },
+        "long_edge_m": {
+          "p05": 1.64,
+          "p25": 1.98,
+          "p50": 2.26,
+          "p75": 2.646,
+          "p95": 3.5
+        },
+        "min_n": 30,
+        "n": 3611,
+        "short_edge_m": {
+          "p05": 1.154,
+          "p25": 1.544,
+          "p50": 1.683,
+          "p75": 1.886,
+          "p95": 2.238
+        },
+        "source": "datasets/processed/structured3d/rooms.jsonl (hull area is an upper bound)"
+      },
+      "bedroom": {
+        "area_m2": {
+          "p05": 7.063,
+          "p25": 9.887,
+          "p50": 12.177,
+          "p75": 15.182,
+          "p95": 20.588
+        },
+        "aspect": {
+          "p05": 1.023,
+          "p25": 1.141,
+          "p50": 1.283,
+          "p75": 1.471,
+          "p95": 1.816
+        },
+        "height_m": {
+          "p05": 2.7,
+          "p25": 2.8,
+          "p50": 2.8,
+          "p75": 2.8,
+          "p95": 2.9
+        },
+        "long_edge_m": {
+          "p05": 2.845,
+          "p25": 3.43,
+          "p50": 3.976,
+          "p75": 4.749,
+          "p95": 6.17
+        },
+        "min_n": 30,
+        "n": 5817,
+        "short_edge_m": {
+          "p05": 2.405,
+          "p25": 2.8,
+          "p50": 3.091,
+          "p75": 3.381,
+          "p95": 3.968
+        },
+        "source": "datasets/processed/structured3d/rooms.jsonl (hull area is an upper bound)"
+      },
+      "corridor": {
+        "area_m2": {
+          "p05": 1.385,
+          "p25": 2.446,
+          "p50": 3.947,
+          "p75": 6.941,
+          "p95": 16.647
+        },
+        "aspect": {
+          "p05": 1.039,
+          "p25": 1.222,
+          "p50": 1.54,
+          "p75": 2.007,
+          "p95": 3.233
+        },
+        "height_m": {
+          "p05": 2.715,
+          "p25": 2.8,
+          "p50": 2.8,
+          "p75": 2.8,
+          "p95": 3.485
+        },
+        "long_edge_m": {
+          "p05": 1.413,
+          "p25": 1.919,
+          "p50": 2.527,
+          "p75": 3.504,
+          "p95": 6.594
+        },
+        "min_n": 30,
+        "n": 307,
+        "short_edge_m": {
+          "p05": 0.96,
+          "p25": 1.149,
+          "p50": 1.552,
+          "p75": 2.112,
+          "p95": 3.571
+        },
+        "source": "datasets/processed/structured3d/rooms.jsonl (hull area is an upper bound)"
+      },
+      "dining_room": {
+        "area_m2": {
+          "p05": 5.951,
+          "p25": 10.866,
+          "p50": 15.686,
+          "p75": 24.571,
+          "p95": 67.521
+        },
+        "aspect": {
+          "p05": 1.024,
+          "p25": 1.123,
+          "p50": 1.301,
+          "p75": 1.539,
+          "p95": 2.166
+        },
+        "height_m": {
+          "p05": 2.7,
+          "p25": 2.8,
+          "p50": 2.8,
+          "p75": 2.8,
+          "p95": 3.74
+        },
+        "long_edge_m": {
+          "p05": 2.836,
+          "p25": 3.65,
+          "p50": 4.772,
+          "p75": 6.279,
+          "p95": 10.387
+        },
+        "min_n": 30,
+        "n": 165,
+        "short_edge_m": {
+          "p05": 2.084,
+          "p25": 2.73,
+          "p50": 3.404,
+          "p75": 4.617,
+          "p95": 8.153
+        },
+        "source": "datasets/processed/structured3d/rooms.jsonl (hull area is an upper bound)"
+      },
+      "home_office": {
+        "area_m2": {
+          "p05": 5.18,
+          "p25": 7.237,
+          "p50": 8.762,
+          "p75": 10.878,
+          "p95": 14.232
+        },
+        "aspect": {
+          "p05": 1.012,
+          "p25": 1.099,
+          "p50": 1.248,
+          "p75": 1.431,
+          "p95": 1.85
+        },
+        "height_m": {
+          "p05": 2.75,
+          "p25": 2.8,
+          "p50": 2.8,
+          "p75": 2.8,
+          "p95": 2.9
+        },
+        "long_edge_m": {
+          "p05": 2.525,
+          "p25": 2.897,
+          "p50": 3.331,
+          "p75": 3.873,
+          "p95": 4.76
+        },
+        "min_n": 30,
+        "n": 702,
+        "short_edge_m": {
+          "p05": 1.851,
+          "p25": 2.434,
+          "p50": 2.696,
+          "p75": 2.912,
+          "p95": 3.366
+        },
+        "source": "datasets/processed/structured3d/rooms.jsonl (hull area is an upper bound)"
+      },
+      "kitchen": {
+        "area_m2": {
+          "p05": 3.697,
+          "p25": 5.025,
+          "p50": 5.977,
+          "p75": 7.389,
+          "p95": 10.855
+        },
+        "aspect": {
+          "p05": 1.055,
+          "p25": 1.313,
+          "p50": 1.613,
+          "p75": 1.945,
+          "p95": 2.549
+        },
+        "height_m": {
+          "p05": 2.7,
+          "p25": 2.8,
+          "p50": 2.8,
+          "p75": 2.8,
+          "p95": 2.9
+        },
+        "long_edge_m": {
+          "p05": 2.282,
+          "p25": 2.724,
+          "p50": 3.119,
+          "p75": 3.623,
+          "p95": 4.635
+        },
+        "min_n": 30,
+        "n": 2287,
+        "short_edge_m": {
+          "p05": 1.456,
+          "p25": 1.696,
+          "p50": 1.921,
+          "p75": 2.215,
+          "p95": 2.859
+        },
+        "source": "datasets/processed/structured3d/rooms.jsonl (hull area is an upper bound)"
+      },
+      "living_room": {
+        "area_m2": {
+          "p05": 19.47,
+          "p25": 31.216,
+          "p50": 41.125,
+          "p75": 52.511,
+          "p95": 72.29
+        },
+        "aspect": {
+          "p05": 1.027,
+          "p25": 1.138,
+          "p50": 1.361,
+          "p75": 1.742,
+          "p95": 2.373
+        },
+        "height_m": {
+          "p05": 2.7,
+          "p25": 2.8,
+          "p50": 2.8,
+          "p75": 2.8,
+          "p95": 3.0
+        },
+        "long_edge_m": {
+          "p05": 5.207,
+          "p25": 7.26,
+          "p50": 8.421,
+          "p75": 9.6,
+          "p95": 11.557
+        },
+        "min_n": 30,
+        "n": 3081,
+        "short_edge_m": {
+          "p05": 3.292,
+          "p25": 4.661,
+          "p50": 5.97,
+          "p75": 7.329,
+          "p95": 8.933
+        },
+        "source": "datasets/processed/structured3d/rooms.jsonl (hull area is an upper bound)"
+      }
+    },
+    "rooms_considered": 21742
+  },
+  "sun_rgbd": {
+    "cooccurrence": {
+      "bedroom": {
+        "classes": {
+          "armchair": {
+            "mean_count_when_present": 1.074,
+            "p_present": 0.178,
+            "rooms_with_class": 68
+          },
+          "bed": {
+            "mean_count_when_present": 1.112,
+            "p_present": 0.678,
+            "rooms_with_class": 259
+          },
+          "bench": {
+            "mean_count_when_present": 1.0,
+            "p_present": 0.0105,
+            "rooms_with_class": 4
+          },
+          "cabinet": {
+            "mean_count_when_present": 1.0,
+            "p_present": 0.0864,
+            "rooms_with_class": 33
+          },
+          "chair": {
+            "mean_count_when_present": 1.27,
+            "p_present": 0.4948,
+            "rooms_with_class": 189
+          },
+          "coffee_table": {
+            "mean_count_when_present": 1.0,
+            "p_present": 0.0236,
+            "rooms_with_class": 9
+          },
+          "curtain": {
+            "mean_count_when_present": 1.356,
+            "p_present": 0.1178,
+            "rooms_with_class": 45
+          },
+          "desk": {
+            "mean_count_when_present": 1.052,
+            "p_present": 0.2513,
+            "rooms_with_class": 96
+          },
+          "door": {
+            "mean_count_when_present": 1.0,
+            "p_present": 0.0131,
+            "rooms_with_class": 5
+          },
+          "dresser": {
+            "mean_count_when_present": 1.0,
+            "p_present": 0.0733,
+            "rooms_with_class": 28
+          },
+          "lamp": {
+            "mean_count_when_present": 1.107,
+            "p_present": 0.3168,
+            "rooms_with_class": 121
+          },
+          "mirror": {
+            "mean_count_when_present": 1.182,
+            "p_present": 0.0288,
+            "rooms_with_class": 11
+          },
+          "nightstand": {
+            "mean_count_when_present": 1.106,
+            "p_present": 0.2225,
+            "rooms_with_class": 85
+          },
+          "ottoman": {
+            "mean_count_when_present": 1.0,
+            "p_present": 0.0471,
+            "rooms_with_class": 18
+          },
+          "pillow": {
+            "mean_count_when_present": 1.906,
+            "p_present": 0.3639,
+            "rooms_with_class": 139
+          },
+          "plant": {
+            "mean_count_when_present": 1.5,
+            "p_present": 0.0157,
+            "rooms_with_class": 6
+          },
+          "rug": {
+            "mean_count_when_present": 1.0,
+            "p_present": 0.0052,
+            "rooms_with_class": 2
+          },
+          "shelf": {
+            "mean_count_when_present": 1.075,
+            "p_present": 0.1387,
+            "rooms_with_class": 53
+          },
+          "side_table": {
+            "mean_count_when_present": 1.0,
+            "p_present": 0.0785,
+            "rooms_with_class": 30
+          },
+          "sofa": {
+            "mean_count_when_present": 1.08,
+            "p_present": 0.0654,
+            "rooms_with_class": 25
+          },
+          "stool": {
+            "mean_count_when_present": 1.0,
+            "p_present": 0.0052,
+            "rooms_with_class": 2
+          },
+          "table": {
+            "mean_count_when_present": 1.173,
+            "p_present": 0.2565,
+            "rooms_with_class": 98
+          },
+          "tv": {
+            "mean_count_when_present": 1.0,
+            "p_present": 0.1021,
+            "rooms_with_class": 39
+          },
+          "tv_stand": {
+            "mean_count_when_present": 1.0,
+            "p_present": 0.0079,
+            "rooms_with_class": 3
+          },
+          "wall_art": {
+            "mean_count_when_present": 1.38,
+            "p_present": 0.1309,
+            "rooms_with_class": 50
+          },
+          "window": {
+            "mean_count_when_present": 1.0,
+            "p_present": 0.0079,
+            "rooms_with_class": 3
+          }
+        },
+        "min_n": 30,
+        "min_pair_rooms": 20,
+        "n_rooms": 382,
+        "p_b_given_a": {
+          "armchair": {
+            "bed": 0.6471,
+            "bench": 0.0147,
+            "cabinet": 0.0588,
+            "chair": 0.3235,
+            "coffee_table": 0.0147,
+            "curtain": 0.2647,
+            "desk": 0.1029,
+            "dresser": 0.0441,
+            "lamp": 0.3971,
+            "mirror": 0.0294,
+            "nightstand": 0.3382,
+            "ottoman": 0.1912,
+            "pillow": 0.3529,
+            "plant": 0.0147,
+            "shelf": 0.0882,
+            "side_table": 0.2206,
+            "sofa": 0.0882,
+            "table": 0.2647,
+            "tv": 0.1324,
+            "tv_stand": 0.0147,
+            "wall_art": 0.1765
+          },
+          "bed": {
+            "armchair": 0.1699,
+            "cabinet": 0.0888,
+            "chair": 0.444,
+            "coffee_table": 0.0154,
+            "curtain": 0.1042,
+            "desk": 0.2355,
+            "door": 0.0077,
+            "dresser": 0.0695,
+            "lamp": 0.3243,
+            "mirror": 0.0116,
+            "nightstand": 0.3166,
+            "ottoman": 0.0463,
+            "pillow": 0.4672,
+            "plant": 0.0116,
+            "rug": 0.0077,
+            "shelf": 0.0888,
+            "side_table": 0.0579,
+            "sofa": 0.0232,
+            "stool": 0.0077,
+            "table": 0.1776,
+            "tv": 0.0734,
+            "wall_art": 0.0965,
+            "window": 0.0116
+          },
+          "cabinet": {
+            "armchair": 0.1212,
+            "bed": 0.697,
+            "chair": 0.3636,
+            "curtain": 0.1515,
+            "desk": 0.2121,
+            "lamp": 0.2727,
+            "ottoman": 0.0606,
+            "pillow": 0.3939,
+            "shelf": 0.0909,
+            "side_table": 0.0303,
+            "sofa": 0.0606,
+            "table": 0.1212,
+            "tv": 0.1515,
+            "tv_stand": 0.0303,
+            "wall_art": 0.0909
+          },
+          "chair": {
+            "armchair": 0.1164,
+            "bed": 0.6085,
+            "bench": 0.0106,
+            "cabinet": 0.0635,
+            "coffee_table": 0.0159,
+            "curtain": 0.0847,
+            "desk": 0.4603,
+            "dresser": 0.0741,
+            "lamp": 0.2381,
+            "mirror": 0.0106,
+            "nightstand": 0.1005,
+            "ottoman": 0.0159,
+            "pillow": 0.2063,
+            "plant": 0.0106,
+            "rug": 0.0106,
+            "shelf": 0.164,
+            "side_table": 0.037,
+            "sofa": 0.037,
+            "table": 0.3545,
+            "tv": 0.1164,
+            "tv_stand": 0.0053,
+            "wall_art": 0.1005,
+            "window": 0.0053
+          },
+          "curtain": {
+            "armchair": 0.4,
+            "bed": 0.6,
+            "cabinet": 0.1111,
+            "chair": 0.3556,
+            "coffee_table": 0.1111,
+            "desk": 0.2667,
+            "door": 0.0222,
+            "dresser": 0.0222,
+            "lamp": 0.5333,
+            "mirror": 0.0222,
+            "nightstand": 0.2,
+            "ottoman": 0.1333,
+            "pillow": 0.4,
+            "shelf": 0.0222,
+            "side_table": 0.1333,
+            "sofa": 0.1778,
+            "stool": 0.0222,
+            "table": 0.2889,
+            "tv": 0.1778,
+            "wall_art": 0.2667
+          },
+          "desk": {
+            "armchair": 0.0729,
+            "bed": 0.6354,
+            "bench": 0.0104,
+            "cabinet": 0.0729,
+            "chair": 0.9062,
+            "coffee_table": 0.0417,
+            "curtain": 0.125,
+            "dresser": 0.0833,
+            "lamp": 0.2188,
+            "nightstand": 0.0729,
+            "pillow": 0.2396,
+            "plant": 0.0104,
+            "shelf": 0.2188,
+            "sofa": 0.0625,
+            "stool": 0.0104,
+            "table": 0.0417,
+            "tv": 0.125,
+            "tv_stand": 0.0104,
+            "wall_art": 0.0833
+          },
+          "dresser": {
+            "armchair": 0.1071,
+            "bed": 0.6429,
+            "chair": 0.5,
+            "curtain": 0.0357,
+            "desk": 0.2857,
+            "door": 0.0357,
+            "lamp": 0.0714,
+            "mirror": 0.0714,
+            "nightstand": 0.0714,
+            "pillow": 0.25,
+            "shelf": 0.0714,
+            "table": 0.1071,
+            "tv": 0.0714,
+            "wall_art": 0.1786
+          },
+          "lamp": {
+            "armchair": 0.2231,
+            "bed": 0.6942,
+            "cabinet": 0.0744,
+            "chair": 0.3719,
+            "coffee_table": 0.0413,
+            "curtain": 0.1983,
+            "desk": 0.1736,
+            "dresser": 0.0165,
+            "mirror": 0.0496,
+            "nightstand": 0.3306,
+            "ottoman": 0.0579,
+            "pillow": 0.4628,
+            "plant": 0.0083,
+            "shelf": 0.0413,
+            "side_table": 0.0992,
+            "sofa": 0.0826,
+            "table": 0.2479,
+            "tv": 0.124,
+            "wall_art": 0.2231,
+            "window": 0.0083
+          },
+          "nightstand": {
+            "armchair": 0.2706,
+            "bed": 0.9647,
+            "chair": 0.2235,
+            "curtain": 0.1059,
+            "desk": 0.0824,
+            "dresser": 0.0235,
+            "lamp": 0.4706,
+            "mirror": 0.0118,
+            "ottoman": 0.0941,
+            "pillow": 0.4941,
+            "side_table": 0.0588,
+            "sofa": 0.0118,
+            "stool": 0.0235,
+            "table": 0.0824,
+            "tv": 0.0353,
+            "wall_art": 0.0706,
+            "window": 0.0118
+          },
+          "pillow": {
+            "armchair": 0.1727,
+            "bed": 0.8705,
+            "bench": 0.0072,
+            "cabinet": 0.0935,
+            "chair": 0.2806,
+            "coffee_table": 0.0288,
+            "curtain": 0.1295,
+            "desk": 0.1655,
+            "door": 0.0144,
+            "dresser": 0.0504,
+            "lamp": 0.4029,
+            "mirror": 0.0072,
+            "nightstand": 0.3022,
+            "ottoman": 0.0288,
+            "plant": 0.0072,
+            "shelf": 0.1079,
+            "side_table": 0.0863,
+            "sofa": 0.0935,
+            "stool": 0.0144,
+            "table": 0.1295,
+            "tv": 0.036,
+            "wall_art": 0.1295,
+            "window": 0.0216
+          },
+          "shelf": {
+            "armchair": 0.1132,
+            "bed": 0.434,
+            "bench": 0.0189,
+            "cabinet": 0.0566,
+            "chair": 0.5849,
+            "coffee_table": 0.0189,
+            "curtain": 0.0189,
+            "desk": 0.3962,
+            "door": 0.0566,
+            "dresser": 0.0377,
+            "lamp": 0.0943,
+            "mirror": 0.0377,
+            "ottoman": 0.0189,
+            "pillow": 0.283,
+            "plant": 0.0377,
+            "sofa": 0.0377,
+            "table": 0.283,
+            "tv": 0.0189,
+            "wall_art": 0.0755
+          },
+          "side_table": {
+            "armchair": 0.5,
+            "bed": 0.5,
+            "cabinet": 0.0333,
+            "chair": 0.2333,
+            "coffee_table": 0.0667,
+            "curtain": 0.2,
+            "lamp": 0.4,
+            "mirror": 0.0333,
+            "nightstand": 0.1667,
+            "ottoman": 0.1667,
+            "pillow": 0.4,
+            "rug": 0.0333,
+            "sofa": 0.3333,
+            "table": 0.1,
+            "tv": 0.0333,
+            "tv_stand": 0.0333,
+            "wall_art": 0.3
+          },
+          "sofa": {
+            "armchair": 0.24,
+            "bed": 0.24,
+            "bench": 0.04,
+            "cabinet": 0.08,
+            "chair": 0.28,
+            "coffee_table": 0.28,
+            "curtain": 0.32,
+            "desk": 0.24,
+            "door": 0.04,
+            "lamp": 0.4,
+            "nightstand": 0.04,
+            "pillow": 0.52,
+            "plant": 0.08,
+            "shelf": 0.08,
+            "side_table": 0.4,
+            "table": 0.16,
+            "tv": 0.04,
+            "wall_art": 0.24
+          },
+          "table": {
+            "armchair": 0.1837,
+            "bed": 0.4694,
+            "cabinet": 0.0408,
+            "chair": 0.6837,
+            "coffee_table": 0.0204,
+            "curtain": 0.1327,
+            "desk": 0.0408,
+            "door": 0.0102,
+            "dresser": 0.0306,
+            "lamp": 0.3061,
+            "mirror": 0.0306,
+            "nightstand": 0.0714,
+            "ottoman": 0.0306,
+            "pillow": 0.1837,
+            "plant": 0.0408,
+            "rug": 0.0102,
+            "shelf": 0.1531,
+            "side_table": 0.0306,
+            "sofa": 0.0408,
+            "stool": 0.0102,
+            "tv": 0.1735,
+            "wall_art": 0.1531
+          },
+          "tv": {
+            "armchair": 0.2308,
+            "bed": 0.4872,
+            "cabinet": 0.1282,
+            "chair": 0.5641,
+            "coffee_table": 0.0256,
+            "curtain": 0.2051,
+            "desk": 0.3077,
+            "dresser": 0.0513,
+            "lamp": 0.3846,
+            "mirror": 0.0256,
+            "nightstand": 0.0769,
+            "ottoman": 0.0513,
+            "pillow": 0.1282,
+            "plant": 0.0256,
+            "shelf": 0.0256,
+            "side_table": 0.0256,
+            "sofa": 0.0256,
+            "table": 0.4359,
+            "tv_stand": 0.0513,
+            "wall_art": 0.2821
+          },
+          "wall_art": {
+            "armchair": 0.24,
+            "bed": 0.5,
+            "cabinet": 0.06,
+            "chair": 0.38,
+            "coffee_table": 0.06,
+            "curtain": 0.24,
+            "desk": 0.16,
+            "door": 0.02,
+            "dresser": 0.1,
+            "lamp": 0.54,
+            "mirror": 0.06,
+            "nightstand": 0.12,
+            "ottoman": 0.08,
+            "pillow": 0.36,
+            "shelf": 0.08,
+            "side_table": 0.18,
+            "sofa": 0.12,
+            "table": 0.3,
+            "tv": 0.22
+          }
+        },
+        "source": "SUNRGBD.zip annotation3Dfinal + scene.txt"
+      },
+      "corridor": {
+        "classes": {
+          "armchair": {
+            "mean_count_when_present": 2.0,
+            "p_present": 0.0312,
+            "rooms_with_class": 1
+          },
+          "bench": {
+            "mean_count_when_present": 1.0,
+            "p_present": 0.0625,
+            "rooms_with_class": 2
+          },
+          "cabinet": {
+            "mean_count_when_present": 2.0,
+            "p_present": 0.0938,
+            "rooms_with_class": 3
+          },
+          "chair": {
+            "mean_count_when_present": 2.5,
+            "p_present": 0.625,
+            "rooms_with_class": 20
+          },
+          "curtain": {
+            "mean_count_when_present": 1.0,
+            "p_present": 0.0312,
+            "rooms_with_class": 1
+          },
+          "desk": {
+            "mean_count_when_present": 1.0,
+            "p_present": 0.0312,
+            "rooms_with_class": 1
+          },
+          "door": {
+            "mean_count_when_present": 1.0,
+            "p_present": 0.0312,
+            "rooms_with_class": 1
+          },
+          "pillow": {
+            "mean_count_when_present": 2.0,
+            "p_present": 0.0312,
+            "rooms_with_class": 1
+          },
+          "plant": {
+            "mean_count_when_present": 2.0,
+            "p_present": 0.0938,
+            "rooms_with_class": 3
+          },
+          "rug": {
+            "mean_count_when_present": 1.0,
+            "p_present": 0.0312,
+            "rooms_with_class": 1
+          },
+          "shelf": {
+            "mean_count_when_present": 1.333,
+            "p_present": 0.0938,
+            "rooms_with_class": 3
+          },
+          "side_table": {
+            "mean_count_when_present": 1.0,
+            "p_present": 0.0625,
+            "rooms_with_class": 2
+          },
+          "sofa": {
+            "mean_count_when_present": 1.0,
+            "p_present": 0.0625,
+            "rooms_with_class": 2
+          },
+          "table": {
+            "mean_count_when_present": 2.556,
+            "p_present": 0.2812,
+            "rooms_with_class": 9
+          },
+          "tv": {
+            "mean_count_when_present": 1.0,
+            "p_present": 0.0625,
+            "rooms_with_class": 2
+          },
+          "wall_art": {
+            "mean_count_when_present": 2.833,
+            "p_present": 0.1875,
+            "rooms_with_class": 6
+          }
+        },
+        "min_n": 30,
+        "min_pair_rooms": 20,
+        "n_rooms": 32,
+        "p_b_given_a": {
+          "chair": {
+            "armchair": 0.05,
+            "bench": 0.05,
+            "cabinet": 0.05,
+            "curtain": 0.05,
+            "desk": 0.05,
+            "plant": 0.1,
+            "shelf": 0.15,
+            "side_table": 0.1,
+            "table": 0.2,
+            "wall_art": 0.1
+          }
+        },
+        "source": "SUNRGBD.zip annotation3Dfinal + scene.txt"
+      },
+      "dining_room": {
+        "classes": {
+          "armchair": {
+            "mean_count_when_present": 1.625,
+            "p_present": 0.0202,
+            "rooms_with_class": 8
+          },
+          "bench": {
+            "mean_count_when_present": 1.556,
+            "p_present": 0.0453,
+            "rooms_with_class": 18
+          },
+          "cabinet": {
+            "mean_count_when_present": 1.1,
+            "p_present": 0.0252,
+            "rooms_with_class": 10
+          },
+          "chair": {
+            "mean_count_when_present": 4.901,
+            "p_present": 0.937,
+            "rooms_with_class": 372
+          },
+          "curtain": {
+            "mean_count_when_present": 1.0,
+            "p_present": 0.0076,
+            "rooms_with_class": 3
+          },
+          "desk": {
+            "mean_count_when_present": 1.0,
+            "p_present": 0.0076,
+            "rooms_with_class": 3
+          },
+          "door": {
+            "mean_count_when_present": 1.0,
+            "p_present": 0.0025,
+            "rooms_with_class": 1
+          },
+          "lamp": {
+            "mean_count_when_present": 1.0,
+            "p_present": 0.005,
+            "rooms_with_class": 2
+          },
+          "ottoman": {
+            "mean_count_when_present": 1.0,
+            "p_present": 0.005,
+            "rooms_with_class": 2
+          },
+          "plant": {
+            "mean_count_when_present": 1.0,
+            "p_present": 0.0101,
+            "rooms_with_class": 4
+          },
+          "shelf": {
+            "mean_count_when_present": 1.0,
+            "p_present": 0.0252,
+            "rooms_with_class": 10
+          },
+          "side_table": {
+            "mean_count_when_present": 1.0,
+            "p_present": 0.005,
+            "rooms_with_class": 2
+          },
+          "sofa": {
+            "mean_count_when_present": 1.0,
+            "p_present": 0.0202,
+            "rooms_with_class": 8
+          },
+          "stool": {
+            "mean_count_when_present": 3.929,
+            "p_present": 0.0353,
+            "rooms_with_class": 14
+          },
+          "table": {
+            "mean_count_when_present": 1.538,
+            "p_present": 0.9496,
+            "rooms_with_class": 377
+          },
+          "tv": {
+            "mean_count_when_present": 1.0,
+            "p_present": 0.0101,
+            "rooms_with_class": 4
+          },
+          "wall_art": {
+            "mean_count_when_present": 1.444,
+            "p_present": 0.0227,
+            "rooms_with_class": 9
+          },
+          "window": {
+            "mean_count_when_present": 1.0,
+            "p_present": 0.0076,
+            "rooms_with_class": 3
+          }
+        },
+        "min_n": 30,
+        "min_pair_rooms": 20,
+        "n_rooms": 397,
+        "p_b_given_a": {
+          "chair": {
+            "armchair": 0.0161,
+            "bench": 0.0323,
+            "cabinet": 0.0215,
+            "curtain": 0.0081,
+            "desk": 0.0081,
+            "door": 0.0027,
+            "lamp": 0.0054,
+            "ottoman": 0.0027,
+            "plant": 0.0108,
+            "shelf": 0.0215,
+            "side_table": 0.0054,
+            "sofa": 0.0134,
+            "stool": 0.0027,
+            "table": 0.957,
+            "tv": 0.0054,
+            "wall_art": 0.0215,
+            "window": 0.0081
+          },
+          "table": {
+            "armchair": 0.0133,
+            "bench": 0.0477,
+            "cabinet": 0.0186,
+            "chair": 0.9443,
+            "curtain": 0.008,
+            "desk": 0.0027,
+            "door": 0.0027,
+            "lamp": 0.0053,
+            "ottoman": 0.0053,
+            "plant": 0.008,
+            "shelf": 0.0212,
+            "side_table": 0.0053,
+            "sofa": 0.0186,
+            "stool": 0.0318,
+            "tv": 0.008,
+            "wall_art": 0.0239,
+            "window": 0.008
+          }
+        },
+        "source": "SUNRGBD.zip annotation3Dfinal + scene.txt"
+      },
+      "home_office": {
+        "classes": {
+          "armchair": {
+            "mean_count_when_present": 1.0,
+            "p_present": 0.0769,
+            "rooms_with_class": 4
+          },
+          "bed": {
+            "mean_count_when_present": 1.0,
+            "p_present": 0.0962,
+            "rooms_with_class": 5
+          },
+          "cabinet": {
+            "mean_count_when_present": 1.0,
+            "p_present": 0.1731,
+            "rooms_with_class": 9
+          },
+          "chair": {
+            "mean_count_when_present": 1.568,
+            "p_present": 0.8462,
+            "rooms_with_class": 44
+          },
+          "curtain": {
+            "mean_count_when_present": 1.0,
+            "p_present": 0.0769,
+            "rooms_with_class": 4
+          },
+          "desk": {
+            "mean_count_when_present": 1.103,
+            "p_present": 0.5577,
+            "rooms_with_class": 29
+          },
+          "lamp": {
+            "mean_count_when_present": 1.0,
+            "p_present": 0.2115,
+            "rooms_with_class": 11
+          },
+          "nightstand": {
+            "mean_count_when_present": 1.0,
+            "p_present": 0.0385,
+            "rooms_with_class": 2
+          },
+          "pillow": {
+            "mean_count_when_present": 1.0,
+            "p_present": 0.0577,
+            "rooms_with_class": 3
+          },
+          "plant": {
+            "mean_count_when_present": 1.25,
+            "p_present": 0.0769,
+            "rooms_with_class": 4
+          },
+          "shelf": {
+            "mean_count_when_present": 1.118,
+            "p_present": 0.3269,
+            "rooms_with_class": 17
+          },
+          "sofa": {
+            "mean_count_when_present": 1.0,
+            "p_present": 0.0577,
+            "rooms_with_class": 3
+          },
+          "table": {
+            "mean_count_when_present": 1.1,
+            "p_present": 0.3846,
+            "rooms_with_class": 20
+          },
+          "tv": {
+            "mean_count_when_present": 1.0,
+            "p_present": 0.1154,
+            "rooms_with_class": 6
+          },
+          "tv_stand": {
+            "mean_count_when_present": 1.0,
+            "p_present": 0.0385,
+            "rooms_with_class": 2
+          },
+          "wall_art": {
+            "mean_count_when_present": 1.125,
+            "p_present": 0.1538,
+            "rooms_with_class": 8
+          }
+        },
+        "min_n": 30,
+        "min_pair_rooms": 20,
+        "n_rooms": 52,
+        "p_b_given_a": {
+          "chair": {
+            "armchair": 0.0909,
+            "bed": 0.1136,
+            "cabinet": 0.1364,
+            "curtain": 0.0682,
+            "desk": 0.5227,
+            "lamp": 0.2045,
+            "nightstand": 0.0227,
+            "pillow": 0.0682,
+            "plant": 0.0909,
+            "shelf": 0.25,
+            "sofa": 0.0682,
+            "table": 0.4545,
+            "tv": 0.0909,
+            "tv_stand": 0.0227,
+            "wall_art": 0.1136
+          },
+          "desk": {
+            "armchair": 0.0345,
+            "bed": 0.1034,
+            "cabinet": 0.2069,
+            "chair": 0.7931,
+            "curtain": 0.069,
+            "lamp": 0.2414,
+            "nightstand": 0.069,
+            "pillow": 0.0345,
+            "plant": 0.0345,
+            "shelf": 0.3103,
+            "sofa": 0.069,
+            "table": 0.1034,
+            "tv": 0.1034,
+            "wall_art": 0.1034
+          },
+          "table": {
+            "armchair": 0.15,
+            "bed": 0.1,
+            "cabinet": 0.2,
+            "chair": 1.0,
+            "curtain": 0.05,
+            "desk": 0.15,
+            "lamp": 0.25,
+            "pillow": 0.05,
+            "plant": 0.1,
+            "shelf": 0.3,
+            "sofa": 0.05,
+            "tv": 0.05,
+            "tv_stand": 0.05,
+            "wall_art": 0.1
+          }
+        },
+        "source": "SUNRGBD.zip annotation3Dfinal + scene.txt"
+      },
+      "living_room": {
+        "classes": {
+          "armchair": {
+            "mean_count_when_present": 1.25,
+            "p_present": 0.1887,
+            "rooms_with_class": 40
+          },
+          "bed": {
+            "mean_count_when_present": 1.0,
+            "p_present": 0.0236,
+            "rooms_with_class": 5
+          },
+          "bench": {
+            "mean_count_when_present": 1.0,
+            "p_present": 0.0094,
+            "rooms_with_class": 2
+          },
+          "cabinet": {
+            "mean_count_when_present": 1.0,
+            "p_present": 0.0991,
+            "rooms_with_class": 21
+          },
+          "chair": {
+            "mean_count_when_present": 2.319,
+            "p_present": 0.5472,
+            "rooms_with_class": 116
+          },
+          "coffee_table": {
+            "mean_count_when_present": 1.017,
+            "p_present": 0.2783,
+            "rooms_with_class": 59
+          },
+          "curtain": {
+            "mean_count_when_present": 1.15,
+            "p_present": 0.0943,
+            "rooms_with_class": 20
+          },
+          "desk": {
+            "mean_count_when_present": 1.067,
+            "p_present": 0.0708,
+            "rooms_with_class": 15
+          },
+          "door": {
+            "mean_count_when_present": 1.333,
+            "p_present": 0.0142,
+            "rooms_with_class": 3
+          },
+          "lamp": {
+            "mean_count_when_present": 1.273,
+            "p_present": 0.2075,
+            "rooms_with_class": 44
+          },
+          "mirror": {
+            "mean_count_when_present": 1.0,
+            "p_present": 0.0094,
+            "rooms_with_class": 2
+          },
+          "ottoman": {
+            "mean_count_when_present": 1.091,
+            "p_present": 0.0519,
+            "rooms_with_class": 11
+          },
+          "pillow": {
+            "mean_count_when_present": 2.333,
+            "p_present": 0.3113,
+            "rooms_with_class": 66
+          },
+          "plant": {
+            "mean_count_when_present": 1.083,
+            "p_present": 0.0566,
+            "rooms_with_class": 12
+          },
+          "shelf": {
+            "mean_count_when_present": 1.13,
+            "p_present": 0.1085,
+            "rooms_with_class": 23
+          },
+          "side_table": {
+            "mean_count_when_present": 1.077,
+            "p_present": 0.2453,
+            "rooms_with_class": 52
+          },
+          "sofa": {
+            "mean_count_when_present": 1.152,
+            "p_present": 0.6226,
+            "rooms_with_class": 132
+          },
+          "stool": {
+            "mean_count_when_present": 1.286,
+            "p_present": 0.033,
+            "rooms_with_class": 7
+          },
+          "table": {
+            "mean_count_when_present": 1.1,
+            "p_present": 0.3774,
+            "rooms_with_class": 80
+          },
+          "tv": {
+            "mean_count_when_present": 1.056,
+            "p_present": 0.1698,
+            "rooms_with_class": 36
+          },
+          "tv_stand": {
+            "mean_count_when_present": 1.0,
+            "p_present": 0.066,
+            "rooms_with_class": 14
+          },
+          "wall_art": {
+            "mean_count_when_present": 1.567,
+            "p_present": 0.1415,
+            "rooms_with_class": 30
+          }
+        },
+        "min_n": 30,
+        "min_pair_rooms": 20,
+        "n_rooms": 212,
+        "p_b_given_a": {
+          "armchair": {
+            "bed": 0.05,
+            "cabinet": 0.15,
+            "chair": 0.3,
+            "coffee_table": 0.275,
+            "lamp": 0.2,
+            "mirror": 0.05,
+            "ottoman": 0.1,
+            "pillow": 0.3,
+            "shelf": 0.05,
+            "side_table": 0.375,
+            "sofa": 0.6,
+            "table": 0.325,
+            "tv": 0.175,
+            "tv_stand": 0.1,
+            "wall_art": 0.1
+          },
+          "cabinet": {
+            "armchair": 0.2857,
+            "bed": 0.0952,
+            "bench": 0.0476,
+            "chair": 0.619,
+            "curtain": 0.0952,
+            "door": 0.0476,
+            "lamp": 0.0476,
+            "mirror": 0.0476,
+            "ottoman": 0.0476,
+            "pillow": 0.0476,
+            "plant": 0.0476,
+            "shelf": 0.0952,
+            "side_table": 0.0476,
+            "sofa": 0.2857,
+            "stool": 0.0476,
+            "table": 0.4762,
+            "tv": 0.4286,
+            "wall_art": 0.1429
+          },
+          "chair": {
+            "armchair": 0.1034,
+            "bed": 0.0345,
+            "bench": 0.0172,
+            "cabinet": 0.1121,
+            "coffee_table": 0.181,
+            "curtain": 0.0776,
+            "desk": 0.1293,
+            "door": 0.0172,
+            "lamp": 0.1983,
+            "mirror": 0.0172,
+            "ottoman": 0.0431,
+            "pillow": 0.2069,
+            "plant": 0.069,
+            "shelf": 0.1034,
+            "side_table": 0.2328,
+            "sofa": 0.5517,
+            "stool": 0.0259,
+            "table": 0.5172,
+            "tv": 0.1724,
+            "tv_stand": 0.069,
+            "wall_art": 0.1121
+          },
+          "coffee_table": {
+            "armchair": 0.1864,
+            "bench": 0.0169,
+            "chair": 0.3559,
+            "curtain": 0.0678,
+            "desk": 0.0169,
+            "lamp": 0.2373,
+            "ottoman": 0.0678,
+            "pillow": 0.5085,
+            "plant": 0.0508,
+            "shelf": 0.0678,
+            "side_table": 0.2881,
+            "sofa": 0.8305,
+            "stool": 0.0339,
+            "table": 0.1356,
+            "tv": 0.0678,
+            "wall_art": 0.1017
+          },
+          "curtain": {
+            "bed": 0.05,
+            "cabinet": 0.1,
+            "chair": 0.45,
+            "coffee_table": 0.2,
+            "desk": 0.1,
+            "lamp": 0.05,
+            "pillow": 0.4,
+            "shelf": 0.2,
+            "side_table": 0.05,
+            "sofa": 0.65,
+            "table": 0.35,
+            "tv": 0.2,
+            "tv_stand": 0.05,
+            "wall_art": 0.15
+          },
+          "lamp": {
+            "armchair": 0.1818,
+            "bed": 0.0227,
+            "cabinet": 0.0227,
+            "chair": 0.5227,
+            "coffee_table": 0.3182,
+            "curtain": 0.0227,
+            "desk": 0.1364,
+            "mirror": 0.0455,
+            "ottoman": 0.0455,
+            "pillow": 0.5682,
+            "plant": 0.0455,
+            "shelf": 0.0682,
+            "side_table": 0.5,
+            "sofa": 0.7955,
+            "stool": 0.0227,
+            "table": 0.4318,
+            "tv": 0.2045,
+            "tv_stand": 0.0227,
+            "wall_art": 0.3182
+          },
+          "pillow": {
+            "armchair": 0.1818,
+            "cabinet": 0.0152,
+            "chair": 0.3636,
+            "coffee_table": 0.4545,
+            "curtain": 0.1212,
+            "desk": 0.0758,
+            "door": 0.0152,
+            "lamp": 0.3788,
+            "ottoman": 0.0455,
+            "plant": 0.0303,
+            "shelf": 0.1364,
+            "side_table": 0.3636,
+            "sofa": 0.9091,
+            "stool": 0.0152,
+            "table": 0.2727,
+            "tv": 0.0909,
+            "tv_stand": 0.0152,
+            "wall_art": 0.2273
+          },
+          "shelf": {
+            "armchair": 0.087,
+            "cabinet": 0.087,
+            "chair": 0.5217,
+            "coffee_table": 0.1739,
+            "curtain": 0.1739,
+            "desk": 0.0435,
+            "door": 0.0435,
+            "lamp": 0.1304,
+            "ottoman": 0.087,
+            "pillow": 0.3913,
+            "plant": 0.0435,
+            "side_table": 0.2174,
+            "sofa": 0.6087,
+            "stool": 0.0435,
+            "table": 0.2174,
+            "tv": 0.1739,
+            "tv_stand": 0.087,
+            "wall_art": 0.087
+          },
+          "side_table": {
+            "armchair": 0.2885,
+            "bed": 0.0385,
+            "cabinet": 0.0192,
+            "chair": 0.5192,
+            "coffee_table": 0.3269,
+            "curtain": 0.0192,
+            "desk": 0.0385,
+            "lamp": 0.4231,
+            "mirror": 0.0385,
+            "ottoman": 0.0769,
+            "pillow": 0.4615,
+            "plant": 0.0192,
+            "shelf": 0.0962,
+            "sofa": 0.8077,
+            "table": 0.2115,
+            "tv": 0.1346,
+            "tv_stand": 0.0577,
+            "wall_art": 0.2885
+          },
+          "sofa": {
+            "armchair": 0.1818,
+            "cabinet": 0.0455,
+            "chair": 0.4848,
+            "coffee_table": 0.3712,
+            "curtain": 0.0985,
+            "desk": 0.0682,
+            "door": 0.0076,
+            "lamp": 0.2652,
+            "ottoman": 0.0682,
+            "pillow": 0.4545,
+            "plant": 0.0455,
+            "shelf": 0.1061,
+            "side_table": 0.3182,
+            "stool": 0.0076,
+            "table": 0.3182,
+            "tv": 0.1061,
+            "tv_stand": 0.0303,
+            "wall_art": 0.1515
+          },
+          "table": {
+            "armchair": 0.1625,
+            "bed": 0.0375,
+            "cabinet": 0.125,
+            "chair": 0.75,
+            "coffee_table": 0.1,
+            "curtain": 0.0875,
+            "desk": 0.0625,
+            "door": 0.025,
+            "lamp": 0.2375,
+            "mirror": 0.0125,
+            "ottoman": 0.0125,
+            "pillow": 0.225,
+            "plant": 0.0625,
+            "shelf": 0.0625,
+            "side_table": 0.1375,
+            "sofa": 0.525,
+            "stool": 0.0125,
+            "tv": 0.225,
+            "tv_stand": 0.075,
+            "wall_art": 0.125
+          },
+          "tv": {
+            "armchair": 0.1944,
+            "bed": 0.0556,
+            "cabinet": 0.25,
+            "chair": 0.5556,
+            "coffee_table": 0.1111,
+            "curtain": 0.1111,
+            "desk": 0.0556,
+            "lamp": 0.25,
+            "mirror": 0.0278,
+            "pillow": 0.1667,
+            "plant": 0.1944,
+            "shelf": 0.1111,
+            "side_table": 0.1944,
+            "sofa": 0.3889,
+            "stool": 0.0833,
+            "table": 0.5,
+            "tv_stand": 0.2778,
+            "wall_art": 0.1389
+          },
+          "wall_art": {
+            "armchair": 0.1333,
+            "bench": 0.0333,
+            "cabinet": 0.1,
+            "chair": 0.4333,
+            "coffee_table": 0.2,
+            "curtain": 0.1,
+            "desk": 0.1,
+            "lamp": 0.4667,
+            "mirror": 0.0333,
+            "pillow": 0.5,
+            "plant": 0.0667,
+            "shelf": 0.0667,
+            "side_table": 0.5,
+            "sofa": 0.6667,
+            "stool": 0.0333,
+            "table": 0.3333,
+            "tv": 0.1667,
+            "tv_stand": 0.0333
+          }
+        },
+        "source": "SUNRGBD.zip annotation3Dfinal + scene.txt"
+      }
+    },
+    "images_considered": 10335,
+    "object_drops": {
+      "heavy_overlap": 179,
+      "implausible_size": 6174,
+      "not_a_box_footprint": 83,
+      "null_entry": 12749,
+      "outside_floor": 482,
+      "unmapped_class": 24527
+    },
+    "object_size": {
+      "armchair": {
+        "height_m": {
+          "p05": 0.664,
+          "p25": 0.756,
+          "p50": 0.82,
+          "p75": 0.9,
+          "p95": 1.032
+        },
+        "length_m": {
+          "p05": 0.709,
+          "p25": 0.803,
+          "p50": 0.874,
+          "p75": 0.947,
+          "p95": 1.137
+        },
+        "min_n": 30,
+        "n": 1403,
+        "source": "SUNRGBD.zip annotation3Dfinal",
+        "width_m": {
+          "p05": 0.618,
+          "p25": 0.73,
+          "p50": 0.785,
+          "p75": 0.857,
+          "p95": 0.976
+        }
+      },
+      "bed": {
+        "height_m": {
+          "p05": 0.491,
+          "p25": 0.741,
+          "p50": 1.05,
+          "p75": 1.417,
+          "p95": 1.806
+        },
+        "length_m": {
+          "p05": 1.514,
+          "p25": 1.948,
+          "p50": 2.147,
+          "p75": 2.302,
+          "p95": 2.499
+        },
+        "min_n": 30,
+        "n": 767,
+        "source": "SUNRGBD.zip annotation3Dfinal",
+        "width_m": {
+          "p05": 0.869,
+          "p25": 1.149,
+          "p50": 1.581,
+          "p75": 1.783,
+          "p95": 2.151
+        }
+      },
+      "bench": {
+        "height_m": {
+          "p05": 0.339,
+          "p25": 0.465,
+          "p50": 0.65,
+          "p75": 0.926,
+          "p95": 1.116
+        },
+        "length_m": {
+          "p05": 0.854,
+          "p25": 1.236,
+          "p50": 1.61,
+          "p75": 1.947,
+          "p95": 3.307
+        },
+        "min_n": 30,
+        "n": 110,
+        "source": "SUNRGBD.zip annotation3Dfinal",
+        "width_m": {
+          "p05": 0.339,
+          "p25": 0.495,
+          "p50": 0.608,
+          "p75": 0.725,
+          "p95": 1.317
+        }
+      },
+      "cabinet": {
+        "height_m": {
+          "p05": 0.54,
+          "p25": 0.748,
+          "p50": 0.982,
+          "p75": 1.65,
+          "p95": 2.091
+        },
+        "length_m": {
+          "p05": 0.515,
+          "p25": 0.743,
+          "p50": 1.043,
+          "p75": 1.525,
+          "p95": 2.548
+        },
+        "min_n": 30,
+        "n": 395,
+        "source": "SUNRGBD.zip annotation3Dfinal",
+        "width_m": {
+          "p05": 0.308,
+          "p25": 0.442,
+          "p50": 0.535,
+          "p75": 0.629,
+          "p95": 0.836
+        }
+      },
+      "chair": {
+        "height_m": {
+          "p05": 0.656,
+          "p25": 0.773,
+          "p50": 0.827,
+          "p75": 0.9,
+          "p95": 1.041
+        },
+        "length_m": {
+          "p05": 0.464,
+          "p25": 0.542,
+          "p50": 0.603,
+          "p75": 0.669,
+          "p95": 0.793
+        },
+        "min_n": 30,
+        "n": 16301,
+        "source": "SUNRGBD.zip annotation3Dfinal",
+        "width_m": {
+          "p05": 0.382,
+          "p25": 0.472,
+          "p50": 0.528,
+          "p75": 0.585,
+          "p95": 0.678
+        }
+      },
+      "coffee_table": {
+        "height_m": {
+          "p05": 0.318,
+          "p25": 0.411,
+          "p50": 0.464,
+          "p75": 0.509,
+          "p95": 0.591
+        },
+        "length_m": {
+          "p05": 0.716,
+          "p25": 0.967,
+          "p50": 1.188,
+          "p75": 1.334,
+          "p95": 1.536
+        },
+        "min_n": 30,
+        "n": 251,
+        "source": "SUNRGBD.zip annotation3Dfinal",
+        "width_m": {
+          "p05": 0.47,
+          "p25": 0.595,
+          "p50": 0.69,
+          "p75": 0.841,
+          "p95": 1.028
+        }
+      },
+      "curtain": {
+        "height_m": {
+          "p05": 0.611,
+          "p25": 1.073,
+          "p50": 1.455,
+          "p75": 1.8,
+          "p95": 2.238
+        },
+        "length_m": {
+          "p05": 0.48,
+          "p25": 0.707,
+          "p50": 1.059,
+          "p75": 1.723,
+          "p95": 2.81
+        },
+        "min_n": 30,
+        "n": 153,
+        "source": "SUNRGBD.zip annotation3Dfinal",
+        "width_m": {
+          "p05": 0.111,
+          "p25": 0.164,
+          "p50": 0.219,
+          "p75": 0.272,
+          "p95": 0.433
+        }
+      },
+      "desk": {
+        "height_m": {
+          "p05": 0.627,
+          "p25": 0.709,
+          "p50": 0.761,
+          "p75": 0.818,
+          "p95": 1.207
+        },
+        "length_m": {
+          "p05": 0.642,
+          "p25": 0.919,
+          "p50": 1.248,
+          "p75": 1.598,
+          "p95": 2.695
+        },
+        "min_n": 30,
+        "n": 2184,
+        "source": "SUNRGBD.zip annotation3Dfinal",
+        "width_m": {
+          "p05": 0.419,
+          "p25": 0.495,
+          "p50": 0.595,
+          "p75": 0.773,
+          "p95": 1.199
+        }
+      },
+      "dresser": {
+        "height_m": {
+          "p05": 0.782,
+          "p25": 1.019,
+          "p50": 1.255,
+          "p75": 1.418,
+          "p95": 1.899
+        },
+        "length_m": {
+          "p05": 0.638,
+          "p25": 0.899,
+          "p50": 1.03,
+          "p75": 1.21,
+          "p95": 1.673
+        },
+        "min_n": 30,
+        "n": 263,
+        "source": "SUNRGBD.zip annotation3Dfinal",
+        "width_m": {
+          "p05": 0.376,
+          "p25": 0.469,
+          "p50": 0.545,
+          "p75": 0.631,
+          "p95": 0.796
+        }
+      },
+      "lamp": {
+        "height_m": {
+          "p05": 0.397,
+          "p25": 0.582,
+          "p50": 0.727,
+          "p75": 0.818,
+          "p95": 1.604
+        },
+        "length_m": {
+          "p05": 0.257,
+          "p25": 0.353,
+          "p50": 0.412,
+          "p75": 0.476,
+          "p95": 0.668
+        },
+        "min_n": 30,
+        "n": 717,
+        "source": "SUNRGBD.zip annotation3Dfinal",
+        "width_m": {
+          "p05": 0.196,
+          "p25": 0.291,
+          "p50": 0.354,
+          "p75": 0.411,
+          "p95": 0.494
+        }
+      },
+      "mirror": {
+        "height_m": {
+          "p05": 0.491,
+          "p25": 0.768,
+          "p50": 1.073,
+          "p75": 1.755,
+          "p95": 2.11
+        },
+        "length_m": {
+          "p05": 0.39,
+          "p25": 0.612,
+          "p50": 0.769,
+          "p75": 1.057,
+          "p95": 1.466
+        },
+        "min_n": 30,
+        "n": 67,
+        "source": "SUNRGBD.zip annotation3Dfinal",
+        "width_m": {
+          "p05": 0.087,
+          "p25": 0.132,
+          "p50": 0.163,
+          "p75": 0.215,
+          "p95": 0.507
+        }
+      },
+      "nightstand": {
+        "height_m": {
+          "p05": 0.518,
+          "p25": 0.627,
+          "p50": 0.7,
+          "p75": 0.763,
+          "p95": 0.9
+        },
+        "length_m": {
+          "p05": 0.471,
+          "p25": 0.557,
+          "p50": 0.633,
+          "p75": 0.723,
+          "p95": 0.843
+        },
+        "min_n": 30,
+        "n": 398,
+        "source": "SUNRGBD.zip annotation3Dfinal",
+        "width_m": {
+          "p05": 0.359,
+          "p25": 0.445,
+          "p50": 0.496,
+          "p75": 0.548,
+          "p95": 0.638
+        }
+      },
+      "ottoman": {
+        "height_m": {
+          "p05": 0.336,
+          "p25": 0.426,
+          "p50": 0.482,
+          "p75": 0.542,
+          "p95": 0.79
+        },
+        "length_m": {
+          "p05": 0.488,
+          "p25": 0.572,
+          "p50": 0.721,
+          "p75": 1.101,
+          "p95": 1.545
+        },
+        "min_n": 30,
+        "n": 212,
+        "source": "SUNRGBD.zip annotation3Dfinal",
+        "width_m": {
+          "p05": 0.394,
+          "p25": 0.482,
+          "p50": 0.554,
+          "p75": 0.656,
+          "p95": 0.888
+        }
+      },
+      "pillow": {
+        "height_m": {
+          "p05": 0.155,
+          "p25": 0.245,
+          "p50": 0.327,
+          "p75": 0.4,
+          "p95": 0.527
+        },
+        "length_m": {
+          "p05": 0.386,
+          "p25": 0.476,
+          "p50": 0.575,
+          "p75": 0.695,
+          "p95": 0.869
+        },
+        "min_n": 30,
+        "n": 1755,
+        "source": "SUNRGBD.zip annotation3Dfinal",
+        "width_m": {
+          "p05": 0.201,
+          "p25": 0.291,
+          "p50": 0.35,
+          "p75": 0.415,
+          "p95": 0.524
+        }
+      },
+      "plant": {
+        "height_m": {
+          "p05": 0.226,
+          "p25": 0.491,
+          "p50": 0.9,
+          "p75": 1.464,
+          "p95": 2.106
+        },
+        "length_m": {
+          "p05": 0.25,
+          "p25": 0.37,
+          "p50": 0.528,
+          "p75": 0.751,
+          "p95": 1.164
+        },
+        "min_n": 30,
+        "n": 157,
+        "source": "SUNRGBD.zip annotation3Dfinal",
+        "width_m": {
+          "p05": 0.186,
+          "p25": 0.291,
+          "p50": 0.439,
+          "p75": 0.596,
+          "p95": 0.921
+        }
+      },
+      "shelf": {
+        "height_m": {
+          "p05": 0.155,
+          "p25": 0.473,
+          "p50": 1.091,
+          "p75": 1.611,
+          "p95": 2.092
+        },
+        "length_m": {
+          "p05": 0.539,
+          "p25": 0.89,
+          "p50": 1.22,
+          "p75": 1.857,
+          "p95": 3.281
+        },
+        "min_n": 30,
+        "n": 731,
+        "source": "SUNRGBD.zip annotation3Dfinal",
+        "width_m": {
+          "p05": 0.269,
+          "p25": 0.342,
+          "p50": 0.396,
+          "p75": 0.485,
+          "p95": 0.694
+        }
+      },
+      "side_table": {
+        "height_m": {
+          "p05": 0.373,
+          "p25": 0.473,
+          "p50": 0.545,
+          "p75": 0.619,
+          "p95": 0.772
+        },
+        "length_m": {
+          "p05": 0.485,
+          "p25": 0.579,
+          "p50": 0.643,
+          "p75": 0.707,
+          "p95": 0.847
+        },
+        "min_n": 30,
+        "n": 456,
+        "source": "SUNRGBD.zip annotation3Dfinal",
+        "width_m": {
+          "p05": 0.385,
+          "p25": 0.488,
+          "p50": 0.567,
+          "p75": 0.629,
+          "p95": 0.712
+        }
+      },
+      "sofa": {
+        "height_m": {
+          "p05": 0.645,
+          "p25": 0.755,
+          "p50": 0.841,
+          "p75": 0.909,
+          "p95": 1.08
+        },
+        "length_m": {
+          "p05": 0.937,
+          "p25": 1.439,
+          "p50": 1.821,
+          "p75": 2.159,
+          "p95": 2.775
+        },
+        "min_n": 30,
+        "n": 932,
+        "source": "SUNRGBD.zip annotation3Dfinal",
+        "width_m": {
+          "p05": 0.655,
+          "p25": 0.791,
+          "p50": 0.904,
+          "p75": 1.017,
+          "p95": 1.592
+        }
+      },
+      "stool": {
+        "height_m": {
+          "p05": 0.384,
+          "p25": 0.58,
+          "p50": 0.682,
+          "p75": 0.764,
+          "p95": 0.9
+        },
+        "length_m": {
+          "p05": 0.331,
+          "p25": 0.387,
+          "p50": 0.445,
+          "p75": 0.504,
+          "p95": 0.624
+        },
+        "min_n": 30,
+        "n": 243,
+        "source": "SUNRGBD.zip annotation3Dfinal",
+        "width_m": {
+          "p05": 0.289,
+          "p25": 0.349,
+          "p50": 0.391,
+          "p75": 0.432,
+          "p95": 0.518
+        }
+      },
+      "table": {
+        "height_m": {
+          "p05": 0.42,
+          "p25": 0.673,
+          "p50": 0.73,
+          "p75": 0.782,
+          "p95": 0.9
+        },
+        "length_m": {
+          "p05": 0.646,
+          "p25": 0.994,
+          "p50": 1.344,
+          "p75": 1.745,
+          "p95": 2.844
+        },
+        "min_n": 30,
+        "n": 3930,
+        "source": "SUNRGBD.zip annotation3Dfinal",
+        "width_m": {
+          "p05": 0.446,
+          "p25": 0.613,
+          "p50": 0.776,
+          "p75": 0.951,
+          "p95": 1.33
+        }
+      },
+      "tv": {
+        "height_m": {
+          "p05": 0.429,
+          "p25": 0.55,
+          "p50": 0.655,
+          "p75": 0.755,
+          "p95": 0.988
+        },
+        "length_m": {
+          "p05": 0.483,
+          "p25": 0.708,
+          "p50": 0.903,
+          "p75": 1.043,
+          "p95": 1.461
+        },
+        "min_n": 30,
+        "n": 167,
+        "source": "SUNRGBD.zip annotation3Dfinal",
+        "width_m": {
+          "p05": 0.119,
+          "p25": 0.169,
+          "p50": 0.236,
+          "p75": 0.352,
+          "p95": 0.58
+        }
+      },
+      "tv_stand": {
+        "height_m": {
+          "p05": 0.314,
+          "p25": 0.531,
+          "p50": 0.644,
+          "p75": 0.793,
+          "p95": 1.018
+        },
+        "length_m": {
+          "p05": 0.686,
+          "p25": 1.17,
+          "p50": 1.311,
+          "p75": 1.441,
+          "p95": 1.8
+        },
+        "min_n": 30,
+        "n": 48,
+        "source": "SUNRGBD.zip annotation3Dfinal",
+        "width_m": {
+          "p05": 0.369,
+          "p25": 0.457,
+          "p50": 0.515,
+          "p75": 0.594,
+          "p95": 0.734
+        }
+      },
+      "wall_art": {
+        "height_m": {
+          "p05": 0.173,
+          "p25": 0.355,
+          "p50": 0.555,
+          "p75": 0.736,
+          "p95": 1.138
+        },
+        "length_m": {
+          "p05": 0.207,
+          "p25": 0.368,
+          "p50": 0.56,
+          "p75": 0.892,
+          "p95": 1.467
+        },
+        "min_n": 30,
+        "n": 500,
+        "source": "SUNRGBD.zip annotation3Dfinal",
+        "width_m": {
+          "p05": 0.066,
+          "p25": 0.096,
+          "p50": 0.122,
+          "p75": 0.155,
+          "p95": 0.237
+        }
+      }
+    },
+    "objects_kept": 32191,
+    "omitted": [
+      {
+        "min_n": 30,
+        "missing": "SUNRGBD.zip annotation3Dfinal has too few boxes for this class",
+        "n": 28,
+        "prior": "object_size:door"
+      },
+      {
+        "min_n": 30,
+        "missing": "SUNRGBD.zip annotation3Dfinal has too few boxes for this class",
+        "n": 14,
+        "prior": "object_size:rug"
+      },
+      {
+        "min_n": 30,
+        "missing": "SUNRGBD.zip annotation3Dfinal has too few boxes for this class",
+        "n": 9,
+        "prior": "object_size:window"
+      },
+      {
+        "min_n": 30,
+        "missing": "too few boxes with both a footprint and a layout wall",
+        "n": 24,
+        "prior": "wall_distance:door"
+      },
+      {
+        "min_n": 30,
+        "missing": "too few boxes with both a footprint and a layout wall",
+        "n": 12,
+        "prior": "wall_distance:rug"
+      },
+      {
+        "min_n": 30,
+        "missing": "too few boxes with both a footprint and a layout wall",
+        "n": 27,
+        "prior": "wall_distance:tv_stand"
+      },
+      {
+        "min_n": 30,
+        "missing": "too few boxes with both a footprint and a layout wall",
+        "n": 7,
+        "prior": "wall_distance:window"
+      },
+      {
+        "min_n": 30,
+        "missing": "SUNRGBD.zip has too few 3D-annotated rooms of this type",
+        "n": 10,
+        "prior": "cooccurrence:kitchen"
+      },
+      {
+        "min_n": 30,
+        "missing": "SUNRGBD.zip has too few 3D-annotated rooms of this type",
+        "n": 12,
+        "prior": "cooccurrence:bathroom"
+      },
+      {
+        "min_n": 30,
+        "missing": "SUNRGBD.zip has too few 3D-annotated rooms of this type",
+        "n": 0,
+        "prior": "cooccurrence:kids_room"
+      },
+      {
+        "min_n": 30,
+        "missing": "SUNRGBD.zip has too few 3D-annotated rooms of this type",
+        "n": 3,
+        "prior": "cooccurrence:basement"
+      },
+      {
+        "min_n": 30,
+        "missing": "SUNRGBD.zip has too few 3D-annotated rooms of this type",
+        "n": 0,
+        "prior": "cooccurrence:closet"
+      },
+      {
+        "min_n": 30,
+        "missing": "SUNRGBD.zip has too few 3D-annotated rooms of this type",
+        "n": 0,
+        "prior": "cooccurrence:entrance_hall"
+      },
+      {
+        "min_n": 30,
+        "missing": "SUNRGBD.zip has too few 3D-annotated rooms of this type",
+        "n": 0,
+        "prior": "cooccurrence:utility_room"
+      },
+      {
+        "min_n": 30,
+        "missing": "SUNRGBD.zip has too few 3D-annotated rooms of this type",
+        "n": 0,
+        "prior": "cooccurrence:pantry"
+      },
+      {
+        "min_n": 30,
+        "missing": "SUNRGBD.zip has too few 3D-annotated rooms of this type",
+        "n": 0,
+        "prior": "cooccurrence:home_theater"
+      },
+      {
+        "min_n": 30,
+        "missing": "SUNRGBD.zip has too few 3D-annotated rooms of this type",
+        "n": 0,
+        "prior": "cooccurrence:balcony"
+      }
+    ],
+    "room_drops": {
+      "no_3d_annotation": 2,
+      "no_mapped_room_type": 3887,
+      "too_few_objects": 5341,
+      "too_many_objects": 5
+    },
+    "rooms_kept_by_type": {
+      "basement": 3,
+      "bathroom": 12,
+      "bedroom": 382,
+      "corridor": 32,
+      "dining_room": 397,
+      "home_office": 52,
+      "kitchen": 10,
+      "living_room": 212
+    },
+    "wall_distance": {
+      "armchair": {
+        "centre_to_wall_m": {
+          "p05": 0.38,
+          "p25": 0.54,
+          "p50": 0.919,
+          "p75": 1.566,
+          "p95": 2.671
+        },
+        "min_n": 30,
+        "n": 1128,
+        "source": "SUNRGBD.zip annotation3Dfinal + annotation3Dlayout (visible walls only)"
+      },
+      "bed": {
+        "centre_to_wall_m": {
+          "p05": 0.383,
+          "p25": 0.72,
+          "p50": 1.059,
+          "p75": 1.202,
+          "p95": 1.679
+        },
+        "min_n": 30,
+        "n": 501,
+        "source": "SUNRGBD.zip annotation3Dfinal + annotation3Dlayout (visible walls only)"
+      },
+      "bench": {
+        "centre_to_wall_m": {
+          "p05": 0.26,
+          "p25": 0.379,
+          "p50": 0.671,
+          "p75": 1.315,
+          "p95": 2.124
+        },
+        "min_n": 30,
+        "n": 88,
+        "source": "SUNRGBD.zip annotation3Dfinal + annotation3Dlayout (visible walls only)"
+      },
+      "cabinet": {
+        "centre_to_wall_m": {
+          "p05": 0.118,
+          "p25": 0.233,
+          "p50": 0.326,
+          "p75": 0.435,
+          "p95": 1.028
+        },
+        "min_n": 30,
+        "n": 270,
+        "source": "SUNRGBD.zip annotation3Dfinal + annotation3Dlayout (visible walls only)"
+      },
+      "chair": {
+        "centre_to_wall_m": {
+          "p05": 0.323,
+          "p25": 0.691,
+          "p50": 1.142,
+          "p75": 1.68,
+          "p95": 2.685
+        },
+        "min_n": 30,
+        "n": 12651,
+        "source": "SUNRGBD.zip annotation3Dfinal + annotation3Dlayout (visible walls only)"
+      },
+      "coffee_table": {
+        "centre_to_wall_m": {
+          "p05": 0.586,
+          "p25": 1.099,
+          "p50": 1.43,
+          "p75": 1.689,
+          "p95": 2.247
+        },
+        "min_n": 30,
+        "n": 176,
+        "source": "SUNRGBD.zip annotation3Dfinal + annotation3Dlayout (visible walls only)"
+      },
+      "curtain": {
+        "centre_to_wall_m": {
+          "p05": 0.011,
+          "p25": 0.038,
+          "p50": 0.087,
+          "p75": 0.194,
+          "p95": 0.401
+        },
+        "min_n": 30,
+        "n": 139,
+        "source": "SUNRGBD.zip annotation3Dfinal + annotation3Dlayout (visible walls only)"
+      },
+      "desk": {
+        "centre_to_wall_m": {
+          "p05": 0.293,
+          "p25": 0.498,
+          "p50": 0.873,
+          "p75": 1.473,
+          "p95": 2.387
+        },
+        "min_n": 30,
+        "n": 1906,
+        "source": "SUNRGBD.zip annotation3Dfinal + annotation3Dlayout (visible walls only)"
+      },
+      "dresser": {
+        "centre_to_wall_m": {
+          "p05": 0.182,
+          "p25": 0.262,
+          "p50": 0.346,
+          "p75": 0.616,
+          "p95": 1.541
+        },
+        "min_n": 30,
+        "n": 177,
+        "source": "SUNRGBD.zip annotation3Dfinal + annotation3Dlayout (visible walls only)"
+      },
+      "lamp": {
+        "centre_to_wall_m": {
+          "p05": 0.116,
+          "p25": 0.197,
+          "p50": 0.287,
+          "p75": 0.449,
+          "p95": 1.637
+        },
+        "min_n": 30,
+        "n": 454,
+        "source": "SUNRGBD.zip annotation3Dfinal + annotation3Dlayout (visible walls only)"
+      },
+      "mirror": {
+        "centre_to_wall_m": {
+          "p05": 0.019,
+          "p25": 0.044,
+          "p50": 0.064,
+          "p75": 0.104,
+          "p95": 0.21
+        },
+        "min_n": 30,
+        "n": 39,
+        "source": "SUNRGBD.zip annotation3Dfinal + annotation3Dlayout (visible walls only)"
+      },
+      "nightstand": {
+        "centre_to_wall_m": {
+          "p05": 0.169,
+          "p25": 0.247,
+          "p50": 0.309,
+          "p75": 0.391,
+          "p95": 1.522
+        },
+        "min_n": 30,
+        "n": 254,
+        "source": "SUNRGBD.zip annotation3Dfinal + annotation3Dlayout (visible walls only)"
+      },
+      "ottoman": {
+        "centre_to_wall_m": {
+          "p05": 0.367,
+          "p25": 0.861,
+          "p50": 1.211,
+          "p75": 1.513,
+          "p95": 2.271
+        },
+        "min_n": 30,
+        "n": 146,
+        "source": "SUNRGBD.zip annotation3Dfinal + annotation3Dlayout (visible walls only)"
+      },
+      "pillow": {
+        "centre_to_wall_m": {
+          "p05": 0.184,
+          "p25": 0.339,
+          "p50": 0.515,
+          "p75": 0.756,
+          "p95": 1.595
+        },
+        "min_n": 30,
+        "n": 835,
+        "source": "SUNRGBD.zip annotation3Dfinal + annotation3Dlayout (visible walls only)"
+      },
+      "plant": {
+        "centre_to_wall_m": {
+          "p05": 0.102,
+          "p25": 0.232,
+          "p50": 0.344,
+          "p75": 0.583,
+          "p95": 1.776
+        },
+        "min_n": 30,
+        "n": 118,
+        "source": "SUNRGBD.zip annotation3Dfinal + annotation3Dlayout (visible walls only)"
+      },
+      "shelf": {
+        "centre_to_wall_m": {
+          "p05": 0.075,
+          "p25": 0.153,
+          "p50": 0.208,
+          "p75": 0.291,
+          "p95": 1.6
+        },
+        "min_n": 30,
+        "n": 587,
+        "source": "SUNRGBD.zip annotation3Dfinal + annotation3Dlayout (visible walls only)"
+      },
+      "side_table": {
+        "centre_to_wall_m": {
+          "p05": 0.251,
+          "p25": 0.364,
+          "p50": 0.682,
+          "p75": 1.244,
+          "p95": 1.999
+        },
+        "min_n": 30,
+        "n": 343,
+        "source": "SUNRGBD.zip annotation3Dfinal + annotation3Dlayout (visible walls only)"
+      },
+      "sofa": {
+        "centre_to_wall_m": {
+          "p05": 0.365,
+          "p25": 0.512,
+          "p50": 0.707,
+          "p75": 1.444,
+          "p95": 2.283
+        },
+        "min_n": 30,
+        "n": 622,
+        "source": "SUNRGBD.zip annotation3Dfinal + annotation3Dlayout (visible walls only)"
+      },
+      "stool": {
+        "centre_to_wall_m": {
+          "p05": 0.189,
+          "p25": 0.273,
+          "p50": 0.818,
+          "p75": 1.311,
+          "p95": 2.067
+        },
+        "min_n": 30,
+        "n": 96,
+        "source": "SUNRGBD.zip annotation3Dfinal + annotation3Dlayout (visible walls only)"
+      },
+      "table": {
+        "centre_to_wall_m": {
+          "p05": 0.298,
+          "p25": 0.616,
+          "p50": 1.182,
+          "p75": 1.712,
+          "p95": 2.472
+        },
+        "min_n": 30,
+        "n": 3122,
+        "source": "SUNRGBD.zip annotation3Dfinal + annotation3Dlayout (visible walls only)"
+      },
+      "tv": {
+        "centre_to_wall_m": {
+          "p05": 0.042,
+          "p25": 0.161,
+          "p50": 0.315,
+          "p75": 0.42,
+          "p95": 1.422
+        },
+        "min_n": 30,
+        "n": 125,
+        "source": "SUNRGBD.zip annotation3Dfinal + annotation3Dlayout (visible walls only)"
+      },
+      "wall_art": {
+        "centre_to_wall_m": {
+          "p05": 0.01,
+          "p25": 0.028,
+          "p50": 0.06,
+          "p75": 0.116,
+          "p95": 1.014
+        },
+        "min_n": 30,
+        "n": 333,
+        "source": "SUNRGBD.zip annotation3Dfinal + annotation3Dlayout (visible walls only)"
+      }
+    }
+  }
+}

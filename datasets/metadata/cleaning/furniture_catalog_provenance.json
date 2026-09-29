@@ -1,0 +1,2041 @@
+{
+  "cat_armchair_001": {
+    "objaverse_license": "by",
+    "objaverse_uid": "0060af6f4da24224a4770eea54685ecf",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 1403
+  },
+  "cat_armchair_002": {
+    "objaverse_license": "by",
+    "objaverse_uid": "09f0f9801f354224a9c05b993a78ca0b",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 1403
+  },
+  "cat_armchair_003": {
+    "objaverse_license": "by",
+    "objaverse_uid": "19b60335538b4377b57537884341ebb0",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 1403
+  },
+  "cat_armchair_004": {
+    "objaverse_license": "by",
+    "objaverse_uid": "01b79647e6e442989fda47ff20cabdc9",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 1403
+  },
+  "cat_armchair_005": {
+    "objaverse_license": "by",
+    "objaverse_uid": "1af76876711a4274b9fd4f8b12d923fb",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 1403
+  },
+  "cat_armchair_006": {
+    "objaverse_license": "by",
+    "objaverse_uid": "031574a75f51411b9d73c386893ca7a6",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 1403
+  },
+  "cat_armchair_007": {
+    "objaverse_license": "by",
+    "objaverse_uid": "1c822108c1a04ac18fd3bf540d6d3636",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 1403
+  },
+  "cat_armchair_008": {
+    "objaverse_license": "by",
+    "objaverse_uid": "033baf0ff0a94657841230587ad3e67b",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 1403
+  },
+  "cat_armchair_009": {
+    "objaverse_license": "by",
+    "objaverse_uid": "2ffa30f8ef5c4e19af9ffe6c6570fe30",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 1403
+  },
+  "cat_armchair_010": {
+    "objaverse_license": "by",
+    "objaverse_uid": "09ee59423b4b428f94f01fc5beccd227",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 1403
+  },
+  "cat_armchair_011": {
+    "objaverse_license": "by",
+    "objaverse_uid": "1648379b01734c77ab248ed1bc81aebb",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 1403
+  },
+  "cat_armchair_012": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 1403,
+    "tier": "small"
+  },
+  "cat_armchair_013": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 1403,
+    "tier": "medium"
+  },
+  "cat_armchair_014": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 1403,
+    "tier": "large"
+  },
+  "cat_armchair_015": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 1403,
+    "tier": "small"
+  },
+  "cat_armchair_016": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 1403,
+    "tier": "medium"
+  },
+  "cat_armchair_017": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 1403,
+    "tier": "large"
+  },
+  "cat_armchair_018": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 1403,
+    "tier": "small"
+  },
+  "cat_armchair_019": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 1403,
+    "tier": "medium"
+  },
+  "cat_armchair_020": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 1403,
+    "tier": "large"
+  },
+  "cat_armchair_021": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 1403,
+    "tier": "small"
+  },
+  "cat_armchair_022": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 1403,
+    "tier": "medium"
+  },
+  "cat_bed_001": {
+    "objaverse_license": "by",
+    "objaverse_uid": "0034c300f743460c8c84bce3d81ff604",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 767
+  },
+  "cat_bed_002": {
+    "objaverse_license": "by",
+    "objaverse_uid": "01472d12e4b2465da7c681ee97605cc7",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 767
+  },
+  "cat_bed_003": {
+    "objaverse_license": "by",
+    "objaverse_uid": "0776052b361b4002aba142e6ec6bd01e",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 767
+  },
+  "cat_bed_004": {
+    "objaverse_license": "by",
+    "objaverse_uid": "0aa9882e169a4f228a27a1a88126ca78",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 767
+  },
+  "cat_bed_005": {
+    "objaverse_license": "by",
+    "objaverse_uid": "08f7f65edfea417b8ed9ca748381e507",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 767
+  },
+  "cat_bed_006": {
+    "objaverse_license": "by",
+    "objaverse_uid": "0e2a45cb08fc458e9810de03afeb413d",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 767
+  },
+  "cat_bed_007": {
+    "objaverse_license": "by",
+    "objaverse_uid": "0972c48a7e4548bca80975a47a823bab",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 767
+  },
+  "cat_bed_008": {
+    "objaverse_license": "by",
+    "objaverse_uid": "1ab0499f7a7746188eefe85c1f16594b",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 767
+  },
+  "cat_bed_009": {
+    "objaverse_license": "by",
+    "objaverse_uid": "0a5652c16e1a4575903dfc1696382502",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 767
+  },
+  "cat_bed_010": {
+    "objaverse_license": "by",
+    "objaverse_uid": "20c37270ae314ee9af0f573f93b67a2b",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 767
+  },
+  "cat_bed_011": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 767,
+    "tier": "small"
+  },
+  "cat_bed_012": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 767,
+    "tier": "medium"
+  },
+  "cat_bed_013": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 767,
+    "tier": "large"
+  },
+  "cat_bed_014": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 767,
+    "tier": "small"
+  },
+  "cat_bed_015": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 767,
+    "tier": "medium"
+  },
+  "cat_bed_016": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 767,
+    "tier": "large"
+  },
+  "cat_bed_017": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 767,
+    "tier": "small"
+  },
+  "cat_bed_018": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 767,
+    "tier": "medium"
+  },
+  "cat_bed_019": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 767,
+    "tier": "large"
+  },
+  "cat_bed_020": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 767,
+    "tier": "small"
+  },
+  "cat_bed_021": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 767,
+    "tier": "medium"
+  },
+  "cat_bench_001": {
+    "objaverse_license": "by",
+    "objaverse_uid": "0b757ad5a944435fb2c6596a25d0c7aa",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 110
+  },
+  "cat_bench_002": {
+    "objaverse_license": "by",
+    "objaverse_uid": "0bf35c07e9f54d9db4bc13d189df1e05",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 110
+  },
+  "cat_bench_003": {
+    "objaverse_license": "by",
+    "objaverse_uid": "0c87bb81838946728e2c3270817d67c1",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 110
+  },
+  "cat_bench_004": {
+    "objaverse_license": "by",
+    "objaverse_uid": "0fa6ab1eb17c4e64be43806b2a7092f5",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 110
+  },
+  "cat_bench_005": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 110,
+    "tier": "small"
+  },
+  "cat_bench_006": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 110,
+    "tier": "medium"
+  },
+  "cat_bench_007": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 110,
+    "tier": "large"
+  },
+  "cat_bench_008": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 110,
+    "tier": "small"
+  },
+  "cat_bench_009": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 110,
+    "tier": "medium"
+  },
+  "cat_bench_010": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 110,
+    "tier": "large"
+  },
+  "cat_bench_011": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 110,
+    "tier": "small"
+  },
+  "cat_bench_012": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 110,
+    "tier": "medium"
+  },
+  "cat_bench_013": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 110,
+    "tier": "large"
+  },
+  "cat_bench_014": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 110,
+    "tier": "small"
+  },
+  "cat_bench_015": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 110,
+    "tier": "medium"
+  },
+  "cat_cabinet_001": {
+    "objaverse_license": "by",
+    "objaverse_uid": "041ff9ca49ac4bcaa8e3f07417702c75",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 395
+  },
+  "cat_cabinet_002": {
+    "objaverse_license": "by",
+    "objaverse_uid": "0a280e2b64a84fd387667cca221ff255",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 395
+  },
+  "cat_cabinet_003": {
+    "objaverse_license": "by",
+    "objaverse_uid": "0786542d0f7549208f889113fc384a7f",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 395
+  },
+  "cat_cabinet_004": {
+    "objaverse_license": "by",
+    "objaverse_uid": "07a61d5d2ddf433ab56acb888d871432",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 395
+  },
+  "cat_cabinet_005": {
+    "objaverse_license": "by",
+    "objaverse_uid": "09ec320d583a49b18dd657b89b774238",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 395
+  },
+  "cat_cabinet_006": {
+    "objaverse_license": "by",
+    "objaverse_uid": "20fce574ffe04b8982ccf67f2685cab2",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 395
+  },
+  "cat_cabinet_007": {
+    "objaverse_license": "by",
+    "objaverse_uid": "0de6cd8ef5224f7397b9b06083d191fd",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 395
+  },
+  "cat_cabinet_008": {
+    "objaverse_license": "by",
+    "objaverse_uid": "0d5c93d02d514a06abfa76c49309b268",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 395
+  },
+  "cat_cabinet_009": {
+    "objaverse_license": "by",
+    "objaverse_uid": "2390dfb117f148d4ab971fef73a293a4",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 395
+  },
+  "cat_cabinet_010": {
+    "objaverse_license": "by",
+    "objaverse_uid": "154d951f702d46289878b56dc9f42a30",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 395
+  },
+  "cat_cabinet_011": {
+    "objaverse_license": "by",
+    "objaverse_uid": "0fc4281624ec4fdfa8cb8476b6b939bb",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 395
+  },
+  "cat_cabinet_012": {
+    "objaverse_license": "by",
+    "objaverse_uid": "272ce2e41dc4491987e17ff476d50b27",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 395
+  },
+  "cat_cabinet_013": {
+    "objaverse_license": "by",
+    "objaverse_uid": "1bba0f4f9ec44f789aa8f036f10af12f",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 395
+  },
+  "cat_cabinet_014": {
+    "objaverse_license": "by",
+    "objaverse_uid": "0e234089ce0f4347adcd31eec8d51fe4",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 395
+  },
+  "cat_cabinet_015": {
+    "objaverse_license": "by",
+    "objaverse_uid": "2a542407ee1e4c9d94d466777082c89a",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 395
+  },
+  "cat_cabinet_016": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 395,
+    "tier": "small"
+  },
+  "cat_cabinet_017": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 395,
+    "tier": "medium"
+  },
+  "cat_cabinet_018": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 395,
+    "tier": "large"
+  },
+  "cat_cabinet_019": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 395,
+    "tier": "small"
+  },
+  "cat_cabinet_020": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 395,
+    "tier": "medium"
+  },
+  "cat_cabinet_021": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 395,
+    "tier": "large"
+  },
+  "cat_cabinet_022": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 395,
+    "tier": "small"
+  },
+  "cat_cabinet_023": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 395,
+    "tier": "medium"
+  },
+  "cat_cabinet_024": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 395,
+    "tier": "large"
+  },
+  "cat_cabinet_025": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 395,
+    "tier": "small"
+  },
+  "cat_cabinet_026": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 395,
+    "tier": "medium"
+  },
+  "cat_chair_001": {
+    "objaverse_license": "by",
+    "objaverse_uid": "0017fed1dd804ec1ab2e06bbdbebab16",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 16301
+  },
+  "cat_chair_002": {
+    "objaverse_license": "by",
+    "objaverse_uid": "0305b7bf2650453d8aca2639b9a3c5ca",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 16301
+  },
+  "cat_chair_003": {
+    "objaverse_license": "by",
+    "objaverse_uid": "02427a2aa7d1446e9bc6b7d727803d39",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 16301
+  },
+  "cat_chair_004": {
+    "objaverse_license": "by-nc",
+    "objaverse_uid": "029dc4b1a74d4e3286788c8b565b0330",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 16301
+  },
+  "cat_chair_005": {
+    "objaverse_license": "by",
+    "objaverse_uid": "0102b2c1449f448687d62ea66ae2a26a",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 16301
+  },
+  "cat_chair_006": {
+    "objaverse_license": "by",
+    "objaverse_uid": "0e1ed07bcd45477c93e2385f8557fe6e",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 16301
+  },
+  "cat_chair_007": {
+    "objaverse_license": "by",
+    "objaverse_uid": "13aa3e52b28d42e7b3ff966003ee8ecf",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 16301
+  },
+  "cat_chair_008": {
+    "objaverse_license": "by",
+    "objaverse_uid": "10de91400b454d0fb04e23f699c95cf3",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 16301
+  },
+  "cat_chair_009": {
+    "objaverse_license": "by",
+    "objaverse_uid": "0124889ae0b740f6ab55c65650109e11",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 16301
+  },
+  "cat_chair_010": {
+    "objaverse_license": "by",
+    "objaverse_uid": "1a3d1f13887c4d5a942480534a96d61d",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 16301
+  },
+  "cat_chair_011": {
+    "objaverse_license": "by",
+    "objaverse_uid": "43b835b4c0e847388a96c9bf27cd8d7a",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 16301
+  },
+  "cat_chair_012": {
+    "objaverse_license": "by",
+    "objaverse_uid": "24d8b2e005524aff82607e63e8eeb9ed",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 16301
+  },
+  "cat_chair_013": {
+    "objaverse_license": "by",
+    "objaverse_uid": "0144133a874d4fa9881d8947928999e0",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 16301
+  },
+  "cat_chair_014": {
+    "objaverse_license": "by",
+    "objaverse_uid": "3108e5f9977b409bb46d5b5dc7a3a452",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 16301
+  },
+  "cat_chair_015": {
+    "objaverse_license": "by",
+    "objaverse_uid": "4c63de7b396c4420a30655a9c649d90f",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 16301
+  },
+  "cat_chair_016": {
+    "objaverse_license": "by",
+    "objaverse_uid": "381e38bcf5b142ebad2c26df44d8cd11",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 16301
+  },
+  "cat_chair_017": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 16301,
+    "tier": "small"
+  },
+  "cat_chair_018": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 16301,
+    "tier": "medium"
+  },
+  "cat_chair_019": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 16301,
+    "tier": "large"
+  },
+  "cat_chair_020": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 16301,
+    "tier": "small"
+  },
+  "cat_chair_021": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 16301,
+    "tier": "medium"
+  },
+  "cat_chair_022": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 16301,
+    "tier": "large"
+  },
+  "cat_chair_023": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 16301,
+    "tier": "small"
+  },
+  "cat_chair_024": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 16301,
+    "tier": "medium"
+  },
+  "cat_chair_025": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 16301,
+    "tier": "large"
+  },
+  "cat_chair_026": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 16301,
+    "tier": "small"
+  },
+  "cat_chair_027": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 16301,
+    "tier": "medium"
+  },
+  "cat_coffee_table_001": {
+    "objaverse_license": "by",
+    "objaverse_uid": "006373e3885b472cb5538fc570235fcf",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 251
+  },
+  "cat_coffee_table_002": {
+    "objaverse_license": "by",
+    "objaverse_uid": "01ff88bfc0034211b9f4996d620bc333",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 251
+  },
+  "cat_coffee_table_003": {
+    "objaverse_license": "by",
+    "objaverse_uid": "02302fca239e4d7a9d26ce5cc46225e5",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 251
+  },
+  "cat_coffee_table_004": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 251,
+    "tier": "small"
+  },
+  "cat_coffee_table_005": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 251,
+    "tier": "medium"
+  },
+  "cat_coffee_table_006": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 251,
+    "tier": "large"
+  },
+  "cat_coffee_table_007": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 251,
+    "tier": "small"
+  },
+  "cat_coffee_table_008": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 251,
+    "tier": "medium"
+  },
+  "cat_coffee_table_009": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 251,
+    "tier": "large"
+  },
+  "cat_coffee_table_010": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 251,
+    "tier": "small"
+  },
+  "cat_coffee_table_011": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 251,
+    "tier": "medium"
+  },
+  "cat_coffee_table_012": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 251,
+    "tier": "large"
+  },
+  "cat_coffee_table_013": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 251,
+    "tier": "small"
+  },
+  "cat_coffee_table_014": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 251,
+    "tier": "medium"
+  },
+  "cat_curtain_001": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 153,
+    "tier": "small"
+  },
+  "cat_curtain_002": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 153,
+    "tier": "medium"
+  },
+  "cat_curtain_003": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 153,
+    "tier": "large"
+  },
+  "cat_curtain_004": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 153,
+    "tier": "small"
+  },
+  "cat_curtain_005": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 153,
+    "tier": "medium"
+  },
+  "cat_curtain_006": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 153,
+    "tier": "large"
+  },
+  "cat_curtain_007": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 153,
+    "tier": "small"
+  },
+  "cat_curtain_008": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 153,
+    "tier": "medium"
+  },
+  "cat_curtain_009": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 153,
+    "tier": "large"
+  },
+  "cat_curtain_010": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 153,
+    "tier": "small"
+  },
+  "cat_curtain_011": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 153,
+    "tier": "medium"
+  },
+  "cat_desk_001": {
+    "objaverse_license": "by",
+    "objaverse_uid": "03c075bb284840b1bd3fb2a28c910f59",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 2184
+  },
+  "cat_desk_002": {
+    "objaverse_license": "by",
+    "objaverse_uid": "044f3af671454a619aeb2126fcbfede3",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 2184
+  },
+  "cat_desk_003": {
+    "objaverse_license": "by",
+    "objaverse_uid": "07dd49275fc84617b5c6d3bd6a7d30a1",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 2184
+  },
+  "cat_desk_004": {
+    "objaverse_license": "by",
+    "objaverse_uid": "0a6b884fa93946278b1d9baba2e24a0b",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 2184
+  },
+  "cat_desk_005": {
+    "objaverse_license": "by",
+    "objaverse_uid": "12e296976e184090a6d7d8f22b19b4f3",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 2184
+  },
+  "cat_desk_006": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 2184,
+    "tier": "small"
+  },
+  "cat_desk_007": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 2184,
+    "tier": "medium"
+  },
+  "cat_desk_008": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 2184,
+    "tier": "large"
+  },
+  "cat_desk_009": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 2184,
+    "tier": "small"
+  },
+  "cat_desk_010": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 2184,
+    "tier": "medium"
+  },
+  "cat_desk_011": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 2184,
+    "tier": "large"
+  },
+  "cat_desk_012": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 2184,
+    "tier": "small"
+  },
+  "cat_desk_013": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 2184,
+    "tier": "medium"
+  },
+  "cat_desk_014": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 2184,
+    "tier": "large"
+  },
+  "cat_desk_015": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 2184,
+    "tier": "small"
+  },
+  "cat_desk_016": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 2184,
+    "tier": "medium"
+  },
+  "cat_dresser_001": {
+    "objaverse_license": "by-nc",
+    "objaverse_uid": "005121da5ed340b4aedd168e33d56714",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 263
+  },
+  "cat_dresser_002": {
+    "objaverse_license": "by-nc",
+    "objaverse_uid": "04540b11852b4c65bfe6c608c22641e4",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 263
+  },
+  "cat_dresser_003": {
+    "objaverse_license": "by",
+    "objaverse_uid": "05b16b5539614ee3bb4366fec77206be",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 263
+  },
+  "cat_dresser_004": {
+    "objaverse_license": "by",
+    "objaverse_uid": "07ee2f3d802c4487a749020f963602cd",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 263
+  },
+  "cat_dresser_005": {
+    "objaverse_license": "by-nc",
+    "objaverse_uid": "08be716d9cc94ca3998bc3b38d95cdd9",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 263
+  },
+  "cat_dresser_006": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 263,
+    "tier": "small"
+  },
+  "cat_dresser_007": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 263,
+    "tier": "medium"
+  },
+  "cat_dresser_008": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 263,
+    "tier": "large"
+  },
+  "cat_dresser_009": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 263,
+    "tier": "small"
+  },
+  "cat_dresser_010": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 263,
+    "tier": "medium"
+  },
+  "cat_dresser_011": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 263,
+    "tier": "large"
+  },
+  "cat_dresser_012": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 263,
+    "tier": "small"
+  },
+  "cat_dresser_013": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 263,
+    "tier": "medium"
+  },
+  "cat_dresser_014": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 263,
+    "tier": "large"
+  },
+  "cat_dresser_015": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 263,
+    "tier": "small"
+  },
+  "cat_dresser_016": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 263,
+    "tier": "medium"
+  },
+  "cat_lamp_001": {
+    "objaverse_license": "by",
+    "objaverse_uid": "01c53767c1f84f55ad9f46eb89949cf9",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 717
+  },
+  "cat_lamp_002": {
+    "objaverse_license": "by",
+    "objaverse_uid": "0061788e0741400c82289337a24af4f6",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 717
+  },
+  "cat_lamp_003": {
+    "objaverse_license": "by",
+    "objaverse_uid": "03e706cd42504955b08379f45633c9ef",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 717
+  },
+  "cat_lamp_004": {
+    "objaverse_license": "by",
+    "objaverse_uid": "070344de71fd4e1dab48022a5dc9266d",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 717
+  },
+  "cat_lamp_005": {
+    "objaverse_license": "by",
+    "objaverse_uid": "08e74ef66ede4435bc0f02f9bfcc4b9e",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 717
+  },
+  "cat_lamp_006": {
+    "objaverse_license": "by",
+    "objaverse_uid": "0eba4ad785674d3586aafc82854100fa",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 717
+  },
+  "cat_lamp_007": {
+    "objaverse_license": "by",
+    "objaverse_uid": "091643a9a64044458e75c966225d2669",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 717
+  },
+  "cat_lamp_008": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 717,
+    "tier": "small"
+  },
+  "cat_lamp_009": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 717,
+    "tier": "medium"
+  },
+  "cat_lamp_010": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 717,
+    "tier": "large"
+  },
+  "cat_lamp_011": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 717,
+    "tier": "small"
+  },
+  "cat_lamp_012": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 717,
+    "tier": "medium"
+  },
+  "cat_lamp_013": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 717,
+    "tier": "large"
+  },
+  "cat_lamp_014": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 717,
+    "tier": "small"
+  },
+  "cat_lamp_015": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 717,
+    "tier": "medium"
+  },
+  "cat_lamp_016": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 717,
+    "tier": "large"
+  },
+  "cat_lamp_017": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 717,
+    "tier": "small"
+  },
+  "cat_lamp_018": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 717,
+    "tier": "medium"
+  },
+  "cat_mirror_001": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 67,
+    "tier": "small"
+  },
+  "cat_mirror_002": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 67,
+    "tier": "medium"
+  },
+  "cat_mirror_003": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 67,
+    "tier": "large"
+  },
+  "cat_mirror_004": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 67,
+    "tier": "small"
+  },
+  "cat_mirror_005": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 67,
+    "tier": "medium"
+  },
+  "cat_mirror_006": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 67,
+    "tier": "large"
+  },
+  "cat_mirror_007": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 67,
+    "tier": "small"
+  },
+  "cat_mirror_008": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 67,
+    "tier": "medium"
+  },
+  "cat_mirror_009": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 67,
+    "tier": "large"
+  },
+  "cat_mirror_010": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 67,
+    "tier": "small"
+  },
+  "cat_mirror_011": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 67,
+    "tier": "medium"
+  },
+  "cat_nightstand_001": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 398,
+    "tier": "small"
+  },
+  "cat_nightstand_002": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 398,
+    "tier": "medium"
+  },
+  "cat_nightstand_003": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 398,
+    "tier": "large"
+  },
+  "cat_nightstand_004": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 398,
+    "tier": "small"
+  },
+  "cat_nightstand_005": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 398,
+    "tier": "medium"
+  },
+  "cat_nightstand_006": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 398,
+    "tier": "large"
+  },
+  "cat_nightstand_007": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 398,
+    "tier": "small"
+  },
+  "cat_nightstand_008": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 398,
+    "tier": "medium"
+  },
+  "cat_nightstand_009": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 398,
+    "tier": "large"
+  },
+  "cat_nightstand_010": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 398,
+    "tier": "small"
+  },
+  "cat_nightstand_011": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 398,
+    "tier": "medium"
+  },
+  "cat_ottoman_001": {
+    "objaverse_license": "by",
+    "objaverse_uid": "15fb293dce6c4a9294d3eff4d455c9eb",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 212
+  },
+  "cat_ottoman_002": {
+    "objaverse_license": "by",
+    "objaverse_uid": "0297ffd148ff48c1b02d32457be0387d",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 212
+  },
+  "cat_ottoman_003": {
+    "objaverse_license": "by",
+    "objaverse_uid": "18be8d9d50bf4ca4b24d81e404697b66",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 212
+  },
+  "cat_ottoman_004": {
+    "objaverse_license": "by",
+    "objaverse_uid": "0828502a70984c09b8da933e9fd64417",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 212
+  },
+  "cat_ottoman_005": {
+    "objaverse_license": "by",
+    "objaverse_uid": "1e80d8eb41394edf9452318f33c1dec7",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 212
+  },
+  "cat_ottoman_006": {
+    "objaverse_license": "by-nc",
+    "objaverse_uid": "085b9a4273ca43d8bc7093677666a896",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 212
+  },
+  "cat_ottoman_007": {
+    "objaverse_license": "by-nc-sa",
+    "objaverse_uid": "26bbbb987e9e4a6191f050fc5c8cf8d7",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 212
+  },
+  "cat_ottoman_008": {
+    "objaverse_license": "by",
+    "objaverse_uid": "0a25fb69fc634713acffec225ac8fa70",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 212
+  },
+  "cat_ottoman_009": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 212,
+    "tier": "small"
+  },
+  "cat_ottoman_010": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 212,
+    "tier": "medium"
+  },
+  "cat_ottoman_011": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 212,
+    "tier": "large"
+  },
+  "cat_ottoman_012": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 212,
+    "tier": "small"
+  },
+  "cat_ottoman_013": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 212,
+    "tier": "medium"
+  },
+  "cat_ottoman_014": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 212,
+    "tier": "large"
+  },
+  "cat_ottoman_015": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 212,
+    "tier": "small"
+  },
+  "cat_ottoman_016": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 212,
+    "tier": "medium"
+  },
+  "cat_ottoman_017": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 212,
+    "tier": "large"
+  },
+  "cat_ottoman_018": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 212,
+    "tier": "small"
+  },
+  "cat_ottoman_019": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 212,
+    "tier": "medium"
+  },
+  "cat_pillow_001": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 1755,
+    "tier": "small"
+  },
+  "cat_pillow_002": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 1755,
+    "tier": "medium"
+  },
+  "cat_pillow_003": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 1755,
+    "tier": "large"
+  },
+  "cat_pillow_004": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 1755,
+    "tier": "small"
+  },
+  "cat_pillow_005": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 1755,
+    "tier": "medium"
+  },
+  "cat_pillow_006": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 1755,
+    "tier": "large"
+  },
+  "cat_pillow_007": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 1755,
+    "tier": "small"
+  },
+  "cat_pillow_008": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 1755,
+    "tier": "medium"
+  },
+  "cat_pillow_009": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 1755,
+    "tier": "large"
+  },
+  "cat_pillow_010": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 1755,
+    "tier": "small"
+  },
+  "cat_pillow_011": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 1755,
+    "tier": "medium"
+  },
+  "cat_plant_001": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 157,
+    "tier": "small"
+  },
+  "cat_plant_002": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 157,
+    "tier": "medium"
+  },
+  "cat_plant_003": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 157,
+    "tier": "large"
+  },
+  "cat_plant_004": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 157,
+    "tier": "small"
+  },
+  "cat_plant_005": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 157,
+    "tier": "medium"
+  },
+  "cat_plant_006": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 157,
+    "tier": "large"
+  },
+  "cat_plant_007": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 157,
+    "tier": "small"
+  },
+  "cat_plant_008": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 157,
+    "tier": "medium"
+  },
+  "cat_plant_009": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 157,
+    "tier": "large"
+  },
+  "cat_plant_010": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 157,
+    "tier": "small"
+  },
+  "cat_plant_011": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 157,
+    "tier": "medium"
+  },
+  "cat_shelf_001": {
+    "objaverse_license": "by",
+    "objaverse_uid": "018add783a674cf7ac92a4c52291477a",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 731
+  },
+  "cat_shelf_002": {
+    "objaverse_license": "by",
+    "objaverse_uid": "08d73e1168504bf2b8706cd838ad16ef",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 731
+  },
+  "cat_shelf_003": {
+    "objaverse_license": "by",
+    "objaverse_uid": "0f03bd5af28544f18410a341ff541168",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 731
+  },
+  "cat_shelf_004": {
+    "objaverse_license": "by",
+    "objaverse_uid": "1417a4fccb9d4a728105b3a3a45f6bb1",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 731
+  },
+  "cat_shelf_005": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 731,
+    "tier": "small"
+  },
+  "cat_shelf_006": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 731,
+    "tier": "medium"
+  },
+  "cat_shelf_007": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 731,
+    "tier": "large"
+  },
+  "cat_shelf_008": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 731,
+    "tier": "small"
+  },
+  "cat_shelf_009": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 731,
+    "tier": "medium"
+  },
+  "cat_shelf_010": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 731,
+    "tier": "large"
+  },
+  "cat_shelf_011": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 731,
+    "tier": "small"
+  },
+  "cat_shelf_012": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 731,
+    "tier": "medium"
+  },
+  "cat_shelf_013": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 731,
+    "tier": "large"
+  },
+  "cat_shelf_014": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 731,
+    "tier": "small"
+  },
+  "cat_shelf_015": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 731,
+    "tier": "medium"
+  },
+  "cat_side_table_001": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 456,
+    "tier": "small"
+  },
+  "cat_side_table_002": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 456,
+    "tier": "medium"
+  },
+  "cat_side_table_003": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 456,
+    "tier": "large"
+  },
+  "cat_side_table_004": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 456,
+    "tier": "small"
+  },
+  "cat_side_table_005": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 456,
+    "tier": "medium"
+  },
+  "cat_side_table_006": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 456,
+    "tier": "large"
+  },
+  "cat_side_table_007": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 456,
+    "tier": "small"
+  },
+  "cat_side_table_008": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 456,
+    "tier": "medium"
+  },
+  "cat_side_table_009": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 456,
+    "tier": "large"
+  },
+  "cat_side_table_010": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 456,
+    "tier": "small"
+  },
+  "cat_side_table_011": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 456,
+    "tier": "medium"
+  },
+  "cat_sofa_001": {
+    "objaverse_license": "by",
+    "objaverse_uid": "045e3304139b4db79918972ce228c933",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 932
+  },
+  "cat_sofa_002": {
+    "objaverse_license": "by",
+    "objaverse_uid": "050d92eccdaf4832a50f843dda6b7c34",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 932
+  },
+  "cat_sofa_003": {
+    "objaverse_license": "by",
+    "objaverse_uid": "03cba69a2c3140f7abc013d42d455fba",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 932
+  },
+  "cat_sofa_004": {
+    "objaverse_license": "by",
+    "objaverse_uid": "03f1678351214e169ed36e05c7fe3bf0",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 932
+  },
+  "cat_sofa_005": {
+    "objaverse_license": "by",
+    "objaverse_uid": "0ab69ff0e10d463180fc21a2aa888c68",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 932
+  },
+  "cat_sofa_006": {
+    "objaverse_license": "by",
+    "objaverse_uid": "0a4852b1d3384c869e694e1f70c23c16",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 932
+  },
+  "cat_sofa_007": {
+    "objaverse_license": "by",
+    "objaverse_uid": "06024979a503424f99b23e00bba766d1",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 932
+  },
+  "cat_sofa_008": {
+    "objaverse_license": "by",
+    "objaverse_uid": "048a7e91bec24ed182671874b7cb6a47",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 932
+  },
+  "cat_sofa_009": {
+    "objaverse_license": "by-nc",
+    "objaverse_uid": "0aeac4f2d5204593a09a76febec05f48",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 932
+  },
+  "cat_sofa_010": {
+    "objaverse_license": "by-sa",
+    "objaverse_uid": "0bbeae4fe59b4e44bed8d06f5cb415bf",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 932
+  },
+  "cat_sofa_011": {
+    "objaverse_license": "by",
+    "objaverse_uid": "072d0468bb97447ab1ca7e3edea25f1f",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 932
+  },
+  "cat_sofa_012": {
+    "objaverse_license": "by",
+    "objaverse_uid": "08743fb0f09d45e4bb596d337abb8072",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 932
+  },
+  "cat_sofa_013": {
+    "objaverse_license": "by",
+    "objaverse_uid": "0bea493312b44a74b6cdf70b76db5d8e",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 932
+  },
+  "cat_sofa_014": {
+    "objaverse_license": "by",
+    "objaverse_uid": "1c831100739d46ca9a5983e9bc8b0c64",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 932
+  },
+  "cat_sofa_015": {
+    "objaverse_license": "by",
+    "objaverse_uid": "08df70392658445192550202836a33fa",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 932
+  },
+  "cat_sofa_016": {
+    "objaverse_license": "by",
+    "objaverse_uid": "1bf0a5e504584e2ea60ca6eedc4509e9",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 932
+  },
+  "cat_sofa_017": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 932,
+    "tier": "small"
+  },
+  "cat_sofa_018": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 932,
+    "tier": "medium"
+  },
+  "cat_sofa_019": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 932,
+    "tier": "large"
+  },
+  "cat_sofa_020": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 932,
+    "tier": "small"
+  },
+  "cat_sofa_021": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 932,
+    "tier": "medium"
+  },
+  "cat_sofa_022": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 932,
+    "tier": "large"
+  },
+  "cat_sofa_023": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 932,
+    "tier": "small"
+  },
+  "cat_sofa_024": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 932,
+    "tier": "medium"
+  },
+  "cat_sofa_025": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 932,
+    "tier": "large"
+  },
+  "cat_sofa_026": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 932,
+    "tier": "small"
+  },
+  "cat_sofa_027": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 932,
+    "tier": "medium"
+  },
+  "cat_stool_001": {
+    "objaverse_license": "by",
+    "objaverse_uid": "020636f1eeed4267bab94f344854a4ea",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 243
+  },
+  "cat_stool_002": {
+    "objaverse_license": "by",
+    "objaverse_uid": "0d4a613cffae4863bc49aab49ce92b8a",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 243
+  },
+  "cat_stool_003": {
+    "objaverse_license": "by",
+    "objaverse_uid": "0115bca2d7bf45f092e9e93064ffada8",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 243
+  },
+  "cat_stool_004": {
+    "objaverse_license": "by",
+    "objaverse_uid": "03a05076e4fb4d00a17ae2a31380a8d7",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 243
+  },
+  "cat_stool_005": {
+    "objaverse_license": "by",
+    "objaverse_uid": "149208cba1be4e7c9f64e73069a005b0",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 243
+  },
+  "cat_stool_006": {
+    "objaverse_license": "by",
+    "objaverse_uid": "0248853631b74ad8b1d8cef898f08390",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 243
+  },
+  "cat_stool_007": {
+    "objaverse_license": "by",
+    "objaverse_uid": "0818c2f50c46492187ef6da98f527f3b",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 243
+  },
+  "cat_stool_008": {
+    "objaverse_license": "by",
+    "objaverse_uid": "20b75e6751344507966b057422438104",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 243
+  },
+  "cat_stool_009": {
+    "objaverse_license": "by",
+    "objaverse_uid": "04ae6c97835448d98fe5253875921557",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 243
+  },
+  "cat_stool_010": {
+    "objaverse_license": "by",
+    "objaverse_uid": "117a24442f4e4550aa06c05f37cc6c4c",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 243
+  },
+  "cat_stool_011": {
+    "objaverse_license": "by",
+    "objaverse_uid": "271f04e7b2e24e48968c70f23c0cf795",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 243
+  },
+  "cat_stool_012": {
+    "objaverse_license": "by",
+    "objaverse_uid": "06ea30fe0e394fcab3b1793439c473ac",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 243
+  },
+  "cat_stool_013": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 243,
+    "tier": "small"
+  },
+  "cat_stool_014": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 243,
+    "tier": "medium"
+  },
+  "cat_stool_015": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 243,
+    "tier": "large"
+  },
+  "cat_stool_016": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 243,
+    "tier": "small"
+  },
+  "cat_stool_017": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 243,
+    "tier": "medium"
+  },
+  "cat_stool_018": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 243,
+    "tier": "large"
+  },
+  "cat_stool_019": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 243,
+    "tier": "small"
+  },
+  "cat_stool_020": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 243,
+    "tier": "medium"
+  },
+  "cat_stool_021": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 243,
+    "tier": "large"
+  },
+  "cat_stool_022": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 243,
+    "tier": "small"
+  },
+  "cat_stool_023": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 243,
+    "tier": "medium"
+  },
+  "cat_table_001": {
+    "objaverse_license": "by",
+    "objaverse_uid": "0295a6d5791a4285bb9923b9dcc60146",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 3930
+  },
+  "cat_table_002": {
+    "objaverse_license": "by",
+    "objaverse_uid": "0611d3a55dd841a99d52b319e161e40b",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 3930
+  },
+  "cat_table_003": {
+    "objaverse_license": "by",
+    "objaverse_uid": "0061cdbbceef476a98025f10e19f5d13",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 3930
+  },
+  "cat_table_004": {
+    "objaverse_license": "by",
+    "objaverse_uid": "07c512edd91d4793bf7161599ae1e6df",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 3930
+  },
+  "cat_table_005": {
+    "objaverse_license": "by",
+    "objaverse_uid": "0c1ec5c3e561484686b251fec88189f8",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 3930
+  },
+  "cat_table_006": {
+    "objaverse_license": "by",
+    "objaverse_uid": "0333443d2a93433aa99c8d7bf2f8c9db",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 3930
+  },
+  "cat_table_007": {
+    "objaverse_license": "by",
+    "objaverse_uid": "07d75b41712548908f7a24c7282f38f3",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 3930
+  },
+  "cat_table_008": {
+    "objaverse_license": "by",
+    "objaverse_uid": "183f0b6ddcac4216bebdc4c56b415433",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 3930
+  },
+  "cat_table_009": {
+    "objaverse_license": "by",
+    "objaverse_uid": "03e6f9553e6b4b59811cadbbc38b046a",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 3930
+  },
+  "cat_table_010": {
+    "objaverse_license": "by",
+    "objaverse_uid": "0a1b1a5cccdd4d1495cc0f01d9b2fc73",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 3930
+  },
+  "cat_table_011": {
+    "objaverse_license": "by",
+    "objaverse_uid": "1864ec8ab4704653b27e2ebf37ee75d6",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 3930
+  },
+  "cat_table_012": {
+    "objaverse_license": "by",
+    "objaverse_uid": "0865d008b68f4776a8d2ce34ce198fb0",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 3930
+  },
+  "cat_table_013": {
+    "objaverse_license": "by",
+    "objaverse_uid": "0c7550a6ae1d400985ce7703c3864e12",
+    "source": "objaverse_mesh_proportions_scaled_into_sun_length_band",
+    "sun_prior_n": 3930
+  },
+  "cat_table_014": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 3930,
+    "tier": "small"
+  },
+  "cat_table_015": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 3930,
+    "tier": "medium"
+  },
+  "cat_table_016": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 3930,
+    "tier": "large"
+  },
+  "cat_table_017": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 3930,
+    "tier": "small"
+  },
+  "cat_table_018": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 3930,
+    "tier": "medium"
+  },
+  "cat_table_019": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 3930,
+    "tier": "large"
+  },
+  "cat_table_020": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 3930,
+    "tier": "small"
+  },
+  "cat_table_021": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 3930,
+    "tier": "medium"
+  },
+  "cat_table_022": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 3930,
+    "tier": "large"
+  },
+  "cat_table_023": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 3930,
+    "tier": "small"
+  },
+  "cat_table_024": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 3930,
+    "tier": "medium"
+  },
+  "cat_tv_001": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 167,
+    "tier": "small"
+  },
+  "cat_tv_002": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 167,
+    "tier": "medium"
+  },
+  "cat_tv_003": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 167,
+    "tier": "large"
+  },
+  "cat_tv_004": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 167,
+    "tier": "small"
+  },
+  "cat_tv_005": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 167,
+    "tier": "medium"
+  },
+  "cat_tv_006": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 167,
+    "tier": "large"
+  },
+  "cat_tv_007": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 167,
+    "tier": "small"
+  },
+  "cat_tv_008": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 167,
+    "tier": "medium"
+  },
+  "cat_tv_009": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 167,
+    "tier": "large"
+  },
+  "cat_tv_010": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 167,
+    "tier": "small"
+  },
+  "cat_tv_011": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 167,
+    "tier": "medium"
+  },
+  "cat_tv_stand_001": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 48,
+    "tier": "small"
+  },
+  "cat_tv_stand_002": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 48,
+    "tier": "medium"
+  },
+  "cat_tv_stand_003": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 48,
+    "tier": "large"
+  },
+  "cat_tv_stand_004": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 48,
+    "tier": "small"
+  },
+  "cat_tv_stand_005": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 48,
+    "tier": "medium"
+  },
+  "cat_tv_stand_006": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 48,
+    "tier": "large"
+  },
+  "cat_tv_stand_007": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 48,
+    "tier": "small"
+  },
+  "cat_tv_stand_008": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 48,
+    "tier": "medium"
+  },
+  "cat_tv_stand_009": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 48,
+    "tier": "large"
+  },
+  "cat_tv_stand_010": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 48,
+    "tier": "small"
+  },
+  "cat_tv_stand_011": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 48,
+    "tier": "medium"
+  },
+  "cat_wall_art_001": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 500,
+    "tier": "small"
+  },
+  "cat_wall_art_002": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 500,
+    "tier": "medium"
+  },
+  "cat_wall_art_003": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 500,
+    "tier": "large"
+  },
+  "cat_wall_art_004": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 500,
+    "tier": "small"
+  },
+  "cat_wall_art_005": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 500,
+    "tier": "medium"
+  },
+  "cat_wall_art_006": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 500,
+    "tier": "large"
+  },
+  "cat_wall_art_007": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 500,
+    "tier": "small"
+  },
+  "cat_wall_art_008": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 500,
+    "tier": "medium"
+  },
+  "cat_wall_art_009": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 500,
+    "tier": "large"
+  },
+  "cat_wall_art_010": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 500,
+    "tier": "small"
+  },
+  "cat_wall_art_011": {
+    "source": "sun_rgbd_annotation3Dfinal_percentile_tier",
+    "sun_prior_n": 500,
+    "tier": "medium"
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "categories_without_items": [
+    "rug",
+    "door",
+    "window"
+  ],
+  "items": 382,
+  "items_by_category": {
+    "armchair": 22,
+    "bed": 21,
+    "bench": 15,
+    "cabinet": 26,
+    "chair": 27,
+    "coffee_table": 14,
+    "curtain": 11,
+    "desk": 16,
+    "dresser": 16,
+    "lamp": 18,
+    "mirror": 11,
+    "nightstand": 11,
+    "ottoman": 19,
+    "pillow": 11,
+    "plant": 11,
+    "shelf": 15,
+    "side_table": 11,
+    "sofa": 27,
+    "stool": 23,
+    "table": 24,
+    "tv": 11,
+    "tv_stand": 11,
+    "wall_art": 11
+  },
+  "items_from_objaverse_meshes": 129,
+  "items_from_sun_tiers": 253,
+  "mesh_candidates_dropped": {
+    "mesh_dims_outside_sun_envelope": 12
+  },
+  "price_inr": {
+    "max": 107650.0,
+    "median": 6850.0,
+    "min": 150.0
+  },
+  "prices_are_synthetic": true
+}

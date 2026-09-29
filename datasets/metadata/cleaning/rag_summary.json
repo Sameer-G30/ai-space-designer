@@ -1,0 +1,48 @@
+{
+  "ada_2010": {
+    "chunks": 430,
+    "header_footer_lines_removed": 1053,
+    "pdf_pages": 279,
+    "running_line_patterns_removed": 10,
+    "sections_dropped": {
+      "too_short": 27
+    },
+    "sections_found": 248
+  },
+  "chunks_by_source": {
+    "ada_2010": 430,
+    "mohua_2021": 442,
+    "summary_ada_clearances": 1,
+    "summary_ergonomics": 2,
+    "summary_mohua_clearances": 1
+  },
+  "chunks_by_topic": {
+    "bathroom": 79,
+    "bedroom": 11,
+    "circulation": 47,
+    "clear_width": 75,
+    "controls": 23,
+    "door": 138,
+    "general": 159,
+    "kitchen": 35,
+    "lighting_signage": 38,
+    "ramp_stair": 114,
+    "reach_range": 23,
+    "seating": 96,
+    "turning_space": 38
+  },
+  "chunks_total": 876,
+  "embedding": "null; embeddings are computed in Phase 6",
+  "mohua_2021": {
+    "chunks": 442,
+    "header_footer_lines_removed": 1316,
+    "pdf_pages": 474,
+    "running_line_patterns_removed": 9,
+    "sections_dropped": {
+      "too_short": 78
+    },
+    "sections_found": 367
+  },
+  "summary_chunks": 4,
+  "text_location": "datasets/processed/rag/chunks.jsonl (gitignored)"
+}

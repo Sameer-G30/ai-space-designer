@@ -1,0 +1,136 @@
+{
+  "assets_cleaned": 141,
+  "assets_dropped": {
+    "trimesh_load_failed": 1,
+    "unmapped_lvis_category": 18
+  },
+  "assets_in_license_log": 160,
+  "cleaned_bytes": 459931776,
+  "dropped_assets": [
+    {
+      "category": "bench",
+      "reason": "trimesh_load_failed",
+      "uid": "05842f489a664442ba75bb7688da6b32"
+    },
+    {
+      "category": "crib",
+      "reason": "unmapped_lvis_category",
+      "uid": "0eba4cbc46c0487f87e002fe23452bc7"
+    },
+    {
+      "category": "drawer",
+      "reason": "unmapped_lvis_category",
+      "uid": "06f26c0afd10487ab66c448a04543110"
+    },
+    {
+      "category": "headboard",
+      "reason": "unmapped_lvis_category",
+      "uid": "029f508f2ddf4782a196f1c2a58d62e4"
+    },
+    {
+      "category": "mattress",
+      "reason": "unmapped_lvis_category",
+      "uid": "009de5b694dd4aac9c5a760d544046d1"
+    },
+    {
+      "category": "crib",
+      "reason": "unmapped_lvis_category",
+      "uid": "29451febdc894682a36a5112fd13f054"
+    },
+    {
+      "category": "drawer",
+      "reason": "unmapped_lvis_category",
+      "uid": "09aa9e145b7f47aab9aeceadc37f20e2"
+    },
+    {
+      "category": "headboard",
+      "reason": "unmapped_lvis_category",
+      "uid": "0341835032024be3bd7022a64038b0a4"
+    },
+    {
+      "category": "mattress",
+      "reason": "unmapped_lvis_category",
+      "uid": "014968271f5d4a2e805a4c910ee8a614"
+    },
+    {
+      "category": "crib",
+      "reason": "unmapped_lvis_category",
+      "uid": "3a333af918d641cdaeb5d5301e19c9ad"
+    },
+    {
+      "category": "drawer",
+      "reason": "unmapped_lvis_category",
+      "uid": "0a6298cc21954fd59609834bc55663c7"
+    },
+    {
+      "category": "headboard",
+      "reason": "unmapped_lvis_category",
+      "uid": "0c23295b5fe5434dab887a8fef22eb38"
+    },
+    {
+      "category": "mattress",
+      "reason": "unmapped_lvis_category",
+      "uid": "07b215740eb04ef3a6f1382f8c6f7993"
+    },
+    {
+      "category": "crib",
+      "reason": "unmapped_lvis_category",
+      "uid": "840ed19399d34d8099b1663796b3773b"
+    },
+    {
+      "category": "drawer",
+      "reason": "unmapped_lvis_category",
+      "uid": "106a7193625a4472b77beb3f3efa5bb4"
+    },
+    {
+      "category": "headboard",
+      "reason": "unmapped_lvis_category",
+      "uid": "0d1b8a42f16049fcb61a28cbd2c57376"
+    },
+    {
+      "category": "mattress",
+      "reason": "unmapped_lvis_category",
+      "uid": "08683731141f4795bb5583b6688f9680"
+    },
+    {
+      "category": "crib",
+      "reason": "unmapped_lvis_category",
+      "uid": "dbb8dec952c0450ba58fb4f75abf86ec"
+    },
+    {
+      "category": "drawer",
+      "reason": "unmapped_lvis_category",
+      "uid": "140728cbfa3a42c19d2402aabc88ff26"
+    }
+  ],
+  "large_files": 32,
+  "license_histogram": {
+    "by": 132,
+    "by-nc": 7,
+    "by-nc-sa": 1,
+    "by-sa": 1
+  },
+  "scale_rule": "Objaverse has no real-world unit. The longer floor edge of each mesh is scaled to the SUN RGB-D median length of its class, so mesh proportions are real and mesh size is SUN-anchored.",
+  "source_bytes": 709230912,
+  "taxonomy_class_histogram": {
+    "armchair": 14,
+    "bed": 10,
+    "bench": 4,
+    "cabinet": 19,
+    "chair": 17,
+    "coffee_table": 5,
+    "desk": 5,
+    "dresser": 5,
+    "lamp": 8,
+    "ottoman": 8,
+    "shelf": 5,
+    "sofa": 16,
+    "stool": 12,
+    "table": 13
+  },
+  "up_axis_rule": "glTF Y-up by default; Z-up is chosen when its height/length ratio is closer to the SUN RGB-D median for the class.",
+  "up_axis_source_histogram": {
+    "y": 111,
+    "z": 30
+  }
+}
