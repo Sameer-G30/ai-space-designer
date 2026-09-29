@@ -1,6 +1,6 @@
 # PhotoSpace
 
-PhotoSpace is a photo-grounded interior redesign project. Phase 0 is the shared schemas, Postgres tables, FastAPI health check, and the Next.js page that displays that check. Phase 1 acquires the public datasets used later for cleaning, training, and geometry checks. Phase 2a cleans the computer-vision datasets and writes a data quality report. Phase 2b mines layout priors, builds the furniture catalog, cleans the Objaverse meshes, chunks the RAG corpus, and adds a synthetic room generator. Phase 3 adds the hard-constrained Stage 1 layout optimizer, independent checker, plan rendering, BOM, trace, and manual-scene optimization API.
+PhotoSpace is a photo-grounded interior redesign project. Phase 0 is the shared schemas, Postgres tables, FastAPI health check, and the Next.js page that displays that check. Phase 1 acquires the public datasets used later for cleaning, training, and geometry checks. Phase 2a cleans the computer-vision datasets and writes a data quality report. Phase 2b mines layout priors, builds the furniture catalog, cleans the Objaverse meshes, chunks the RAG corpus, and adds a synthetic room generator. Phase 3 adds the hard-constrained Stage 1 layout optimizer, independent checker, plan rendering, BOM, trace, and manual-scene optimization API. Phase 4 scores catalog rows and returns one Pareto set. Phase 5 is the Next.js page for that set.
 
 This README is updated at the end of every phase with what changed and how to check it. See the "Phase log" section at the bottom.
 
@@ -33,7 +33,7 @@ npm install
 npm run dev
 ```
 
-Open http://localhost:3000. The page reads `API_URL` and shows the `/health` response.
+Open http://localhost:3000. The page reads `API_URL` on the server and shows the `/health` response. The room form posts to Next.js route handlers, which call the API. The browser does not call port 8001.
 
 ## Tests
 
@@ -147,3 +147,28 @@ Each entry says what the phase changed and how to check it.
   - `uv run pytest tests/optimizer/test_stage2.py tests/api/test_phase3_routes.py` covers non-dominance and the route via `TestClient`.
   - Rebuild vectors with `uv run python scripts/build_catalog_embeddings.py` (add `--write-db` with the database up and `DATABASE_URL` exported).
   - Read `docs/reports/optimizer_stage2.md`.
+
+### Phase 5: Next.js v1
+
+- Changed:
+  - Room form: scene id, one of the 15 room types, length, width, height, confidence, optional doors and windows, optional kept objects. Posts a `SceneGraph` to `/scenes`.
+  - Structured requirement form: budget in INR, one or more of the 23 catalog classes, must-keep ids from the objects marked keep, occupant count, one of the nine generator styles, accessibility, and all six weights. `raw_text` stays empty. There is no sentence box.
+  - Pareto scatter of cost and score. Clicking a point selects that design for the 2D plan, the BOM, and the React Three Fiber box view. One to eight points are drawn. An infeasible reason is shown with no design. HTTP 404 and 422 show the status and detail.
+  - The browser stays on port 3000. Next.js route handlers call FastAPI with `API_URL`. No CORS and no new FastAPI route.
+  - Prices are labelled synthetic INR. `style_backend` is shown as returned. Sustainability is labelled as a material lookup, including the five materials that score 0.5.
+  - New npm packages: `three`, `@react-three/fiber`, and `@types/three` (three 0.186 publishes no TypeScript declarations).
+  - Report: `docs/reports/frontend_v1.md`.
+- Not built: natural-language parsing, Ollama, RAG embeddings, migrations, explanations, design versions, GLB furniture, a chart library. 3D-FRONT and 3D-FUTURE were not used.
+- Check:
+  - `uv run ruff check .`
+  - `uv run pytest`
+  - `uv run python scripts/verify_datasets.py`
+  - `uv run python scripts/check_optimizer_200.py`
+  - From `frontend/`: `npm install`, `npm run lint`, `npm run build`.
+  - Start the API with `uv run uvicorn spacedesigner.api.main:app --host 127.0.0.1 --port 8001` after exporting `DATABASE_URL` from `.env`, and start the page with `npm run dev` in `frontend/`.
+  - Open http://localhost:3000. Confirm `API status: ok (HTTP 200)`.
+  - Leave the default home office (6 m by 6 m, south door width 0.9 m, budget 80000, desk and chair) and choose Save room and solve. Confirm a Pareto set, then click another point and confirm the plan, the BOM total, and the box view follow it.
+  - Set the budget to 100 and solve again. Confirm the cost reason and that no plan is drawn.
+  - Set the door width to 0.5 m, restore the budget, and solve. Confirm the narrow-door reason and that no plan is drawn.
+  - Add two kept objects with the same id and solve. Confirm HTTP 422 and that no plan is drawn.
+  - Read `docs/reports/frontend_v1.md`.

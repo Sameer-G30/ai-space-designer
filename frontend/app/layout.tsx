@@ -4,12 +4,12 @@ import "./globals.css";
 // Metadata type for the document title and description.
 import type { Metadata } from "next";
 
-// Title and description shown for the Phase 0 page.
+// Title and description shown for the Phase 5 page.
 export const metadata: Metadata = {
   // Browser tab title.
   title: "PhotoSpace",
-  // Short description of this skeleton page.
-  description: "PhotoSpace API health status",
+  // Short description of the room form and the design views.
+  description: "PhotoSpace room form, Pareto designs, plan, and box view",
 };
 
 // Root layout that wraps every page.

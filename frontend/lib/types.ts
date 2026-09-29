@@ -1,0 +1,284 @@
+// Shapes the form edits and the shapes the API returns. Field names stay snake_case.
+
+// One objective weight name.
+import type { WEIGHT_NAMES } from "@/lib/constants";
+
+// The six weight names.
+export type WeightName = (typeof WEIGHT_NAMES)[number];
+
+// Confidence stored on a room and on an object.
+export type ConfidenceName = "low" | "medium" | "high";
+
+// One opening while the user is still typing.
+export type OpeningDraft = {
+  // React key. Not sent to the API.
+  key: string;
+  // Door or window.
+  type: "door" | "window";
+  // Wall that holds the opening.
+  wall: "north" | "south" | "east" | "west";
+  // Metres from the start of the wall, as typed text.
+  position: string;
+  // Opening width in metres, as typed text.
+  width: string;
+};
+
+// One existing object while the user is still typing.
+export type ObjectDraft = {
+  // React key. Not sent to the API.
+  key: string;
+  // Scene object id.
+  id: string;
+  // Taxonomy class.
+  type: string;
+  // Footprint centre x, as typed text.
+  x: string;
+  // Footprint centre y, as typed text.
+  y: string;
+  // Rotation in degrees, as typed text.
+  rotation: string;
+  // Local length in metres, as typed text.
+  length: string;
+  // Local width in metres, as typed text.
+  width: string;
+  // Height in metres, as typed text.
+  height: string;
+  // True when the solver must keep this pose.
+  mustKeep: boolean;
+};
+
+// The whole form, before numbers are parsed.
+export type RequestDraft = {
+  // Scene id typed by the user.
+  sceneId: string;
+  // Room type token.
+  roomType: string;
+  // Room length text.
+  length: string;
+  // Room width text.
+  width: string;
+  // Room height text.
+  height: string;
+  // Room confidence token.
+  confidence: string;
+  // Opening rows.
+  openings: OpeningDraft[];
+  // Existing object rows.
+  objects: ObjectDraft[];
+  // Budget text, in INR.
+  budget: string;
+  // Checked catalog classes. Order is ignored; the builder uses taxonomy order.
+  mustHave: string[];
+  // Occupant count text.
+  occupants: string;
+  // Style token.
+  style: string;
+  // Whether the turning-space constraint is on.
+  accessibility: boolean;
+  // The six weights as typed text.
+  weights: Record<WeightName, string>;
+};
+
+// The six weights after they have been parsed.
+export type ObjectiveWeights = Record<WeightName, number>;
+
+// One opening on the wire.
+export type SceneOpening = {
+  // Door or window.
+  type: string;
+  // Wall name.
+  wall: string;
+  // Metres from the start of that wall.
+  position: number;
+  // Opening width in metres.
+  width: number;
+};
+
+// One scene object on the wire and in a design.
+export type SceneObject = {
+  // Stable id.
+  id: string;
+  // Taxonomy class.
+  type: string;
+  // Footprint centre [x, y] in metres.
+  position: [number, number];
+  // Rotation in degrees.
+  rotation: number;
+  // Local [length, width, height] in metres.
+  dimensions: [number, number, number];
+  // True when the object may be moved. Kept objects are sent as false.
+  movable: boolean;
+  // True when this pose is fixed.
+  must_keep: boolean;
+  // Confidence for this object.
+  confidence: ConfidenceName;
+};
+
+// A scene graph posted to /scenes.
+export type SceneGraph = {
+  // Scene id.
+  scene_id: string;
+  // Version. This form always sends 1.
+  version: number;
+  // Room type token.
+  room_type: string;
+  // Room size and confidence.
+  dimensions: {
+    // Length along x, in metres.
+    length: number;
+    // Width along y, in metres.
+    width: number;
+    // Floor-to-ceiling height, in metres.
+    height: number;
+    // Confidence for the three edges together.
+    confidence: ConfidenceName;
+  };
+  // Doors and windows.
+  openings: SceneOpening[];
+  // Existing objects.
+  objects: SceneObject[];
+};
+
+// A structured requirement posted inside /designs/optimize.
+export type Requirement = {
+  // Derived from the scene id.
+  requirement_id: string;
+  // Must equal the scene id.
+  scene_id: string;
+  // Always an empty string. This phase does not parse text.
+  raw_text: string;
+  // Budget ceiling in INR.
+  budget_inr: number;
+  // Catalog classes that must be present.
+  must_have: string[];
+  // Ids of objects marked keep.
+  must_keep_object_ids: string[];
+  // People the room must hold.
+  occupant_count: number;
+  // Style token.
+  style: string;
+  // Turning-space constraint.
+  accessibility_required: boolean;
+  // All six weights, each in [0, 1].
+  objective_weights: ObjectiveWeights;
+};
+
+// A validated scene plus requirement ready to post.
+export type BuiltRequest = {
+  // Body for POST /scenes.
+  scene: SceneGraph;
+  // Requirement nested in POST /designs/optimize.
+  requirement: Requirement;
+};
+
+// One bill-of-material line. item_id comes from this line, not from the object id.
+export type BomLine = {
+  // Catalog id.
+  item_id: string;
+  // Taxonomy class.
+  category: string;
+  // Unit count.
+  qty: number;
+  // Price of one unit, synthetic INR.
+  unit_price: number;
+  // qty times unit_price.
+  line_total: number;
+};
+
+// One binding constraint on a trace.
+export type BindingConstraint = {
+  // Short name.
+  name: string;
+  // Recorded fact.
+  detail: string;
+};
+
+// Trace stored beside a design, never inside it.
+export type OptimizerTrace = {
+  // Design this trace belongs to.
+  design_id: string;
+  // Constraints that held with equality.
+  binding_constraints: BindingConstraint[];
+  // Counted in the UI. The full list is not printed.
+  rejected_items: { item_id: string; reason: string }[];
+  // The six terms, each in [0, 1].
+  objective_terms: ObjectiveWeights;
+};
+
+// One design inside a Pareto point.
+export type Design = {
+  // Design id.
+  design_id: string;
+  // Scene id.
+  scene_id: string;
+  // Requirement id.
+  requirement_id: string;
+  // Weights used for this point.
+  weights: ObjectiveWeights;
+  // Combined score.
+  score: number;
+  // Total cost in INR. The BOM total matches this.
+  cost: number;
+  // Placed objects, including kept ones.
+  objects: SceneObject[];
+  // Earlier design, when the API sends one.
+  parent_design_id: string | null;
+};
+
+// One labelled Pareto point.
+export type ParetoPoint = {
+  // One or more labels. A point may carry several.
+  labels: string[];
+  // The design.
+  design: Design;
+  // The trace beside the design.
+  trace: OptimizerTrace;
+  // Purchased lines.
+  bom: BomLine[];
+  // Time spent placing this point, in milliseconds.
+  solve_time_ms: number;
+};
+
+// A feasible optimize body.
+export type ParetoBody = {
+  // Discriminator.
+  feasible: true;
+  // One to eight points. Fewer than four is valid.
+  points: ParetoPoint[];
+  // Selections that were placed.
+  candidates_evaluated: number;
+  // Placed selections that lost the dominance filter.
+  dominated_removed: number;
+  // CLIP checkpoint name, or tag_overlap_fallback.
+  style_backend: string;
+  // Time for the whole sweep, in milliseconds.
+  solve_time_ms: number;
+};
+
+// An infeasible optimize body. It has no design.
+export type InfeasibleBody = {
+  // Discriminator.
+  feasible: false;
+  // Solver reason.
+  reason: string;
+  // Time spent before giving up, in milliseconds.
+  solve_time_ms: number;
+};
+
+// GET /health as shown on the page.
+export type HealthView = {
+  // HTTP status, or null when the process could not be reached.
+  statusCode: number | null;
+  // Status word from the API, or unreachable.
+  status: string;
+  // Failure text. Empty when the check succeeded.
+  detail: string;
+};
+
+// A failed proxy call shown in the error panel.
+export type FailureView = {
+  // HTTP status, or null when the browser could not reach this Next.js app.
+  statusCode: number | null;
+  // Readable detail. FastAPI validation text is kept. Unexpected bodies are not.
+  detail: string;
+};
