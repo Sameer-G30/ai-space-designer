@@ -258,3 +258,21 @@ Each entry says what the phase changed and how to check it.
   - Start Postgres (`docker compose up -d`), the API (`uv run uvicorn spacedesigner.api.main:app --host 127.0.0.1 --port 8001` after exporting `DATABASE_URL` from `.env`), and `npm run dev` in `frontend/`. Open http://localhost:3000. Solve the default room. Choose Explain this design and read the sources. Run one what-if. Choose Compare versions. Try a narrow window too.
   - Read `docs/reports/explanations.md`.
 
+### Phase 9: visualization and the design critic
+
+- Changed:
+  - The 3D view places a cleaned Objaverse GLB when the catalog item has one, on the same solver coordinates (floor x is world X, floor y is world Z, height is world Y). Items without a cleaned mesh stay boxes. The mesh route is `GET /api/meshes/{itemId}` and reads `datasets/processed/objaverse/`. It does not add a second 3D engine.
+  - `POST /designs/{id}/visualize` renders a depth map and a segmentation map from the scene graph, builds an inpaint mask for the objects the optimizer added or moved, and pixel-locks everything else. The Stable Diffusion 1.5 plus ControlNet-depth worker is in `.venv-train` and refuses to download (`local_files_only`). The saved detector can re-check the generated image and ask for another seed. `qwen2.5vl:7b` is advisory only. Disagreements with the Shapely checker are logged and do not change the design. No new column and no migration.
+  - The page keeps the sentence box, photo upload, Pareto set, plan, bill of materials, explanations, what-if, and versions. It adds the mesh-or-box caption and a Render this design control. On the default room, the cheapest point stayed boxes and the best-style point showed an Objaverse mesh for the chair and a box for the desk. Render returned the depth and segmentation maps and a note that diffusion weights are not installed. The page did not overflow at desktop width or at 390 px.
+  - Report: `docs/reports/visualization_critic.md`. Mask-lock SSIM on 4 scene-graph renders (128 px) was 1.0, with at least 2071 editable pixels in each image. On one 512 px Stable Diffusion image the locked-region SSIM was 1.0, the detector consistency rate was 0 of 1 (one extra detection after 2 seeds), the critic wrote 3 disagreement lines and did not change the design, and the sampled GPU peak was 6647 MiB (worker peak 3409.3 MiB).
+- Not built: a second ControlNet on the segmentation map, a schema change, a migration, a CLIP fine-tune, and any edit to the parser, the retriever, the recommender, the photo pipeline, the optimizer, the explanations, or the named clearance constants. Phase 10 was not started.
+- Check:
+  - `uv run ruff check .`
+  - `uv run pytest` (143 passed, 1 skipped; the skipped face-blur test needs OpenCV and runs only in `.venv-train`; one known Starlette warning).
+  - `uv run python scripts/verify_datasets.py`
+  - `uv run python scripts/check_optimizer_200.py`
+  - `uv run python scripts/eval_visualization.py` (mask-lock SSIM, then one live image when the fp16 weights and `qwen2.5vl:7b` are installed).
+  - From `frontend/`: `npm run lint` and `npm run build`.
+  - Start Postgres (`docker compose up -d`), the API (`uv run uvicorn spacedesigner.api.main:app --host 127.0.0.1 --port 8001` after exporting `DATABASE_URL` from `.env`), and `npm run dev` in `frontend/`. Open http://localhost:3000. Solve the default room. Confirm a mesh where the catalog item has a cleaned GLB and a box where it does not. Choose Render this design and read the image or the reason it was not generated. Try a narrow window too.
+  - Read `docs/reports/visualization_critic.md`.
+

@@ -297,7 +297,7 @@ export const PLAN_NOTE =
 // Floor frame used by the box view.
 export const BOX_NOTE =
   // Shown under the canvas.
-  "Floor x is world X, floor y is world Z, and height is world Y. These are boxes at the solver coordinates, not GLB models.";
+  "Floor x is world X, floor y is world Z, and height is world Y. A cleaned Objaverse mesh is shown when this catalog item has one. Other items stay boxes.";
 
 // Replace underscores so a taxonomy token is easier to read.
 export function readableToken(value: string): string {

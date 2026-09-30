@@ -74,6 +74,18 @@ from spacedesigner.schemas import Requirement, SceneGraph
 # SchemaModel rejects extra request wrapper keys.
 from spacedesigner.schemas.base import SchemaModel
 
+# Phase 9 workers. Tests override the dependency so no weights load.
+from spacedesigner.visualize.backends import VisualizeBackends, get_visualize_backends
+
+# Missing design, scene, or requirement.
+from spacedesigner.visualize.errors import VisualizeError
+
+# Visualize response. The locked design schema is not edited.
+from spacedesigner.visualize.models import VisualizeResponse
+
+# Maps, optional diffusion, consistency, and the advisory critic.
+from spacedesigner.visualize.service import visualize_design
+
 
 # JSON body returned by GET /health.
 class HealthResponse(BaseModel):
@@ -108,6 +120,9 @@ RetrieverDependency = Annotated[HybridRetriever, Depends(get_hybrid_retriever)]
 
 # Reusable injected photo runner (tests replace it so no GPU or weights are used).
 RunnerDependency = Annotated[object, Depends(get_perception_runner)]
+
+# Reusable injected visualize backends. The default does not download weights.
+BackendDependency = Annotated[VisualizeBackends, Depends(get_visualize_backends)]
 
 # Largest photo upload in bytes.
 MAX_PHOTO_BYTES = 15 * 1024 * 1024
@@ -295,6 +310,24 @@ def create_counterfactual(
         return run_counterfactual(store, design_id, body, scorer)
     # Not found, or the stored design cannot be replayed.
     except ExplainError as exc:
+        # Keep the status the service chose.
+        raise HTTPException(status_code=exc.status_code, detail=exc.detail) from None
+
+
+# Image route. It does not change the optimize, scene, requirement, or explanation routes.
+@app.post("/designs/{design_id}/visualize", response_model=VisualizeResponse)
+def visualize_existing(
+    design_id: str,
+    store: StoreDependency,
+    backends: BackendDependency,
+) -> VisualizeResponse:
+    """Render maps and, when weights are local, an inpainted image plus an advisory note."""
+    # A missing row becomes 404. The design is not rewritten on success.
+    try:
+        # Depth, segmentation, optional diffusion, consistency, and the critic.
+        return visualize_design(store, design_id, backends=backends)
+    # Not found.
+    except VisualizeError as exc:
         # Keep the status the service chose.
         raise HTTPException(status_code=exc.status_code, detail=exc.detail) from None
 

@@ -221,8 +221,8 @@ export function Designer({ initialHealth }: DesignerProps) {
         <h1 className="text-3xl font-semibold tracking-tight">PhotoSpace</h1>
         {/* What this page does. */}
         <p className="text-zinc-600">
-          Manual room, a sentence or a structured requirement, Pareto designs, explanations, what-if, and version
-          comparison.
+          Manual room, a sentence or a structured requirement, Pareto designs, a 3D view, a generated image,
+          explanations, what-if, and version comparison.
         </p>
         {/* Phase 0 check label, kept so the health line is still obvious. */}
         <p className="text-sm text-zinc-500">Phase 0 API health check</p>

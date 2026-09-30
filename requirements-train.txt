@@ -13,3 +13,8 @@ transformers>=5.17.0
 pillow
 pyyaml
 git+https://github.com/ultralytics/CLIP.git
+# Phase 9 inpainting. Installed in .venv-train only, with --no-deps so CUDA torch is not replaced.
+diffusers==0.40.0
+accelerate==1.15.0
+# The diffusion worker imports the package, which imports Pydantic. Not the CPU torch index.
+pydantic==2.13.5

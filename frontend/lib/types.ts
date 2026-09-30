@@ -494,3 +494,65 @@ export type CounterfactualRejected = {
   // Hints passed.
   hint_count: number;
 };
+
+// One object in the visualize response.
+export type MeshPlacement = {
+  // Design object id.
+  object_id: string;
+  // Taxonomy class.
+  category: string;
+  // Catalog id, or null for a kept object.
+  item_id: string | null;
+  // glb when a cleaned file exists, otherwise box.
+  kind: "glb" | "box";
+  // Objaverse uid when kind is glb.
+  objaverse_uid: string | null;
+  // Floor centre.
+  position: [number, number];
+  // Rotation in degrees.
+  rotation: number;
+  // Local length, width, height.
+  dimensions: [number, number, number];
+};
+
+// POST /designs/{id}/visualize.
+export type VisualizeBody = {
+  // Design that was drawn.
+  design_id: string;
+  // Always true. The critic does not save a new design.
+  design_unchanged: boolean;
+  // Mesh decision per object.
+  placements: MeshPlacement[];
+  // generated or not_run.
+  image_status: "generated" | "not_run";
+  // Why the image was or was not generated.
+  image_note: string;
+  // Diffusion PNG, or null.
+  image_png_base64: string | null;
+  // Depth rendered from the scene graph.
+  depth_png_base64: string;
+  // Segmentation rendered from the scene graph.
+  segmentation_png_base64: string;
+  // SSIM of locked pixels, or null when no diffusion image exists.
+  unchanged_ssim: number | null;
+  // matched, mismatched, or not_run.
+  consistency_status: "matched" | "mismatched" | "not_run";
+  // What the loop did.
+  consistency_note: string;
+  // Diffusion attempts that produced an image.
+  consistency_attempts: number;
+  // advisory or not_run.
+  critic_status: "advisory" | "not_run";
+  // Why the critic did or did not run.
+  critic_note: string;
+  // Aesthetic opinion, or null.
+  critic_plausible: boolean | null;
+  // Aesthetic notes.
+  critic_issues: string[];
+  // Findings from the geometric checker.
+  deterministic_violations: string[];
+  // Hard kinds where the two checkers disagree.
+  disagreements: string[];
+  // Peak MiB, or null when no GPU worker ran.
+  peak_vram_mib: number | null;
+};

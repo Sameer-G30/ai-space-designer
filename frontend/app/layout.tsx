@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   // Browser tab title.
   title: "PhotoSpace",
   // Short description of the room form and the design views.
-  description: "PhotoSpace room form, Pareto designs, plan, and box view",
+  description: "PhotoSpace room form, Pareto designs, plan, 3D view, and generated image",
 };
 
 // Root layout that wraps every page.

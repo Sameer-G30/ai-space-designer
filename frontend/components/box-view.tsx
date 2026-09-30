@@ -3,8 +3,8 @@
 // Canvas and the camera hook.
 import { Canvas, useThree } from "@react-three/fiber";
 
-// Mount the orbit controls after the canvas exists.
-import { useEffect } from "react";
+// Mount the orbit controls after the canvas exists, and remember which objects are meshes.
+import { useCallback, useEffect, useState } from "react";
 
 // Camera class used to update the projection.
 import { PerspectiveCamera } from "three";
@@ -15,8 +15,11 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 // Frame note and the shared palette.
 import { BOX_NOTE, planColor } from "@/lib/constants";
 
-// Boxes in the solver frame.
-import { furnitureBox, roomShell } from "@/lib/geometry";
+// Room shell in the solver frame. Furniture is drawn by FurnitureMesh.
+import { roomShell } from "@/lib/geometry";
+
+// One mesh or a box at the solver coordinates.
+import { FurnitureMesh, type MeshKind } from "@/components/furniture-mesh";
 
 // Scene and object shapes.
 import type { SceneGraph, SceneObject } from "@/lib/types";
@@ -97,7 +100,7 @@ function CameraRig({
   return null;
 }
 
-// Box view at the solver coordinates.
+// 3D view at the solver coordinates. A GLB replaces the box only after it has loaded.
 export default function BoxView({ scene, objects }: BoxViewProps) {
   // Room length.
   const length = scene.dimensions.length;
@@ -107,12 +110,19 @@ export default function BoxView({ scene, objects }: BoxViewProps) {
   const height = scene.dimensions.height;
   // Walls and opening marks.
   const shell = roomShell(length, width, height, scene.openings);
+  // Caption: glb or box per object id.
+  const [kinds, setKinds] = useState<Record<string, MeshKind>>({});
+  // Record one object's kind without replacing the map when the value is unchanged.
+  const reportKind = useCallback((objectId: string, kind: MeshKind) => {
+    // Skip a no-op update.
+    setKinds((current) => (current[objectId] === kind ? current : { ...current, [objectId]: kind }));
+  }, []);
   // The canvas fills the sized parent.
   return (
     // Section wrapper.
     <section className="flex flex-col gap-3">
       {/* Heading. */}
-      <h3 className="text-base font-semibold text-zinc-900">Box view</h3>
+      <h3 className="text-base font-semibold text-zinc-900">3D view</h3>
       {/* Frame reminder. */}
       <p className="text-sm text-zinc-600">{BOX_NOTE}</p>
       {/* Sized parent. The canvas needs a height. */}
@@ -161,43 +171,28 @@ export default function BoxView({ scene, objects }: BoxViewProps) {
               <meshStandardMaterial color={box.kind === "window" ? "#4cc9f0" : "#9b2226"} />
             </mesh>
           ))}
-          {/* Furniture boxes. */}
-          {objects.map((obj, index) => {
-            // Solver box.
-            const box = furnitureBox(obj);
-            // Skip a non-positive size rather than handing it to three.
-            if (box.size[0] <= 0 || box.size[1] <= 0 || box.size[2] <= 0) {
-              // No mesh.
-              return null;
-            }
-            // Colour shared with the plan.
-            const color = planColor(index);
-            // Solid box, plus a wire frame when the object is kept.
-            return (
-              <group key={`${obj.id}-${index}`}>
-                {/* Solid box. */}
-                <mesh position={box.position}>
-                  {/* Size. */}
-                  <boxGeometry args={box.size} />
-                  {/* Paint. */}
-                  <meshStandardMaterial color={color} />
-                </mesh>
-                {/* Kept objects get a dark wire frame so they stay visible. */}
-                {obj.must_keep ? (
-                  <mesh position={box.position}>
-                    {/* Same size. */}
-                    <boxGeometry args={box.size} />
-                    {/* Wire paint. */}
-                    <meshBasicMaterial color="#111111" wireframe />
-                  </mesh>
-                ) : null}
-              </group>
-            );
-          })}
+          {/* Furniture. A box stays until a cleaned GLB for that catalog item has loaded. */}
+          {objects.map((obj, index) => (
+            <FurnitureMesh
+              key={`${obj.id}-${index}`}
+              obj={obj}
+              color={planColor(index)}
+              onKind={reportKind}
+            />
+          ))}
         </Canvas>
       </div>
       {/* Drag hint. */}
       <p className="text-sm text-zinc-600">Drag to orbit the camera. Furniture stays where the solver put it.</p>
+      {/* One line per object so a mesh and a box are visible without inspecting WebGL. */}
+      <ul className="flex flex-col gap-1 text-sm text-zinc-700">
+        {/* Design order. */}
+        {objects.map((obj) => (
+          <li key={obj.id}>
+            {obj.type}: {kinds[obj.id] === "glb" ? "Objaverse mesh" : "box"}
+          </li>
+        ))}
+      </ul>
     </section>
   );
 }

@@ -12,6 +12,9 @@ import { BomTable } from "@/components/bom-table";
 // Explanation, what-if, and versions.
 import { ExplainPanel } from "@/components/explain-panel";
 
+// Generated image, scene-graph maps, and the advisory critic note.
+import { VisualizePanel } from "@/components/visualize-panel";
+
 // Pareto scatter.
 import { ParetoChart } from "@/components/pareto-chart";
 
@@ -38,7 +41,7 @@ const BoxView = dynamic(() => import("@/components/box-view"), {
   // WebGL is browser-only.
   ssr: false,
   // Placeholder while the module loads.
-  loading: () => <p className="p-4 text-sm text-zinc-600">Loading the box view.</p>,
+  loading: () => <p className="p-4 text-sm text-zinc-600">Loading the 3D view.</p>,
 });
 
 // A finished solve: either a set or a reason.
@@ -207,14 +210,16 @@ export function OutcomePanel({ outcome, onSelect }: OutcomePanelProps) {
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         {/* Top-down plan. */}
         <PlanView scene={activeScene} objects={activeDesign.objects} />
-        {/* Box view. */}
+        {/* 3D view. A GLB replaces a box only after that mesh has loaded. */}
         <BoxView scene={activeScene} objects={activeDesign.objects} />
       </div>
+      {/* Depth, segmentation, the diffusion image or the reason it was not made, and the critic note. */}
+      <VisualizePanel key={`visualize-${activeDesign.design_id}`} designId={activeDesign.design_id} />
       {/* Bill of materials for the same drawn design. */}
       <BomTable design={activeDesign} lines={activeBom} />
       {/* Explanation, what-if, and version comparison for this Pareto point. */}
       <ExplainPanel
-        key={design.design_id}
+        key={`explain-${design.design_id}`}
         anchorDesignId={design.design_id}
         viewDesignId={activeDesign.design_id}
         budgetInr={outcome.requirement.budget_inr}
