@@ -1,0 +1,13 @@
+# Phase 7a training environment (.venv-train). Not used by the main .venv.
+# Install order:
+#   uv venv .venv-train --python 3.11.9
+#   uv pip install --python .venv-train/bin/python torch torchvision \
+#       --index-url https://download.pytorch.org/whl/cu128 --extra-index-url https://pypi.org/simple \
+#       --index-strategy unsafe-best-match
+#   uv pip install --python .venv-train/bin/python -r requirements-train.txt
+#   uv pip install --python .venv-train/bin/python -e .
+timm
+ultralytics
+pillow
+pyyaml
+git+https://github.com/ultralytics/CLIP.git

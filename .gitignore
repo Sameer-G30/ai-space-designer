@@ -3,6 +3,7 @@
 .env.*
 !.env.example
 .venv/
+.venv-train/
 
 # Python caches and build output.
 __pycache__/
@@ -26,3 +27,6 @@ node_modules/
 frontend/node_modules/
 frontend/.next/
 frontend/out/
+
+# Ultralytics scratch downloads (CLIP text encoder, AMP-check model).
+weights/

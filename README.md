@@ -199,3 +199,21 @@ Each entry says what the phase changed and how to check it.
   - Set the door width to 0.5 m, restore the budget, and solve. Confirm the narrow-door reason and that no plan is drawn.
   - Click another Pareto point and confirm the plan follows it.
   - Read `docs/reports/requirements_rag.md`.
+
+### Phase 7a: training the CV models
+
+- Changed:
+  - `src/spacedesigner/training/` holds the classifier and detector code. Scripts: `train_room_classifier.py`, `eval_room_classifier.py`, `train_detector.py`, `eval_detector.py`.
+  - Room classifier: timm ConvNeXt-Tiny fine-tuned on the Phase 2a room-type export. Test top-1 is 0.749 on 331 images.
+  - Detector: YOLO-World-S fine-tuned on SUN RGB-D with the 26 locked classes, 640 px, batch 8, mixed precision, 3.2 GB peak VRAM. Test mAP50 is 0.558 and mAP50-95 is 0.434, against 0.343 and 0.260 zero-shot.
+  - Training runs in a separate `.venv-train` (CUDA torch, timm, ultralytics; see `requirements-train.txt`). The main `.venv` keeps CPU torch. Weights are in `models/` and are gitignored.
+  - Report: `docs/reports/cv_training.md`.
+- Not built: Phase 7b, YOLO-World-M, a Places365 train download, any frontend, schema, or API change.
+- Check:
+  - `uv run ruff check .`
+  - `uv run pytest` (93 passed, one known Starlette warning).
+  - `uv run python scripts/verify_datasets.py`
+  - `uv run python scripts/check_optimizer_200.py`
+  - `.venv-train/bin/python scripts/eval_room_classifier.py --split test` (top-1 and confusion matrix).
+  - `.venv-train/bin/python scripts/eval_detector.py` (mAP50 and mAP50-95, zero-shot and fine-tuned, on the test split).
+  - Read `docs/reports/cv_training.md`.
