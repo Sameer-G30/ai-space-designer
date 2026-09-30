@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="380">
+<rect width="100%" height="100%" fill="white"/>
+<text x="16" y="24" font-family="sans-serif" font-size="16">Violation rate among returned designs</text>
+<line x1="80" y1="250" x2="740" y2="250" stroke="#222"/>
+<rect x="100" y="250.0" width="48" height="0.0" fill="#3d5a80"/>
+<text x="100" y="244.0" font-family="sans-serif" font-size="11">0.000</text>
+<text x="100" y="268" font-family="sans-serif" font-size="12" transform="rotate(35 100 268)">synth CP-SAT</text>
+<rect x="238" y="123.8" width="48" height="126.2" fill="#3d5a80"/>
+<text x="238" y="117.8" font-family="sans-serif" font-size="11">0.625</text>
+<text x="238" y="268" font-family="sans-serif" font-size="12" transform="rotate(35 238 268)">synth LLM</text>
+<rect x="376" y="250.0" width="48" height="0.0" fill="#3d5a80"/>
+<text x="376" y="244.0" font-family="sans-serif" font-size="11">0.000</text>
+<text x="376" y="268" font-family="sans-serif" font-size="12" transform="rotate(35 376 268)">SUN CP-SAT</text>
+<rect x="514" y="174.2" width="48" height="75.8" fill="#3d5a80"/>
+<text x="514" y="168.2" font-family="sans-serif" font-size="11">0.375</text>
+<text x="514" y="268" font-family="sans-serif" font-size="12" transform="rotate(35 514 268)">SUN LLM</text>
+</svg>

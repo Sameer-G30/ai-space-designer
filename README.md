@@ -293,3 +293,23 @@ Each entry says what the phase changed and how to check it.
   - Postgres and the API on port 8001 must already be up. `npm run test:e2e` uses http://localhost:3000 and starts `npm run dev` only when that port is free.
   - Read `docs/reports/frontend_v2.md`.
 
+### Phase 11: evaluation and ablation
+
+- Changed:
+  - A measurement script, `scripts/eval_ablation.py`, runs the six-step ladder on code that already existed. Seed `20261001`. 16 synthetic rooms from the existing generator, and 8 SUN RGB-D test rooms whose size is the annotated floor rectangle. The photo pipeline was not re-run. NYU test frames (654 on disk) have no room rectangle, so the layout ladder was not run on them. Depth and segmentation stay the previously recorded Phase 7b numbers.
+  - CP-SAT versus a `qwen2.5:7b` coordinate guess, both scored by the existing Shapely checker. Synthetic CP-SAT: 12 of 16 designs returned, 0 violations on those 12, budget compliant 12 of 12, clean 12 of 16. The guess returned 16 designs, 10 of 16 with a violation (rate 0.625), clean 6 of 16, budget compliant 16 of 16, must-keep rate 0.423 where a keep was required. SUN CP-SAT: 8 of 8 clean, 0 violations. SUN guess: 3 of 8 with a violation (rate 0.375), clean 5 of 8. Those SUN rooms have no openings, so a door-clearance miss cannot occur there.
+  - Parsing on the 16 sentences: schema-valid 16 of 16, field-level accuracy 0.464, text-grounded 0.917. This does not replace the Phase 6 100-sentence numbers. Retrieval recorded 192 numbers beside the parse. 33 mapped to a named solver constant and all 33 differed. None were applied inside CP-SAT.
+  - Pareto on this sample: synthetic 12 feasible, 0 checker violations, 0 budget breaches, 0 dominated pairs (one set has 2 points). SUN 8 feasible, same zeros. Counterfactual, budget plus 10 percent, 8 rooms: median full re-run 9.126 ms, median warm start 9.856 ms, diffs 8 of 8. Warm start was slower here, as in the Phase 8 table, which was not rerun. The advisory critic read 4 plan images, logged 3 disagreement lines (each "vlm flagged missing"), and left all 4 designs unchanged. It did not reject or rewrite a design.
+  - Human preference: 6 blinded plan pairs and a blank sheet in `docs/reports/preference/`. Scores were not collected. No model score was written in as a preference.
+  - Report: `docs/reports/evaluation_ablation.md`. Plot: `docs/reports/ablation_violation_rates.svg`. Geometry accuracy remains the public NYU and SUN RGB-D numbers, not a custom tape-measured photo set. RoomGPT, diffusion-only, and a critic reject loop were not run.
+- Not built: a CubiCasa5K floor-plan parser, COLMAP, GraphRAG, a schema change, a migration, a retraining run, a page rewrite, SDXL, a second ControlNet, and any edit that puts a retrieved clearance into CP-SAT or lets the critic drop a design. Phase 12 was not started.
+- Check:
+  - `uv run ruff check .`
+  - `uv run pytest` (162 passed, 1 skipped; the skipped face-blur test needs OpenCV and runs only in `.venv-train`; one known Starlette warning).
+  - `uv run python scripts/verify_datasets.py`
+  - `uv run python scripts/check_optimizer_200.py` (seed 20260930: 109 feasible, 91 infeasible, checker violations 0, budget breaches 0).
+  - `uv run python scripts/check_pareto_200.py` (same seed: 109 feasible, 91 infeasible, violations 0, breaches 0, dominated pairs 0).
+  - `uv run python scripts/eval_ablation.py` (seed 20261001; calls local Ollama and Postgres; does not pull a model).
+  - The Next.js page was not part of this phase. The Phase 10 Playwright run remains `npm run test:e2e` from `frontend/` (2 passed).
+  - Read `docs/reports/evaluation_ablation.md`. The preference sheet is `docs/reports/preference/rater_sheet.md`.
+

@@ -1,0 +1,989 @@
+{
+  "seed": 20261001,
+  "command": "uv run python scripts/eval_ablation.py",
+  "synthetic_rooms": 16,
+  "sun_rooms": 8,
+  "sample_note": "Synthetic rooms are a new draw from the existing generator, seed 20261001, count 16. They are not the Phase 3 gate's 200 rooms. Eligible SUN test rows before the rectangle filter: 190. Skipped missing or implausible layouts while filling the sample: 2. Rooms used: 8.",
+  "sun_note": "Eligible SUN test rows before the rectangle filter: 190. Skipped missing or implausible layouts while filling the sample: 2. Rooms used: 8.",
+  "synthetic_cp_sat": {
+    "rooms": 16,
+    "returned": 12,
+    "no_design": 4,
+    "with_violation": 0,
+    "violation_rate": 0.0,
+    "mean_violations": 0.0,
+    "budget_ok": 12,
+    "budget_rate": 1.0,
+    "clean": 12,
+    "clean_rate": 0.75,
+    "must_have_mean": 1.0,
+    "must_have_rooms": 12,
+    "must_keep_mean": 1.0,
+    "must_keep_rooms": 9,
+    "utilization_median": 0.05548283763864093,
+    "free_floor_median": 0.9445171623613591,
+    "clearance_clean": 12,
+    "clearance_clean_rate": 1.0,
+    "kinds": {
+      "overlap": 0,
+      "clearance": 0,
+      "budget": 0,
+      "missing": 0
+    }
+  },
+  "synthetic_llm": {
+    "rooms": 16,
+    "returned": 16,
+    "no_design": 0,
+    "with_violation": 10,
+    "violation_rate": 0.625,
+    "mean_violations": 1.5625,
+    "budget_ok": 16,
+    "budget_rate": 1.0,
+    "clean": 6,
+    "clean_rate": 0.375,
+    "must_have_mean": 0.9791666666666667,
+    "must_have_rooms": 16,
+    "must_keep_mean": 0.4230769230769231,
+    "must_keep_rooms": 13,
+    "utilization_median": 0.06216727425256778,
+    "free_floor_median": 0.9378327257474321,
+    "clearance_clean": 9,
+    "clearance_clean_rate": 0.5625,
+    "kinds": {
+      "overlap": 0,
+      "clearance": 7,
+      "budget": 0,
+      "missing": 8
+    }
+  },
+  "sun_cp_sat": {
+    "rooms": 8,
+    "returned": 8,
+    "no_design": 0,
+    "with_violation": 0,
+    "violation_rate": 0.0,
+    "mean_violations": 0.0,
+    "budget_ok": 8,
+    "budget_rate": 1.0,
+    "clean": 8,
+    "clean_rate": 1.0,
+    "must_have_mean": 1.0,
+    "must_have_rooms": 8,
+    "must_keep_mean": null,
+    "must_keep_rooms": 0,
+    "utilization_median": 0.06640152558028978,
+    "free_floor_median": 0.9335984744197102,
+    "clearance_clean": 8,
+    "clearance_clean_rate": 1.0,
+    "kinds": {
+      "overlap": 0,
+      "clearance": 0,
+      "budget": 0,
+      "missing": 0
+    }
+  },
+  "sun_llm": {
+    "rooms": 8,
+    "returned": 8,
+    "no_design": 0,
+    "with_violation": 3,
+    "violation_rate": 0.375,
+    "mean_violations": 0.375,
+    "budget_ok": 8,
+    "budget_rate": 1.0,
+    "clean": 5,
+    "clean_rate": 0.625,
+    "must_have_mean": 1.0,
+    "must_have_rooms": 8,
+    "must_keep_mean": null,
+    "must_keep_rooms": 0,
+    "utilization_median": 0.07447354697001049,
+    "free_floor_median": 0.9255264530299896,
+    "clearance_clean": 8,
+    "clearance_clean_rate": 1.0,
+    "kinds": {
+      "overlap": 2,
+      "clearance": 0,
+      "budget": 0,
+      "missing": 1
+    }
+  },
+  "nyu": {
+    "status": "not_run",
+    "reason": "654 NYU test frames are on disk. The layout ladder was not run on them because the cleaned export has no room rectangle and the photo pipeline was not re-run."
+  },
+  "parser": {
+    "rooms": 16,
+    "schema_valid": 16,
+    "schema_valid_rate": 1.0,
+    "field_accuracy": 0.4635416666666667,
+    "text_grounded_accuracy": 0.9166666666666666,
+    "model": "qwen2.5:7b"
+  },
+  "rag": {
+    "rooms": 16,
+    "rooms_with_numbers": 16,
+    "numbers": 192,
+    "mapped_to_solver_constant": 33,
+    "mapped_values_that_differ": 33,
+    "applied_to_solver": false
+  },
+  "pareto_synthetic": {
+    "rooms": 16,
+    "feasible": 12,
+    "infeasible": 4,
+    "checker_violations": 0,
+    "budget_breaches": 0,
+    "dominated_pairs": 0,
+    "points_per_set": {
+      "4": 7,
+      "2": 1,
+      "5": 3,
+      "6": 1
+    },
+    "style_backend": "openai/clip-vit-base-patch32",
+    "median_sweep_ms": 43.229673501627985
+  },
+  "pareto_sun": {
+    "rooms": 8,
+    "feasible": 8,
+    "infeasible": 0,
+    "checker_violations": 0,
+    "budget_breaches": 0,
+    "dominated_pairs": 0,
+    "points_per_set": {
+      "4": 6,
+      "5": 2
+    },
+    "style_backend": "openai/clip-vit-base-patch32",
+    "median_sweep_ms": 30.521769998813397
+  },
+  "counterfactual": {
+    "rooms": 8,
+    "median_full_rerun_ms": 9.126309501880314,
+    "median_warm_start_ms": 9.855549998974311,
+    "diffs_ok": 8
+  },
+  "critic": {
+    "images": 4,
+    "rows_with_disagreement": 3,
+    "lines": 3,
+    "designs_unchanged": 4,
+    "log": [
+      {
+        "scene_id": "syn_room_00001",
+        "disagreements": [
+          "vlm flagged missing and the geometric checker did not"
+        ]
+      },
+      {
+        "scene_id": "syn_room_00002",
+        "disagreements": [
+          "vlm flagged missing and the geometric checker did not"
+        ]
+      },
+      {
+        "scene_id": "syn_room_00001",
+        "disagreements": [
+          "vlm flagged missing and the geometric checker did not"
+        ]
+      },
+      {
+        "scene_id": "syn_room_00002",
+        "disagreements": []
+      }
+    ]
+  },
+  "preference": {
+    "pairs": 6,
+    "collected": false
+  },
+  "synthetic_rooms_detail": [
+    {
+      "returned": true,
+      "violation_count": 0,
+      "violations": [],
+      "kinds": [],
+      "budget_ok": true,
+      "cost": 3900.0,
+      "must_have_rate": 1.0,
+      "must_keep_rate": null,
+      "utilization": 0.008601214709097062,
+      "free_floor": 0.991398785290903,
+      "clearance_clean": true,
+      "scene_id": "syn_room_00001"
+    },
+    {
+      "returned": true,
+      "violation_count": 0,
+      "violations": [],
+      "kinds": [],
+      "budget_ok": true,
+      "cost": 4400.0,
+      "must_have_rate": 1.0,
+      "must_keep_rate": 1.0,
+      "utilization": 0.01216367440276359,
+      "free_floor": 0.9878363255972364,
+      "clearance_clean": true,
+      "scene_id": "syn_room_00002"
+    },
+    {
+      "returned": true,
+      "violation_count": 0,
+      "violations": [],
+      "kinds": [],
+      "budget_ok": true,
+      "cost": 5850.0,
+      "must_have_rate": 1.0,
+      "must_keep_rate": 1.0,
+      "utilization": 0.05527499408190641,
+      "free_floor": 0.9447250059180936,
+      "clearance_clean": true,
+      "scene_id": "syn_room_00003"
+    },
+    {
+      "returned": false,
+      "reason": "no placement satisfies room bounds, clearances, openings, must-keep poses, accessibility, and budget",
+      "violation_count": 0,
+      "scene_id": "syn_room_00004"
+    },
+    {
+      "returned": true,
+      "violation_count": 0,
+      "violations": [],
+      "kinds": [],
+      "budget_ok": true,
+      "cost": 1800.0,
+      "must_have_rate": 1.0,
+      "must_keep_rate": 1.0,
+      "utilization": 0.04528733326647277,
+      "free_floor": 0.9547126667335273,
+      "clearance_clean": true,
+      "scene_id": "syn_room_00005"
+    },
+    {
+      "returned": false,
+      "reason": "no placement satisfies room bounds, clearances, openings, must-keep poses, accessibility, and budget",
+      "violation_count": 0,
+      "scene_id": "syn_room_00006"
+    },
+    {
+      "returned": true,
+      "violation_count": 0,
+      "violations": [],
+      "kinds": [],
+      "budget_ok": true,
+      "cost": 13350.0,
+      "must_have_rate": 1.0,
+      "must_keep_rate": 1.0,
+      "utilization": 0.1549520766773163,
+      "free_floor": 0.8450479233226837,
+      "clearance_clean": true,
+      "scene_id": "syn_room_00007"
+    },
+    {
+      "returned": true,
+      "violation_count": 0,
+      "violations": [],
+      "kinds": [],
+      "budget_ok": true,
+      "cost": 3350.0,
+      "must_have_rate": 1.0,
+      "must_keep_rate": 1.0,
+      "utilization": 0.08691135734072024,
+      "free_floor": 0.9130886426592798,
+      "clearance_clean": true,
+      "scene_id": "syn_room_00008"
+    },
+    {
+      "returned": true,
+      "violation_count": 0,
+      "violations": [],
+      "kinds": [],
+      "budget_ok": true,
+      "cost": 8950.0,
+      "must_have_rate": 1.0,
+      "must_keep_rate": 1.0,
+      "utilization": 0.022895541606309352,
+      "free_floor": 0.9771044583936906,
+      "clearance_clean": true,
+      "scene_id": "syn_room_00009"
+    },
+    {
+      "returned": true,
+      "violation_count": 0,
+      "violations": [],
+      "kinds": [],
+      "budget_ok": true,
+      "cost": 7150.0,
+      "must_have_rate": 1.0,
+      "must_keep_rate": null,
+      "utilization": 0.05569068119537545,
+      "free_floor": 0.9443093188046245,
+      "clearance_clean": true,
+      "scene_id": "syn_room_00010"
+    },
+    {
+      "returned": true,
+      "violation_count": 0,
+      "violations": [],
+      "kinds": [],
+      "budget_ok": true,
+      "cost": 3850.0,
+      "must_have_rate": 1.0,
+      "must_keep_rate": 1.0,
+      "utilization": 0.16840448823207443,
+      "free_floor": 0.8315955117679256,
+      "clearance_clean": true,
+      "scene_id": "syn_room_00011"
+    },
+    {
+      "returned": true,
+      "violation_count": 0,
+      "violations": [],
+      "kinds": [],
+      "budget_ok": true,
+      "cost": 12100.0,
+      "must_have_rate": 1.0,
+      "must_keep_rate": 1.0,
+      "utilization": 0.19767921146953402,
+      "free_floor": 0.802320788530466,
+      "clearance_clean": true,
+      "scene_id": "syn_room_00012"
+    },
+    {
+      "returned": false,
+      "reason": "no placement satisfies room bounds, clearances, openings, must-keep poses, accessibility, and budget",
+      "violation_count": 0,
+      "scene_id": "syn_room_00013"
+    },
+    {
+      "returned": true,
+      "violation_count": 0,
+      "violations": [],
+      "kinds": [],
+      "budget_ok": true,
+      "cost": 650.0,
+      "must_have_rate": 1.0,
+      "must_keep_rate": 1.0,
+      "utilization": 0.09751728506985023,
+      "free_floor": 0.9024827149301498,
+      "clearance_clean": true,
+      "scene_id": "syn_room_00014"
+    },
+    {
+      "returned": false,
+      "reason": "no placement satisfies room bounds, clearances, openings, must-keep poses, accessibility, and budget",
+      "violation_count": 0,
+      "scene_id": "syn_room_00015"
+    },
+    {
+      "returned": true,
+      "violation_count": 0,
+      "violations": [],
+      "kinds": [],
+      "budget_ok": true,
+      "cost": 650.0,
+      "must_have_rate": 1.0,
+      "must_keep_rate": null,
+      "utilization": 0.005551939349848756,
+      "free_floor": 0.9944480606501512,
+      "clearance_clean": true,
+      "scene_id": "syn_room_00016"
+    }
+  ],
+  "synthetic_llm_detail": [
+    {
+      "returned": true,
+      "violation_count": 0,
+      "violations": [],
+      "kinds": [],
+      "budget_ok": true,
+      "cost": 3900.0,
+      "must_have_rate": 1.0,
+      "must_keep_rate": null,
+      "utilization": 0.008601214709097062,
+      "free_floor": 0.991398785290903,
+      "clearance_clean": true,
+      "scene_id": "syn_room_00001",
+      "notes": []
+    },
+    {
+      "returned": true,
+      "violation_count": 0,
+      "violations": [],
+      "kinds": [],
+      "budget_ok": true,
+      "cost": 4400.0,
+      "must_have_rate": 1.0,
+      "must_keep_rate": 1.0,
+      "utilization": 0.01216367440276359,
+      "free_floor": 0.9878363255972364,
+      "clearance_clean": true,
+      "scene_id": "syn_room_00002",
+      "notes": []
+    },
+    {
+      "returned": true,
+      "violation_count": 0,
+      "violations": [],
+      "kinds": [],
+      "budget_ok": true,
+      "cost": 6900.0,
+      "must_have_rate": 1.0,
+      "must_keep_rate": 1.0,
+      "utilization": 0.06330105623879789,
+      "free_floor": 0.9366989437612021,
+      "clearance_clean": true,
+      "scene_id": "syn_room_00003",
+      "notes": []
+    },
+    {
+      "returned": true,
+      "violation_count": 3,
+      "violations": [
+        "object 'syn_room_00004_obj_01' blocks opening 2 clearance",
+        "must-keep object 'syn_room_00004_obj_02' is absent from design",
+        "object 'llm::cat_cabinet_006::1' blocks accessible turning space"
+      ],
+      "kinds": [
+        "clearance",
+        "missing"
+      ],
+      "budget_ok": true,
+      "cost": 8700.0,
+      "must_have_rate": 1.0,
+      "must_keep_rate": 0.5,
+      "utilization": 0.07986153095177319,
+      "free_floor": 0.9201384690482268,
+      "clearance_clean": false,
+      "scene_id": "syn_room_00004",
+      "notes": []
+    },
+    {
+      "returned": true,
+      "violation_count": 0,
+      "violations": [],
+      "kinds": [],
+      "budget_ok": true,
+      "cost": 1800.0,
+      "must_have_rate": 1.0,
+      "must_keep_rate": 1.0,
+      "utilization": 0.045816868919867616,
+      "free_floor": 0.9541831310801324,
+      "clearance_clean": true,
+      "scene_id": "syn_room_00005",
+      "notes": []
+    },
+    {
+      "returned": true,
+      "violation_count": 2,
+      "violations": [
+        "must-keep object 'syn_room_00006_obj_01' is absent from design",
+        "object 'llm::cat_mirror_007::0' blocks accessible turning space"
+      ],
+      "kinds": [
+        "clearance",
+        "missing"
+      ],
+      "budget_ok": true,
+      "cost": 3600.0,
+      "must_have_rate": 1.0,
+      "must_keep_rate": 0.0,
+      "utilization": 0.02971150553252795,
+      "free_floor": 0.970288494467472,
+      "clearance_clean": false,
+      "scene_id": "syn_room_00006",
+      "notes": []
+    },
+    {
+      "returned": true,
+      "violation_count": 8,
+      "violations": [
+        "object 'llm::cat_bed_014::0' blocks opening 0 clearance",
+        "object 'llm::cat_nightstand_008::2' blocks opening 0 clearance",
+        "object 'llm::cat_nightstand_010::1' blocks opening 2 clearance",
+        "object 'llm::cat_bed_014::0' blocks opening 3 clearance",
+        "object 'llm::cat_nightstand_008::2' blocks opening 3 clearance",
+        "must-keep object 'syn_room_00007_obj_02' is absent from design",
+        "must-keep object 'syn_room_00007_obj_04' is absent from design",
+        "required category 'chair' is absent"
+      ],
+      "kinds": [
+        "clearance",
+        "missing"
+      ],
+      "budget_ok": true,
+      "cost": 18400.0,
+      "must_have_rate": 0.6666666666666666,
+      "must_keep_rate": 0.0,
+      "utilization": 0.1278426841776405,
+      "free_floor": 0.8721573158223594,
+      "clearance_clean": false,
+      "scene_id": "syn_room_00007",
+      "notes": []
+    },
+    {
+      "returned": true,
+      "violation_count": 3,
+      "violations": [
+        "object 'llm::cat_chair_008::0' blocks opening 1 clearance",
+        "object 'llm::cat_mirror_004::2' blocks opening 1 clearance",
+        "must-keep object 'syn_room_00008_obj_02' is absent from design"
+      ],
+      "kinds": [
+        "clearance",
+        "missing"
+      ],
+      "budget_ok": true,
+      "cost": 3600.0,
+      "must_have_rate": 1.0,
+      "must_keep_rate": 0.0,
+      "utilization": 0.03561071675900277,
+      "free_floor": 0.9643892832409973,
+      "clearance_clean": false,
+      "scene_id": "syn_room_00008",
+      "notes": []
+    },
+    {
+      "returned": true,
+      "violation_count": 1,
+      "violations": [
+        "must-keep object 'syn_room_00009_obj_02' is absent from design"
+      ],
+      "kinds": [
+        "missing"
+      ],
+      "budget_ok": true,
+      "cost": 13150.0,
+      "must_have_rate": 1.0,
+      "must_keep_rate": 0.0,
+      "utilization": 0.01663849991952358,
+      "free_floor": 0.9833615000804764,
+      "clearance_clean": true,
+      "scene_id": "syn_room_00009",
+      "notes": []
+    },
+    {
+      "returned": true,
+      "violation_count": 0,
+      "violations": [],
+      "kinds": [],
+      "budget_ok": true,
+      "cost": 8600.0,
+      "must_have_rate": 1.0,
+      "must_keep_rate": null,
+      "utilization": 0.06321447682054773,
+      "free_floor": 0.9367855231794523,
+      "clearance_clean": true,
+      "scene_id": "syn_room_00010",
+      "notes": []
+    },
+    {
+      "returned": true,
+      "violation_count": 1,
+      "violations": [
+        "must-keep object 'syn_room_00011_obj_05' is absent from design"
+      ],
+      "kinds": [
+        "missing"
+      ],
+      "budget_ok": true,
+      "cost": 3850.0,
+      "must_have_rate": 1.0,
+      "must_keep_rate": 0.0,
+      "utilization": 0.06966338259441708,
+      "free_floor": 0.9303366174055829,
+      "clearance_clean": true,
+      "scene_id": "syn_room_00011",
+      "notes": []
+    },
+    {
+      "returned": true,
+      "violation_count": 1,
+      "violations": [
+        "must-keep object 'syn_room_00012_obj_01' is absent from design"
+      ],
+      "kinds": [
+        "missing"
+      ],
+      "budget_ok": true,
+      "cost": 16100.0,
+      "must_have_rate": 1.0,
+      "must_keep_rate": 0.0,
+      "utilization": 0.06112007168458783,
+      "free_floor": 0.9388799283154121,
+      "clearance_clean": true,
+      "scene_id": "syn_room_00012",
+      "notes": []
+    },
+    {
+      "returned": true,
+      "violation_count": 2,
+      "violations": [
+        "object 'llm::cat_side_table_010::1' blocks opening 0 clearance",
+        "object 'syn_room_00013_obj_03' blocks accessible turning space"
+      ],
+      "kinds": [
+        "clearance"
+      ],
+      "budget_ok": true,
+      "cost": 2450.0,
+      "must_have_rate": 1.0,
+      "must_keep_rate": 1.0,
+      "utilization": 0.07694189004108785,
+      "free_floor": 0.9230581099589121,
+      "clearance_clean": false,
+      "scene_id": "syn_room_00013",
+      "notes": []
+    },
+    {
+      "returned": true,
+      "violation_count": 0,
+      "violations": [],
+      "kinds": [],
+      "budget_ok": true,
+      "cost": 650.0,
+      "must_have_rate": 1.0,
+      "must_keep_rate": 1.0,
+      "utilization": 0.09808526208862625,
+      "free_floor": 0.9019147379113738,
+      "clearance_clean": true,
+      "scene_id": "syn_room_00014",
+      "notes": []
+    },
+    {
+      "returned": true,
+      "violation_count": 3,
+      "violations": [
+        "must-keep object 'syn_room_00015_obj_02' is absent from design",
+        "object 'llm::cat_desk_015::1' blocks accessible turning space",
+        "object 'llm::cat_dresser_002::2' blocks accessible turning space"
+      ],
+      "kinds": [
+        "clearance",
+        "missing"
+      ],
+      "budget_ok": true,
+      "cost": 12550.0,
+      "must_have_rate": 1.0,
+      "must_keep_rate": 0.0,
+      "utilization": 0.0962673611111111,
+      "free_floor": 0.9037326388888889,
+      "clearance_clean": false,
+      "scene_id": "syn_room_00015",
+      "notes": []
+    },
+    {
+      "returned": true,
+      "violation_count": 1,
+      "violations": [
+        "object 'llm::cat_lamp_008::0' blocks opening 1 clearance"
+      ],
+      "kinds": [
+        "clearance"
+      ],
+      "budget_ok": true,
+      "cost": 650.0,
+      "must_have_rate": 1.0,
+      "must_keep_rate": null,
+      "utilization": 0.005551939349848756,
+      "free_floor": 0.9944480606501512,
+      "clearance_clean": false,
+      "scene_id": "syn_room_00016",
+      "notes": []
+    }
+  ],
+  "sun_rooms_detail": [
+    {
+      "returned": true,
+      "violation_count": 0,
+      "violations": [],
+      "kinds": [],
+      "budget_ok": true,
+      "cost": 13350.0,
+      "must_have_rate": 1.0,
+      "must_keep_rate": null,
+      "utilization": 0.0662912156708202,
+      "free_floor": 0.9337087843291798,
+      "clearance_clean": true,
+      "scene_id": "sun_03459"
+    },
+    {
+      "returned": true,
+      "violation_count": 0,
+      "violations": [],
+      "kinds": [],
+      "budget_ok": true,
+      "cost": 6500.0,
+      "must_have_rate": 1.0,
+      "must_keep_rate": null,
+      "utilization": 0.029133861732980677,
+      "free_floor": 0.9708661382670193,
+      "clearance_clean": true,
+      "scene_id": "sun_01404"
+    },
+    {
+      "returned": true,
+      "violation_count": 0,
+      "violations": [],
+      "kinds": [],
+      "budget_ok": true,
+      "cost": 13350.0,
+      "must_have_rate": 1.0,
+      "must_keep_rate": null,
+      "utilization": 0.138381732357013,
+      "free_floor": 0.861618267642987,
+      "clearance_clean": true,
+      "scene_id": "sun_02600"
+    },
+    {
+      "returned": true,
+      "violation_count": 0,
+      "violations": [],
+      "kinds": [],
+      "budget_ok": true,
+      "cost": 24600.0,
+      "must_have_rate": 1.0,
+      "must_keep_rate": null,
+      "utilization": 0.06170071317730904,
+      "free_floor": 0.9382992868226909,
+      "clearance_clean": true,
+      "scene_id": "sun_02750"
+    },
+    {
+      "returned": true,
+      "violation_count": 0,
+      "violations": [],
+      "kinds": [],
+      "budget_ok": true,
+      "cost": 6500.0,
+      "must_have_rate": 1.0,
+      "must_keep_rate": null,
+      "utilization": 0.06651183548975935,
+      "free_floor": 0.9334881645102406,
+      "clearance_clean": true,
+      "scene_id": "sun_08914"
+    },
+    {
+      "returned": true,
+      "violation_count": 0,
+      "violations": [],
+      "kinds": [],
+      "budget_ok": true,
+      "cost": 24600.0,
+      "must_have_rate": 1.0,
+      "must_keep_rate": null,
+      "utilization": 0.11805690170038682,
+      "free_floor": 0.8819430982996131,
+      "clearance_clean": true,
+      "scene_id": "sun_08815"
+    },
+    {
+      "returned": true,
+      "violation_count": 0,
+      "violations": [],
+      "kinds": [],
+      "budget_ok": true,
+      "cost": 6500.0,
+      "must_have_rate": 1.0,
+      "must_keep_rate": null,
+      "utilization": 0.02032742638814763,
+      "free_floor": 0.9796725736118523,
+      "clearance_clean": true,
+      "scene_id": "sun_03724"
+    },
+    {
+      "returned": true,
+      "violation_count": 0,
+      "violations": [],
+      "kinds": [],
+      "budget_ok": true,
+      "cost": 13350.0,
+      "must_have_rate": 1.0,
+      "must_keep_rate": null,
+      "utilization": 0.16348632519377793,
+      "free_floor": 0.8365136748062221,
+      "clearance_clean": true,
+      "scene_id": "sun_09229"
+    }
+  ],
+  "sun_llm_detail": [
+    {
+      "returned": true,
+      "violation_count": 0,
+      "violations": [],
+      "kinds": [],
+      "budget_ok": true,
+      "cost": 15200.0,
+      "must_have_rate": 1.0,
+      "must_keep_rate": null,
+      "utilization": 0.06333478278448354,
+      "free_floor": 0.9366652172155164,
+      "clearance_clean": true,
+      "scene_id": "sun_03459",
+      "notes": []
+    },
+    {
+      "returned": true,
+      "violation_count": 1,
+      "violations": [
+        "objects 'llm::cat_table_017::0' and 'llm::cat_chair_023::1' overlap"
+      ],
+      "kinds": [
+        "overlap"
+      ],
+      "budget_ok": true,
+      "cost": 7700.0,
+      "must_have_rate": 1.0,
+      "must_keep_rate": null,
+      "utilization": 0.03302980349119927,
+      "free_floor": 0.9669701965088007,
+      "clearance_clean": true,
+      "scene_id": "sun_01404",
+      "notes": []
+    },
+    {
+      "returned": true,
+      "violation_count": 0,
+      "violations": [],
+      "kinds": [],
+      "budget_ok": true,
+      "cost": 15200.0,
+      "must_have_rate": 1.0,
+      "must_keep_rate": null,
+      "utilization": 0.13221023134788917,
+      "free_floor": 0.8677897686521108,
+      "clearance_clean": true,
+      "scene_id": "sun_02600",
+      "notes": []
+    },
+    {
+      "returned": true,
+      "violation_count": 0,
+      "violations": [],
+      "kinds": [],
+      "budget_ok": true,
+      "cost": 31800.0,
+      "must_have_rate": 1.0,
+      "must_keep_rate": null,
+      "utilization": 0.07354092649814083,
+      "free_floor": 0.9264590735018592,
+      "clearance_clean": true,
+      "scene_id": "sun_02750",
+      "notes": []
+    },
+    {
+      "returned": true,
+      "violation_count": 1,
+      "violations": [
+        "objects 'llm::cat_table_017::0' and 'llm::cat_chair_023::1' overlap"
+      ],
+      "kinds": [
+        "overlap"
+      ],
+      "budget_ok": true,
+      "cost": 7700.0,
+      "must_have_rate": 1.0,
+      "must_keep_rate": null,
+      "utilization": 0.07540616744188014,
+      "free_floor": 0.9245938325581199,
+      "clearance_clean": true,
+      "scene_id": "sun_08914",
+      "notes": []
+    },
+    {
+      "returned": true,
+      "violation_count": 1,
+      "violations": [
+        "object 'llm::cat_sofa_014::0' is outside usable room bounds"
+      ],
+      "kinds": [
+        "missing"
+      ],
+      "budget_ok": true,
+      "cost": 31800.0,
+      "must_have_rate": 1.0,
+      "must_keep_rate": null,
+      "utilization": 0.14071172736037788,
+      "free_floor": 0.8592882726396222,
+      "clearance_clean": true,
+      "scene_id": "sun_08815",
+      "notes": []
+    },
+    {
+      "returned": true,
+      "violation_count": 0,
+      "violations": [],
+      "kinds": [],
+      "budget_ok": true,
+      "cost": 7700.0,
+      "must_have_rate": 1.0,
+      "must_keep_rate": null,
+      "utilization": 0.02304572271386431,
+      "free_floor": 0.9769542772861357,
+      "clearance_clean": true,
+      "scene_id": "sun_03724",
+      "notes": []
+    },
+    {
+      "returned": true,
+      "violation_count": 0,
+      "violations": [],
+      "kinds": [],
+      "budget_ok": true,
+      "cost": 15200.0,
+      "must_have_rate": 1.0,
+      "must_keep_rate": null,
+      "utilization": 0.15619521816883963,
+      "free_floor": 0.8438047818311604,
+      "clearance_clean": true,
+      "scene_id": "sun_09229",
+      "notes": []
+    }
+  ],
+  "rungs": [
+    {
+      "step": 1,
+      "name": "requirement parsing plus diffusion only",
+      "text": "Parsing ran on the synthetic sentences in this sample. Diffusion-only and a commercial RoomGPT call did not run. The live generator is Stable Diffusion 1.5 inpainting with ControlNet-depth on an existing design, not an image from text alone."
+    },
+    {
+      "step": 2,
+      "name": "plus the CV scene graph",
+      "text": "On synthetic rooms the scene is the generator, not a photo. On SUN RGB-D the scene is the annotated floor rectangle, not a new perception pass. NYU layout was not run. Phase 7b geometry numbers are cited as previously recorded."
+    },
+    {
+      "step": 3,
+      "name": "plus RAG numbers recorded beside the parse",
+      "text": "Retrieval ran and the numbers were recorded beside the requirement. They were not applied inside CP-SAT, so this step does not change the layout metrics of step 4."
+    },
+    {
+      "step": 4,
+      "name": "plus CP-SAT instead of an LLM coordinate guess",
+      "text": "CP-SAT and an LLM coordinate guess both ran on the same rooms and the same catalog shortlist rules. The guess is qwen2.5:7b, temperature 0."
+    },
+    {
+      "step": 5,
+      "name": "plus the advisory critic",
+      "text": "The advisory critic ran on plan images. Disagreements were logged. Designs were left unchanged. A loop that rejects or rewrites a design did not run."
+    },
+    {
+      "step": 6,
+      "name": "full system (explanation, Pareto, counterfactual)",
+      "text": "This sample has a Pareto set and a counterfactual where those sections below are filled. Trace-grounded explanation faithfulness is the previously recorded Phase 8 result (96 of 96 versus 8 of 16). It was not rerun."
+    }
+  ],
+  "not_run": [
+    "Commercial RoomGPT, Interior AI, and Spacely AI were not called.",
+    "Diffusion-only, with no scene graph, was not run. The live path is Stable Diffusion 1.5 inpainting plus ControlNet-depth on a design.",
+    "A second ControlNet and SDXL were not added. Phase 9's consistency rate is one image and was not rerun as a large set.",
+    "Retrieved clearance numbers were not inserted into CP-SAT.",
+    "The critic was not allowed to drop or rewrite a design.",
+    "NYU layout was not run. 654 NYU test frames are on disk as images, depth, and labels. They do not include a room rectangle, and the photo pipeline was not re-run.",
+    "Structured3D perspective images were not downloaded.",
+    "Phase 12 (CubiCasa5K floor-plan parser, COLMAP, GraphRAG) was not started.",
+    "No model was retrained. No catalog, RAG chunk, or embedding was overwritten."
+  ]
+}
