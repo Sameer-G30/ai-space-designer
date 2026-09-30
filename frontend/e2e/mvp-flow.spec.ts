@@ -318,7 +318,7 @@ async function parseSentence(page: Page): Promise<void> {
   // A failure is the test's failure. The fields must come from the sentence.
   if (!(await parsed.isVisible())) {
     // The reason.
-    const detail = (await photoAlert(page)) ?? "the parser did not fill the form";
+    const detail = (await alert.isVisible() ? (await alert.innerText()).trim() : "the parser did not fill the form");
     // Stop.
     throw new Error(`parse failed: ${detail}`);
   }

@@ -214,40 +214,59 @@ export function Designer({ initialHealth }: DesignerProps) {
   // The page.
   return (
     // Page column.
-    <main className="mx-auto flex min-h-full w-full max-w-6xl flex-col gap-8 px-4 py-8 sm:px-6">
-      {/* Title and the Phase 0 health line. */}
-      <header className="flex flex-col gap-3">
+    <main className="mx-auto flex min-h-full w-full max-w-7xl flex-col gap-8 px-4 py-8 sm:px-6">
+      {/* Hero: name, tagline, and the Phase 0 health line. */}
+      <header className="flex flex-col gap-3 rounded-3xl border border-stone-200 bg-white/70 p-6 shadow-card backdrop-blur">
         {/* Project name. */}
-        <h1 className="text-3xl font-semibold tracking-tight">PhotoSpace</h1>
+        <h1 className="font-display text-4xl font-semibold tracking-tight text-stone-900">PhotoSpace</h1>
         {/* What this page does. */}
-        <p className="text-zinc-600">
+        <p className="max-w-3xl text-stone-600">
           Manual room, a sentence or a structured requirement, Pareto designs, a 3D view, a generated image,
           explanations, what-if, and version comparison.
         </p>
         {/* Phase 0 check label, kept so the health line is still obvious. */}
-        <p className="text-sm text-zinc-500">Phase 0 API health check</p>
+        <p className="text-sm text-stone-500">Phase 0 API health check</p>
         {/* Status returned by GET /health. */}
-        <p className="rounded-lg border border-zinc-200 bg-white px-4 py-3 text-lg">API status: {statusLine}</p>
+        <div className="flex flex-wrap items-center gap-3">
+          <p className="rounded-full border border-stone-200 bg-stone-50 px-4 py-2 text-base">API status: {statusLine}</p>
+          {/* Recheck without posting a room. */}
+          <button
+            type="button"
+            className="w-fit rounded-lg border border-stone-300 bg-white px-3 py-2 text-sm font-medium shadow-sm hover:bg-stone-50"
+            onClick={() => {
+              // Fire the recheck. Errors are stored in state.
+              void recheck();
+            }}
+          >
+            Recheck API
+          </button>
+        </div>
         {/* Failure detail from the health check. */}
         {health.detail ? <p className="text-sm text-red-700">{health.detail}</p> : null}
-        {/* Recheck without posting a room. */}
-        <button
-          type="button"
-          className="w-fit rounded-md border border-zinc-300 bg-white px-3 py-2 text-sm"
-          onClick={() => {
-            // Fire the recheck. Errors are stored in state.
-            void recheck();
-          }}
-        >
-          Recheck API
-        </button>
       </header>
+      {/* Two columns on wide screens: inputs left, results right. */}
+      <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-[minmax(0,460px)_minmax(0,1fr)]">
+        {/* Inputs stay in view while results scroll. */}
+        <div className="lg:sticky lg:top-4 lg:max-h-[calc(100vh-2rem)] lg:overflow-y-auto lg:pr-2">
       {/* Forms. */}
       <RequestForm pending={pending} onSolve={(value) => void solve(value)} />
+        </div>
       {/* Results. */}
-      <div ref={resultsRef} className="flex flex-col gap-4">
+      <div ref={resultsRef} className="flex min-w-0 flex-col gap-4">
         {/* Solving notice. */}
-        {pending ? <p className="text-sm text-zinc-600">Solving the room.</p> : null}
+        {pending ? (
+          <div className="flex flex-col gap-3 rounded-2xl border border-stone-200 bg-white p-5 shadow-card">
+            <p className="text-sm text-stone-600">Solving the room.</p>
+            <div className="skeleton h-24 rounded-xl" />
+            <div className="skeleton h-40 rounded-xl" />
+          </div>
+        ) : null}
+        {/* Empty state before the first solve. */}
+        {!pending && !failure && !badDetail && !outcome ? (
+          <div className="rounded-2xl border border-dashed border-stone-300 bg-white/60 p-10 text-center text-stone-500">
+            Your designs will appear here after you save a room and solve.
+          </div>
+        ) : null}
         {/* HTTP error, including 404 and 422. No plan is drawn. */}
         {failure ? (
           <section className="rounded-lg border border-red-200 bg-red-50 p-4" aria-live="polite">
@@ -274,6 +293,7 @@ export function Designer({ initialHealth }: DesignerProps) {
         ) : null}
         {/* Pareto set or the infeasible reason. */}
         {outcome ? <OutcomePanel outcome={outcome} onSelect={selectPoint} /> : null}
+      </div>
       </div>
     </main>
   );

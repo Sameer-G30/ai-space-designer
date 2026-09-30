@@ -567,11 +567,11 @@ export function RequestForm({ pending, onSolve }: RequestFormProps) {
     // noValidate lets the page show its own messages, including API 422 text.
     <form className="flex flex-col gap-8" onSubmit={onSubmit} noValidate>
       {/* Photo upload. Optional: the fields below can still be typed by hand. */}
-      <fieldset className="flex flex-col gap-4">
+      <fieldset className="flex flex-col gap-4 rounded-2xl border border-stone-200 bg-white p-5 shadow-card">
         {/* Section title. */}
-        <legend className="text-lg font-semibold text-zinc-900">Room from a photo (optional)</legend>
+        <legend className="px-2 font-display text-lg font-semibold text-stone-900">Room from a photo (optional)</legend>
         {/* Privacy note. */}
-        <p className="text-sm text-zinc-600">
+        <p className="text-sm text-stone-600">
           The server removes EXIF and GPS data and blurs faces before any model sees the photo. The
           room size is read from the photo, then you can correct it below before solving.
         </p>
@@ -623,7 +623,7 @@ export function RequestForm({ pending, onSolve }: RequestFormProps) {
           {/* Estimate button. */}
           <button
             type="button"
-            className="rounded bg-zinc-800 px-4 py-2 text-sm font-medium text-white disabled:opacity-50"
+            className="rounded-lg bg-stone-800 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-stone-900 disabled:opacity-50"
             onClick={() => void estimateFromPhoto()}
             disabled={busy}
           >
@@ -638,7 +638,7 @@ export function RequestForm({ pending, onSolve }: RequestFormProps) {
         ) : null}
         {/* Estimate details. */}
         {photo !== null ? (
-          <div className="flex flex-col gap-1 rounded border border-zinc-200 bg-zinc-50 p-3 text-sm text-zinc-800">
+          <div className="flex flex-col gap-1 rounded border border-stone-200 bg-stone-50 p-3 text-sm text-stone-800">
             {/* Source of the scale. */}
             <p>
               {photo.scaleSource === "user_length"
@@ -678,11 +678,11 @@ export function RequestForm({ pending, onSolve }: RequestFormProps) {
         ) : null}
       </fieldset>
       {/* Room measurements. */}
-      <fieldset className="flex flex-col gap-4">
+      <fieldset className="flex flex-col gap-4 rounded-2xl border border-stone-200 bg-white p-5 shadow-card">
         {/* Section title. */}
-        <legend className="text-lg font-semibold text-zinc-900">Room</legend>
+        <legend className="px-2 font-display text-lg font-semibold text-stone-900">Room</legend>
         {/* Version changes only after a photo estimate. */}
-        <p className="text-sm text-zinc-600">
+        <p className="text-sm text-stone-600">
           {sceneVersion === 1
             ? "Scene version is 1."
             : `Scene version is ${sceneVersion}. The photo estimate was saved as version ${sceneVersion - 1}. Your corrected room is saved as version ${sceneVersion}.`}
@@ -780,16 +780,16 @@ export function RequestForm({ pending, onSolve }: RequestFormProps) {
         ) : null}
       </fieldset>
       {/* Openings. */}
-      <fieldset className="flex flex-col gap-4">
+      <fieldset className="flex flex-col gap-4 rounded-2xl border border-stone-200 bg-white p-5 shadow-card">
         {/* Section title. */}
-        <legend className="text-lg font-semibold text-zinc-900">Openings</legend>
+        <legend className="px-2 font-display text-lg font-semibold text-stone-900">Openings</legend>
         {/* How position is measured. */}
-        <p className="text-sm text-zinc-600">{POSITION_NOTE}</p>
+        <p className="text-sm text-stone-600">{POSITION_NOTE}</p>
         {/* Narrow doors are a readable infeasible result. */}
-        <p className="text-sm text-zinc-600">{DOOR_NOTE}</p>
+        <p className="text-sm text-stone-600">{DOOR_NOTE}</p>
         {/* One card per opening. */}
         {openings.map((opening, index) => (
-          <div key={opening.key} className="grid grid-cols-1 gap-3 rounded-lg border border-zinc-200 p-3 sm:grid-cols-2 lg:grid-cols-5">
+          <div key={opening.key} className="grid grid-cols-1 gap-3 rounded-xl border border-stone-200 bg-stone-50 p-3 sm:grid-cols-2 lg:grid-cols-5">
             {/* Type. */}
             <label className={labelClassName}>
               {`Opening ${index + 1} type`}
@@ -865,7 +865,7 @@ export function RequestForm({ pending, onSolve }: RequestFormProps) {
               {/* Does not submit the form. */}
               <button
                 type="button"
-                className="rounded-md border border-zinc-300 px-3 py-2 text-sm"
+                className="rounded-lg border border-stone-300 bg-white px-3 py-2 text-sm hover:bg-stone-50"
                 onClick={() => removeOpening(opening.key)}
                 disabled={busy}
               >
@@ -877,7 +877,7 @@ export function RequestForm({ pending, onSolve }: RequestFormProps) {
         {/* Add a row. */}
         <button
           type="button"
-          className="w-fit rounded-md border border-zinc-300 px-3 py-2 text-sm"
+          className="w-fit rounded-lg border border-stone-300 bg-white px-3 py-2 text-sm font-medium shadow-sm hover:bg-stone-50"
           onClick={addOpening}
           disabled={busy}
         >
@@ -885,18 +885,18 @@ export function RequestForm({ pending, onSolve }: RequestFormProps) {
         </button>
       </fieldset>
       {/* Existing objects the user may keep. */}
-      <fieldset className="flex flex-col gap-4">
+      <fieldset className="flex flex-col gap-4 rounded-2xl border border-stone-200 bg-white p-5 shadow-card">
         {/* Section title. */}
-        <legend className="text-lg font-semibold text-zinc-900">Existing objects</legend>
+        <legend className="px-2 font-display text-lg font-semibold text-stone-900">Existing objects</legend>
         {/* What keep means. */}
-        <p className="text-sm text-zinc-600">
+        <p className="text-sm text-stone-600">
           Only objects marked keep are held in place. Their ids are sent as must-keep ids. Unchecked objects are stored on the scene and are not held in place. Kept objects use the room confidence.
         </p>
         {/* Duplicate ids are rejected by the API so the error panel can show HTTP 422. */}
-        <p className="text-sm text-zinc-600">Object ids must be unique. The API rejects duplicates.</p>
+        <p className="text-sm text-stone-600">Object ids must be unique. The API rejects duplicates.</p>
         {/* One card per object. */}
         {objects.map((obj, index) => (
-          <div key={obj.key} className="grid grid-cols-1 gap-3 rounded-lg border border-zinc-200 p-3 sm:grid-cols-2 lg:grid-cols-4">
+          <div key={obj.key} className="grid grid-cols-1 gap-3 rounded-xl border border-stone-200 bg-stone-50 p-3 sm:grid-cols-2 lg:grid-cols-4">
             {/* Id. */}
             <label className={labelClassName}>
               {`Object ${index + 1} id`}
@@ -1000,7 +1000,7 @@ export function RequestForm({ pending, onSolve }: RequestFormProps) {
               />
             </label>
             {/* Keep checkbox. */}
-            <label className="flex items-center gap-2 text-sm text-zinc-800">
+            <label className="flex items-center gap-2 text-sm text-stone-800">
               {/* Checkbox. */}
               <input
                 type="checkbox"
@@ -1015,7 +1015,7 @@ export function RequestForm({ pending, onSolve }: RequestFormProps) {
               {/* Does not submit the form. */}
               <button
                 type="button"
-                className="rounded-md border border-zinc-300 px-3 py-2 text-sm"
+                className="rounded-lg border border-stone-300 bg-white px-3 py-2 text-sm hover:bg-stone-50"
                 onClick={() => removeObject(obj.key)}
                 disabled={busy}
               >
@@ -1027,7 +1027,7 @@ export function RequestForm({ pending, onSolve }: RequestFormProps) {
         {/* Add a row. */}
         <button
           type="button"
-          className="w-fit rounded-md border border-zinc-300 px-3 py-2 text-sm"
+          className="w-fit rounded-lg border border-stone-300 bg-white px-3 py-2 text-sm font-medium shadow-sm hover:bg-stone-50"
           onClick={addObject}
           disabled={busy}
         >
@@ -1035,11 +1035,11 @@ export function RequestForm({ pending, onSolve }: RequestFormProps) {
         </button>
       </fieldset>
       {/* Sentence. A successful parse fills the structured fields. A failure does not. */}
-      <fieldset className="flex flex-col gap-4">
+      <fieldset className="flex flex-col gap-4 rounded-2xl border border-stone-200 bg-white p-5 shadow-card">
         {/* Section title. */}
-        <legend className="text-lg font-semibold text-zinc-900">Sentence</legend>
+        <legend className="px-2 font-display text-lg font-semibold text-stone-900">Sentence</legend>
         {/* What the button does, and what a failure does not do. */}
-        <p className="text-sm text-zinc-600">{PARSER_NOTE}</p>
+        <p className="text-sm text-stone-600">{PARSER_NOTE}</p>
         {/* The sentence. */}
         <label className={labelClassName}>
           Room sentence
@@ -1068,7 +1068,7 @@ export function RequestForm({ pending, onSolve }: RequestFormProps) {
         {/* Parse. This does not solve the room. */}
         <button
           type="button"
-          className="w-fit rounded-md border border-zinc-300 px-3 py-2 text-sm disabled:opacity-50"
+          className="w-fit rounded-lg border border-stone-300 bg-white px-3 py-2 text-sm font-medium shadow-sm hover:bg-stone-50 disabled:opacity-50"
           onClick={() => {
             // Errors are stored in state.
             void parseSentence();
@@ -1085,7 +1085,7 @@ export function RequestForm({ pending, onSolve }: RequestFormProps) {
         ) : null}
         {/* Success. The user can still edit every structured field. */}
         {parseOk ? (
-          <p className="text-sm text-zinc-700">
+          <p className="text-sm text-stone-700">
             Parsed. The structured fields came from this sentence. Edit any field before solving.
           </p>
         ) : null}
@@ -1093,11 +1093,11 @@ export function RequestForm({ pending, onSolve }: RequestFormProps) {
         {parseOk && retrieved.length > 0 ? (
           <div className="flex flex-col gap-2">
             {/* What the list is. */}
-            <p className="text-sm text-zinc-600">
+            <p className="text-sm text-stone-600">
               Retrieved clearances and ergonomic numbers. They did not change the solver constants.
             </p>
             {/* One row per number. */}
-            <ul className="flex flex-col gap-1 text-sm text-zinc-800">
+            <ul className="flex flex-col gap-1 text-sm text-stone-800">
               {retrieved.map((item) => (
                 <li key={`${item.chunk_id}-${item.name}-${item.value_m}`}>
                   {`${item.name.replaceAll("_", " ")}: ${item.value_m.toFixed(3)} m, ${item.source.replaceAll("_", " ")}, ${item.page === null ? "no page" : `page ${item.page}`}, ${item.topic.replaceAll("_", " ")}`}
@@ -1108,23 +1108,23 @@ export function RequestForm({ pending, onSolve }: RequestFormProps) {
         ) : null}
         {/* Retrieval note when the search ran but found no number, or could not run. */}
         {parseOk && retrievalNote !== "" && retrievalNote !== "ok" ? (
-          <p className="text-sm text-zinc-600">{retrievalNote}</p>
+          <p className="text-sm text-stone-600">{retrievalNote}</p>
         ) : null}
         {/* Constants recorded beside the parse. */}
         {parseOk && solverConstants.length > 0 ? (
-          <p className="text-sm text-zinc-600">
+          <p className="text-sm text-stone-600">
             {`Solver constants unchanged: ${solverConstants.map((item) => `${item.name.replaceAll("_", " ")} ${item.value_m} m`).join(", ")}.`}
           </p>
         ) : null}
       </fieldset>
       {/* Structured requirement. It stays visible after a parse so the user can edit it. */}
-      <fieldset className="flex flex-col gap-4">
+      <fieldset className="flex flex-col gap-4 rounded-2xl border border-stone-200 bg-white p-5 shadow-card">
         {/* Section title. */}
-        <legend className="text-lg font-semibold text-zinc-900">Requirement</legend>
+        <legend className="px-2 font-display text-lg font-semibold text-stone-900">Requirement</legend>
         {/* The same note, beside the fields the parser fills. */}
-        <p className="text-sm text-zinc-600">{PARSER_NOTE}</p>
+        <p className="text-sm text-stone-600">{PARSER_NOTE}</p>
         {/* Derived requirement id. */}
-        <p className="text-sm text-zinc-700">Requirement id: {requirementIdFor(sceneId) || "(scene id)"}</p>
+        <p className="text-sm text-stone-700">Requirement id: {requirementIdFor(sceneId) || "(scene id)"}</p>
         {/* Budget and occupants. */}
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           {/* Budget. */}
@@ -1170,7 +1170,7 @@ export function RequestForm({ pending, onSolve }: RequestFormProps) {
             </select>
           </label>
           {/* Accessibility. */}
-          <label className="flex items-center gap-2 self-end text-sm text-zinc-800">
+          <label className="flex items-center gap-2 self-end text-sm text-stone-800">
             {/* Checkbox. */}
             <input
               type="checkbox"
@@ -1182,20 +1182,20 @@ export function RequestForm({ pending, onSolve }: RequestFormProps) {
           </label>
         </div>
         {/* Price and style disclosures. */}
-        <p className="text-sm text-zinc-600">{PRICE_NOTE}</p>
+        <p className="text-sm text-stone-600">{PRICE_NOTE}</p>
         {/* Style disclosure. */}
-        <p className="text-sm text-zinc-600">{STYLE_NOTE}</p>
+        <p className="text-sm text-stone-600">{STYLE_NOTE}</p>
         {/* Must-have classes. */}
         <div className="flex flex-col gap-2">
           {/* Group label. */}
-          <p className="text-sm font-medium text-zinc-800">Must-have categories</p>
+          <p className="text-sm font-medium text-stone-800">Must-have categories</p>
           {/* Why three classes are missing. */}
-          <p className="text-sm text-zinc-600">{ABSENT_NOTE}</p>
+          <p className="text-sm text-stone-600">{ABSENT_NOTE}</p>
           {/* Checkbox grid. */}
           <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
             {/* One checkbox per catalog class. */}
             {MUST_HAVE_CLASSES.map((name) => (
-              <label key={name} className="flex items-center gap-2 text-sm text-zinc-800">
+              <label key={name} className="flex items-center gap-2 text-sm text-stone-800">
                 {/* Checkbox. */}
                 <input
                   type="checkbox"
@@ -1211,9 +1211,9 @@ export function RequestForm({ pending, onSolve }: RequestFormProps) {
         {/* Weights. */}
         <div className="flex flex-col gap-2">
           {/* Group label. */}
-          <p className="text-sm font-medium text-zinc-800">Objective weights</p>
+          <p className="text-sm font-medium text-stone-800">Objective weights</p>
           {/* They are not normalised. */}
-          <p className="text-sm text-zinc-600">Each weight is from 0 to 1. They are not rescaled to sum to 1.</p>
+          <p className="text-sm text-stone-600">Each weight is from 0 to 1. They are not rescaled to sum to 1.</p>
           {/* Six number fields. */}
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
             {/* One field per weight. */}
@@ -1245,7 +1245,7 @@ export function RequestForm({ pending, onSolve }: RequestFormProps) {
       {/* Submit both requests. */}
       <button
         type="submit"
-        className="w-fit rounded-md bg-zinc-900 px-4 py-2 text-sm font-medium text-white disabled:opacity-50"
+        className="w-full rounded-xl bg-accent-600 px-4 py-3 text-base font-semibold text-white shadow-card transition hover:bg-accent-700 disabled:opacity-50"
         disabled={busy}
       >
         {pending ? "Solving" : "Save room and solve"}

@@ -1,5 +1,7 @@
 "use client"; // The plan is drawn in the browser from the selected design.
 
+import { memo } from "react"; // Skip re-renders when props are unchanged.
+
 // Inset distance and the frame note.
 import { LOW_CONFIDENCE_INSET_M, PLAN_NOTE, planColor, readableToken } from "@/lib/constants";
 
@@ -21,7 +23,7 @@ type PlanViewProps = {
 const PAD = 0.55;
 
 // Top-down plan in the solver frame. North is up.
-export function PlanView({ scene, objects }: PlanViewProps) {
+function PlanViewImpl({ scene, objects }: PlanViewProps) {
   // Room length, the x axis.
   const length = scene.dimensions.length;
   // Room width, the y axis.
@@ -51,18 +53,18 @@ export function PlanView({ scene, objects }: PlanViewProps) {
     // Section wrapper.
     <section className="flex flex-col gap-3">
       {/* Heading. */}
-      <h3 className="text-base font-semibold text-zinc-900">2D plan</h3>
+      <h3 className="font-display text-lg font-semibold text-stone-900">2D plan</h3>
       {/* Frame reminder. */}
-      <p className="text-sm text-zinc-600">{PLAN_NOTE}</p>
+      <p className="text-sm text-stone-600">{PLAN_NOTE}</p>
       {/* The plan. */}
       <svg
         viewBox={`0 0 ${viewWidth} ${viewHeight}`}
         role="img"
         aria-label={`Top view of ${readableToken(scene.room_type)} with ${objects.length} objects`}
-        className="h-auto w-full rounded-lg border border-zinc-300 bg-white"
+        className="h-auto w-full rounded-lg border border-stone-300 bg-white"
       >
         {/* North mark. */}
-        <text x={PAD + length / 2} y={PAD * 0.55} textAnchor="middle" fontSize="0.22" fill="#3f3f46">
+        <text x={PAD + length / 2} y={PAD * 0.55} textAnchor="middle" fontSize="0.22" fill="#5a4e44">
           N
         </text>
         {/* One-metre grid. */}
@@ -74,7 +76,7 @@ export function PlanView({ scene, objects }: PlanViewProps) {
             y1={PAD}
             x2={PAD + metre}
             y2={PAD + width}
-            stroke="#e4e4e7"
+            stroke="#e7dccb"
             strokeWidth="0.015"
           />
         ))}
@@ -87,7 +89,7 @@ export function PlanView({ scene, objects }: PlanViewProps) {
             y1={PAD + (width - metre)}
             x2={PAD + length}
             y2={PAD + (width - metre)}
-            stroke="#e4e4e7"
+            stroke="#e7dccb"
             strokeWidth="0.015"
           />
         ))}
@@ -97,7 +99,7 @@ export function PlanView({ scene, objects }: PlanViewProps) {
           y={PAD}
           width={length}
           height={width}
-          fill="#fafafa"
+          fill="#fbf5ec"
           stroke="#111111"
           strokeWidth="0.06"
         />
@@ -217,7 +219,7 @@ export function PlanView({ scene, objects }: PlanViewProps) {
         })}
       </svg>
       {/* Legend for openings and the inset. */}
-      <p className="text-sm text-zinc-600">
+      <p className="text-sm text-stone-600">
         Red marks a door. Blue marks a window. A dashed furniture edge is kept. A dashed amber rectangle is the 0.10 m low-confidence inset.
       </p>
       {/* Coordinates as text, so the selected design can be checked without reading the drawing. */}
@@ -227,7 +229,7 @@ export function PlanView({ scene, objects }: PlanViewProps) {
           {/* Column names. */}
           <thead>
             {/* Header row. */}
-            <tr className="border-b border-zinc-300 text-zinc-600">
+            <tr className="border-b border-stone-300 text-stone-600">
               {/* Object id. */}
               <th className="px-2 py-1 font-medium">id</th>
               {/* Class. */}
@@ -244,14 +246,14 @@ export function PlanView({ scene, objects }: PlanViewProps) {
           <tbody>
             {/* Design objects in solver order. */}
             {objects.map((obj, index) => (
-              <tr key={`${obj.id}-${index}`} className="border-b border-zinc-200">
+              <tr key={`${obj.id}-${index}`} className="border-b border-stone-200">
                 {/* Id, shown whole. */}
                 <td className="px-2 py-1">{obj.id}</td>
                 {/* Class, with a colour swatch that matches the plan and the boxes. */}
                 <td className="px-2 py-1">
                   {/* Swatch. */}
                   <span
-                    className="mr-2 inline-block h-3 w-3 rounded-sm border border-zinc-400"
+                    className="mr-2 inline-block h-3 w-3 rounded-sm border border-stone-400"
                     style={{ backgroundColor: planColor(index) }}
                   />
                   {/* Class name. */}
@@ -275,3 +277,6 @@ export function PlanView({ scene, objects }: PlanViewProps) {
     </section>
   );
 }
+
+// Memoized export: re-renders only when its props change.
+export const PlanView = memo(PlanViewImpl);

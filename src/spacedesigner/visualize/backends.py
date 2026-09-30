@@ -255,7 +255,7 @@ class VisualizeBackends:
         # Check once per request.
         if self._diffusion is None:
             # Does not download.
-            self._diffusion = diffusion_status()
+            self._diffusion = _cached_diffusion_status()
         # Unpack.
         ready, reason = self._diffusion
         # Missing install or weights.
@@ -434,6 +434,29 @@ class VisualizeBackends:
             list(payload["issues"]),
             dict(payload["flags"]),
         )
+
+
+# Last ready result, kept for the process so the import subprocess runs once.
+_READY_STATUS: tuple[bool, str] | None = None
+
+
+# Only a positive result is cached, so installing weights later is still noticed.
+def _cached_diffusion_status() -> tuple[bool, str]:
+    """Return diffusion_status(), remembering a ready answer."""
+    # Module-level cache.
+    global _READY_STATUS
+    # Reuse a previous ready answer.
+    if _READY_STATUS is not None:
+        # No subprocess.
+        return _READY_STATUS
+    # Fresh check.
+    status = diffusion_status()
+    # Remember success only.
+    if status[0]:
+        # Store it.
+        _READY_STATUS = status
+    # Hand back the result.
+    return status
 
 
 # FastAPI dependency.

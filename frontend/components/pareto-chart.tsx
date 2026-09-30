@@ -1,5 +1,7 @@
 "use client"; // Chart clicks stay in the browser. The points come from the API.
 
+import { memo } from "react"; // Skip re-renders when props are unchanged.
+
 // Mouse and keyboard events.
 import type { KeyboardEvent } from "react";
 
@@ -53,7 +55,7 @@ function paddedDomain(min: number, max: number): [number, number] {
 }
 
 // Scatter of cost against score. Clicking a point selects that design.
-export function ParetoChart({ points, selected, onSelect }: ParetoChartProps) {
+function ParetoChartImpl({ points, selected, onSelect }: ParetoChartProps) {
   // Costs of the returned points.
   const costs = points.map((point) => point.design.cost);
   // Scores of the returned points.
@@ -95,15 +97,15 @@ export function ParetoChart({ points, selected, onSelect }: ParetoChartProps) {
     // Section wrapper.
     <section className="flex flex-col gap-3">
       {/* Heading. */}
-      <h3 className="text-base font-semibold text-zinc-900">Pareto set</h3>
+      <h3 className="font-display text-lg font-semibold text-stone-900">Pareto set</h3>
       {/* How many designs came back. */}
-      <p className="text-sm text-zinc-600">{points.length} designs. Cost across, score up.</p>
+      <p className="text-sm text-stone-600">{points.length} designs. Cost across, score up.</p>
       {/* The scatter plot. */}
       <svg
         viewBox={`0 0 ${WIDTH} ${HEIGHT}`}
         role="group"
         aria-label="Pareto chart of cost and score"
-        className="h-auto w-full rounded-lg border border-zinc-300 bg-white"
+        className="h-auto w-full rounded-lg border border-stone-300 bg-white"
       >
         {/* Plot frame. */}
         <rect
@@ -111,11 +113,11 @@ export function ParetoChart({ points, selected, onSelect }: ParetoChartProps) {
           y={PAD_TOP}
           width={plotWidth}
           height={plotHeight}
-          fill="#fafafa"
-          stroke="#e4e4e7"
+          fill="#fbf5ec"
+          stroke="#e7dccb"
         />
         {/* Cost axis title. */}
-        <text x={PAD_LEFT + plotWidth / 2} y={HEIGHT - 6} textAnchor="middle" fontSize="12" fill="#3f3f46">
+        <text x={PAD_LEFT + plotWidth / 2} y={HEIGHT - 6} textAnchor="middle" fontSize="12" fill="#5a4e44">
           Cost (synthetic INR)
         </text>
         {/* Score axis title. */}
@@ -124,25 +126,25 @@ export function ParetoChart({ points, selected, onSelect }: ParetoChartProps) {
           y={PAD_TOP + plotHeight / 2}
           textAnchor="middle"
           fontSize="12"
-          fill="#3f3f46"
+          fill="#5a4e44"
           transform={`rotate(-90 16 ${PAD_TOP + plotHeight / 2})`}
         >
           Score
         </text>
         {/* Low cost tick. */}
-        <text x={PAD_LEFT} y={HEIGHT - 18} fontSize="11" fill="#52525b">
+        <text x={PAD_LEFT} y={HEIGHT - 18} fontSize="11" fill="#6b5d52">
           {formatInrTick(minCost)}
         </text>
         {/* High cost tick. */}
-        <text x={WIDTH - PAD_RIGHT} y={HEIGHT - 18} textAnchor="end" fontSize="11" fill="#52525b">
+        <text x={WIDTH - PAD_RIGHT} y={HEIGHT - 18} textAnchor="end" fontSize="11" fill="#6b5d52">
           {formatInrTick(maxCost)}
         </text>
         {/* High score tick. */}
-        <text x={PAD_LEFT - 6} y={PAD_TOP + 4} textAnchor="end" fontSize="11" fill="#52525b">
+        <text x={PAD_LEFT - 6} y={PAD_TOP + 4} textAnchor="end" fontSize="11" fill="#6b5d52">
           {maxScore.toFixed(2)}
         </text>
         {/* Low score tick. */}
-        <text x={PAD_LEFT - 6} y={PAD_TOP + plotHeight} textAnchor="end" fontSize="11" fill="#52525b">
+        <text x={PAD_LEFT - 6} y={PAD_TOP + plotHeight} textAnchor="end" fontSize="11" fill="#6b5d52">
           {minScore.toFixed(2)}
         </text>
         {/* One marker per returned point. */}
@@ -176,8 +178,8 @@ export function ParetoChart({ points, selected, onSelect }: ParetoChartProps) {
                 cx={cx}
                 cy={cy}
                 r={active ? 8 : 6}
-                fill={active ? "#111827" : "#2563eb"}
-                stroke="#111827"
+                fill={active ? "#3b2a20" : "#c8643c"}
+                stroke="#3b2a20"
                 strokeWidth={active ? 2 : 1}
               />
               {/* API labels beside the point. */}
@@ -210,8 +212,8 @@ export function ParetoChart({ points, selected, onSelect }: ParetoChartProps) {
                 onClick={() => onSelect(index)}
                 className={
                   active
-                    ? "w-full rounded-md border border-zinc-900 bg-zinc-900 px-3 py-2 text-left text-sm text-white"
-                    : "w-full rounded-md border border-zinc-300 bg-white px-3 py-2 text-left text-sm text-zinc-900"
+                    ? "w-full rounded-md border border-stone-900 bg-stone-900 px-3 py-2 text-left text-sm text-white"
+                    : "w-full rounded-md border border-stone-300 bg-white px-3 py-2 text-left text-sm text-stone-900"
                 }
               >
                 {/* Raw labels, cost, and score. */}
@@ -224,3 +226,6 @@ export function ParetoChart({ points, selected, onSelect }: ParetoChartProps) {
     </section>
   );
 }
+
+// Memoized export: re-renders only when its props change.
+export const ParetoChart = memo(ParetoChartImpl);

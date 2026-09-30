@@ -1,12 +1,65 @@
 /* Load Tailwind utility classes. */
 @import "tailwindcss";
 
-/* Page background and text color. */
+/* Design tokens: warm neutrals, terracotta accent, soft shadows. */
+@theme inline {
+  /* Display and body fonts come from next/font CSS variables. */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  /* Serif used for headings. */
+  --font-display: var(--font-fraunces), ui-serif, Georgia, serif;
+  /* Accent scale (terracotta). */
+  --color-accent-50: #fbf1ec;
+  --color-accent-100: #f6ded2;
+  --color-accent-500: #c8643c;
+  --color-accent-600: #b0532e;
+  --color-accent-700: #8f4325;
+  /* Sage for success states. */
+  --color-sage-50: #f0f4ee;
+  --color-sage-600: #5b7a55;
+  /* Soft layered shadows. */
+  --shadow-card: 0 1px 2px rgb(60 40 20 / 0.06), 0 8px 24px -12px rgb(60 40 20 / 0.18);
+}
+
+/* Page background: warm ivory with a faint radial glow. */
 body {
-  /* Light background for the health page. */
-  background: #fafafa;
-  /* Default text color. */
-  color: #171717;
-  /* System font stack. */
-  font-family: Arial, Helvetica, sans-serif;
+  /* Ivory canvas. */
+  background: #faf6f0 radial-gradient(1200px 500px at 15% -10%, #f6e3d6 0%, transparent 60%);
+  /* Warm near-black text. */
+  color: #2a2420;
+  /* Body font. */
+  font-family: var(--font-sans);
+  /* Crisper text. */
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Visible keyboard focus everywhere. */
+:focus-visible {
+  /* Accent ring. */
+  outline: 2px solid #c8643c;
+  outline-offset: 2px;
+}
+
+/* Fade-in for result blocks. */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+/* Utility that plays the fade-in. */
+.animate-rise { animation: rise 0.35s ease-out both; }
+
+/* Shimmer for the solving skeleton. */
+@keyframes shimmer {
+  to { background-position: -200% 0; }
+}
+/* Skeleton block. */
+.skeleton {
+  background: linear-gradient(90deg, #efe6da 25%, #f7f1e8 50%, #efe6da 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s linear infinite;
+}
+
+/* Respect users who prefer less motion. */
+@media (prefers-reduced-motion: reduce) {
+  .animate-rise, .skeleton { animation: none; }
+  html { scroll-behavior: auto; }
 }

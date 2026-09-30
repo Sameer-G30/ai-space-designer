@@ -10,10 +10,8 @@ import dynamic from "next/dynamic";
 import { BomTable } from "@/components/bom-table";
 
 // Explanation, what-if, and versions.
-import { ExplainPanel } from "@/components/explain-panel";
 
 // Generated image, scene-graph maps, and the advisory critic note.
-import { VisualizePanel } from "@/components/visualize-panel";
 
 // Pareto scatter.
 import { ParetoChart } from "@/components/pareto-chart";
@@ -36,12 +34,19 @@ import type {
   SceneGraph,
 } from "@/lib/types";
 
+// Panels shown only after a solve are split into their own chunks.
+const ExplainPanel = dynamic(() => import("@/components/explain-panel").then((m) => m.ExplainPanel));
+// Generated image panel, loaded on demand.
+const VisualizePanel = dynamic(() =>
+  import("@/components/visualize-panel").then((m) => m.VisualizePanel),
+);
+
 // Box view. The server does not render the canvas.
 const BoxView = dynamic(() => import("@/components/box-view"), {
   // WebGL is browser-only.
   ssr: false,
   // Placeholder while the module loads.
-  loading: () => <p className="p-4 text-sm text-zinc-600">Loading the 3D view.</p>,
+  loading: () => <p className="p-4 text-sm text-stone-600">Loading the 3D view.</p>,
 });
 
 // A finished solve: either a set or a reason.
@@ -120,13 +125,13 @@ export function OutcomePanel({ outcome, onSelect }: OutcomePanelProps) {
       {/* Set summary. */}
       <section className="flex flex-col gap-2">
         {/* Heading. */}
-        <h2 className="text-lg font-semibold text-zinc-900">Designs</h2>
+        <h2 className="font-display text-xl font-semibold text-stone-900">Designs</h2>
         {/* Backend string, shown exactly as returned. */}
-        <p className="text-sm text-zinc-700">
+        <p className="text-sm text-stone-700">
           style_backend: <span className="font-mono">{outcome.result.style_backend}</span>
         </p>
         {/* Sweep facts. */}
-        <p className="text-sm text-zinc-700">
+        <p className="text-sm text-stone-700">
           {outcome.result.points.length} points, {outcome.result.candidates_evaluated} candidates evaluated,{" "}
           {outcome.result.dominated_removed} dominated removed, sweep {formatMs(outcome.result.solve_time_ms)}
         </p>
@@ -134,24 +139,24 @@ export function OutcomePanel({ outcome, onSelect }: OutcomePanelProps) {
       {/* Chart and the button list. */}
       <ParetoChart points={outcome.result.points} selected={index} onSelect={onSelect} />
       {/* Facts for the selected point. */}
-      <section className="flex flex-col gap-2 rounded-lg border border-zinc-200 bg-white p-4">
+      <section className="flex flex-col gap-2 rounded-2xl border border-stone-200 bg-white p-5 shadow-card animate-rise">
         {/* Labels as the API sent them. */}
-        <h3 className="text-base font-semibold text-zinc-900">{point.labels.join(", ")}</h3>
+        <h3 className="font-display text-lg font-semibold text-stone-900">{point.labels.join(", ")}</h3>
         {/* Design id of whatever is drawn. */}
-        <p className="break-all text-sm text-zinc-700">Design id: {activeDesign.design_id}</p>
+        <p className="break-all text-sm text-stone-700">Design id: {activeDesign.design_id}</p>
         {/* Parent, only when one was returned. */}
         {activeDesign.parent_design_id ? (
-          <p className="break-all text-sm text-zinc-700">Parent design: {activeDesign.parent_design_id}</p>
+          <p className="break-all text-sm text-stone-700">Parent design: {activeDesign.parent_design_id}</p>
         ) : null}
         {/* Score, cost, and this point's solve time. A what-if uses its own time. */}
-        <p className="text-sm text-zinc-700">
+        <p className="text-sm text-stone-700">
           Score {activeDesign.score.toFixed(3)}, cost {formatInr(activeDesign.cost)}, point time{" "}
           {formatMs(activeOverlay ? activeOverlay.solve_time_ms : point.solve_time_ms)}
         </p>
         {/* Weights used for this point. They can differ across the set. */}
-        <h4 className="pt-2 text-sm font-semibold text-zinc-900">Weights</h4>
+        <h4 className="pt-2 text-sm font-semibold text-stone-900">Weights</h4>
         {/* One line per weight. */}
-        <ul className="grid grid-cols-2 gap-1 text-sm text-zinc-700 sm:grid-cols-3">
+        <ul className="grid grid-cols-2 gap-1 text-sm text-stone-700 sm:grid-cols-3">
           {/* The six weights. */}
           {WEIGHT_NAMES.map((name) => (
             <li key={name}>
@@ -160,9 +165,9 @@ export function OutcomePanel({ outcome, onSelect }: OutcomePanelProps) {
           ))}
         </ul>
         {/* Objective terms from the trace. */}
-        <h4 className="pt-2 text-sm font-semibold text-zinc-900">Objective terms</h4>
+        <h4 className="pt-2 text-sm font-semibold text-stone-900">Objective terms</h4>
         {/* One line per term. */}
-        <ul className="grid grid-cols-2 gap-1 text-sm text-zinc-700 sm:grid-cols-3">
+        <ul className="grid grid-cols-2 gap-1 text-sm text-stone-700 sm:grid-cols-3">
           {/* The six terms. */}
           {WEIGHT_NAMES.map((name) => (
             <li key={name}>
@@ -171,14 +176,14 @@ export function OutcomePanel({ outcome, onSelect }: OutcomePanelProps) {
           ))}
         </ul>
         {/* Sustainability is a lookup, not a certification. */}
-        <p className="text-sm text-zinc-600">{SUSTAINABILITY_NOTE}</p>
+        <p className="text-sm text-stone-600">{SUSTAINABILITY_NOTE}</p>
         {/* Binding constraints recorded on the trace. */}
-        <h4 className="pt-2 text-sm font-semibold text-zinc-900">Binding constraints</h4>
+        <h4 className="pt-2 text-sm font-semibold text-stone-900">Binding constraints</h4>
         {/* Empty and non-empty lists. */}
         {activeTrace.binding_constraints.length === 0 ? (
-          <p className="text-sm text-zinc-600">No binding constraints were recorded.</p>
+          <p className="text-sm text-stone-600">No binding constraints were recorded.</p>
         ) : (
-          <ul className="list-disc pl-5 text-sm text-zinc-700">
+          <ul className="list-disc pl-5 text-sm text-stone-700">
             {/* One recorded constraint. */}
             {activeTrace.binding_constraints.map((item) => (
               <li key={`${item.name}-${item.detail}`}>
@@ -188,7 +193,7 @@ export function OutcomePanel({ outcome, onSelect }: OutcomePanelProps) {
           </ul>
         )}
         {/* Rejected rows are counted. The full catalog is not printed. */}
-        <p className="text-sm text-zinc-600">Rejected catalog rows: {activeTrace.rejected_items.length}</p>
+        <p className="text-sm text-stone-600">Rejected catalog rows: {activeTrace.rejected_items.length}</p>
         {/* The what-if banner. The Pareto chart above still shows the original set. */}
         {activeOverlay ? (
           <div className="flex flex-col gap-2 rounded-md border border-sky-200 bg-sky-50 p-3">

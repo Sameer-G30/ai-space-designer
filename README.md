@@ -313,3 +313,7 @@ Each entry says what the phase changed and how to check it.
   - The Next.js page was not part of this phase. The Phase 10 Playwright run remains `npm run test:e2e` from `frontend/` (2 passed).
   - Read `docs/reports/evaluation_ablation.md`. The preference sheet is `docs/reports/preference/rater_sheet.md`.
 
+
+## Optimization and visual refresh
+
+Output-preserving backend speedups (GZip, off-loop photo work, batched design writes, vectorized style scoring, cached diffusion status), on-demand 3D rendering, and a warm light UI with a two-column workspace. Details and results: `docs/reports/optimization_refresh.md`. Check with `uv run pytest`, `uv run ruff check .`, and in `frontend/`: `npm run lint`, `npm run build`, `npm run test:e2e`.

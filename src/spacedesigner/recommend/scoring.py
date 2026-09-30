@@ -108,6 +108,8 @@ class StyleScorer:
         self._item_vectors = item_vectors
         # Normalized style key to unit vector, or None for the fallback.
         self._style_vectors = style_vectors
+        # Stacked item vectors, built lazily on the first CLIP query.
+        self._matrix: np.ndarray | None = None
         # Human-readable backend recorded in API responses and reports.
         self.backend = backend
 
@@ -131,10 +133,16 @@ class StyleScorer:
             # Query vector for the requested style.
             query = self._style_vectors[key]
             # Raw cosine per row (vectors are unit length).
-            raw = {
-                item.item_id: float(self._item_vectors[item.item_id] @ query)
-                for item in self._catalog
-            }
+            if not self._catalog:
+                # Nothing to score; avoids min() on an empty sequence.
+                return {}
+            # Stack the vectors once, then score every row with one matrix product.
+            if self._matrix is None:
+                self._matrix = np.stack([self._item_vectors[i.item_id] for i in self._catalog])
+            # Cosine for every row at once.
+            sims = self._matrix @ query
+            # Same mapping as before, in catalog order.
+            raw = {item.item_id: float(v) for item, v in zip(self._catalog, sims, strict=True)}
             # Range over the whole catalog so scores are comparable across categories.
             low, high = min(raw.values()), max(raw.values())
             # Guard against a degenerate constant range.

@@ -147,6 +147,43 @@ class PostgresDesignStore:
                 )
             )
 
+    # Store the requirement once and every design of a Pareto set in one transaction.
+    def save_designs(self, requirement: Requirement, designs: list[Design]) -> None:
+        """Persist a whole Pareto set atomically."""
+        # One transactional session for the set.
+        with Session(get_engine()) as session, session.begin():
+            # Serialize all structured fields except row columns.
+            structured = requirement.model_dump(
+                mode="json",
+                exclude={"requirement_id", "scene_id", "raw_text"},
+            )
+            # Upsert the requirement once.
+            session.merge(
+                RequirementRow(
+                    requirement_id=requirement.requirement_id,
+                    scene_id=requirement.scene_id,
+                    raw_text=requirement.raw_text,
+                    structured=structured,
+                )
+            )
+            # Flush so the parent row exists before the designs reference it.
+            session.flush()
+            # Upsert each design.
+            for design in designs:
+                # Same columns as save_design.
+                session.merge(
+                    DesignRow(
+                        design_id=design.design_id,
+                        scene_id=design.scene_id,
+                        requirement_id=design.requirement_id,
+                        weights=design.weights.model_dump(mode="json"),
+                        score=design.score,
+                        cost=design.cost,
+                        objects=[obj.model_dump(mode="json") for obj in design.objects],
+                        parent_design_id=design.parent_design_id,
+                    )
+                )
+
     # Rehydrate one design row into the locked schema.
     def get_design(self, design_id: str) -> Design | None:
         """Load and validate one design."""

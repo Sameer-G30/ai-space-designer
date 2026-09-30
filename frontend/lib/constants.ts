@@ -233,26 +233,35 @@ export const LOW_CONFIDENCE_INSET_M = 0.1;
 // Palette shared by the plan and the box view. Same order as the Python plan.
 export const PLAN_PALETTE = [
   // First object.
-  "#8ecae6",
+  "#7fb3c8",
   // Second object.
-  "#ffb703",
+  "#e9a23b",
   // Third object.
-  "#90be6d",
+  "#8fb573",
   // Fourth object.
-  "#f28482",
+  "#e07a6a",
   // Fifth object.
-  "#bdb2ff",
+  "#a79bd6",
   // Sixth object, then the palette repeats.
-  "#84a59d",
+  "#6f9c93",
 ] as const;
 
 // Tailwind classes for text inputs and selects.
 export const inputClassName =
   // Full-width field with a visible border.
-  "mt-1 w-full rounded-md border border-zinc-300 bg-white px-2 py-2 text-sm text-zinc-900";
+  "mt-1 w-full rounded-lg border border-stone-300 bg-white px-3 py-2 text-sm text-stone-900 shadow-sm transition focus:border-accent-500 disabled:bg-stone-100";
 
 // Tailwind classes for field labels.
-export const labelClassName = "block text-sm font-medium text-zinc-800";
+export const labelClassName = "block text-sm font-medium text-stone-700";
+
+// Shared button styles.
+export const buttonPrimary =
+  "rounded-lg bg-accent-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-accent-700 disabled:opacity-50";
+// Secondary button.
+export const buttonSecondary =
+  "rounded-lg border border-stone-300 bg-white px-3 py-2 text-sm font-medium text-stone-800 shadow-sm transition hover:bg-stone-50 disabled:opacity-50";
+// Card surface.
+export const cardClassName = "rounded-2xl border border-stone-200 bg-white p-5 shadow-card";
 
 // Prices are synthetic. The catalog has no retailer prices and no ratings.
 export const PRICE_NOTE =

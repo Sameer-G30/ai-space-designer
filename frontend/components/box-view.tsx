@@ -64,6 +64,8 @@ function CameraRig({
   const camera = useThree((state) => state.camera);
   // Renderer, needed for the pointer controls.
   const gl = useThree((state) => state.gl);
+  // Ask for a redraw, because the canvas only renders on demand.
+  const invalidate = useThree((state) => state.invalidate);
   // Where the furniture sits.
   const focus = focusPoint(length, width, objects);
   // Reset the camera when the furniture or the room changes.
@@ -90,12 +92,19 @@ function CameraRig({
     controls.target.set(focus.x, 0.3, focus.z);
     // Apply the target.
     controls.update();
+    // Redraw whenever the user orbits.
+    const redraw = (): void => invalidate();
+    // Redraw on each orbit change.
+    controls.addEventListener("change", redraw);
+    // Draw the reset camera.
+    invalidate();
     // Drop the controls when this view is replaced.
     return () => {
       // Release the pointer listeners.
+      controls.removeEventListener("change", redraw);
       controls.dispose();
     };
-  }, [camera, gl, length, width, focus.x, focus.z]);
+  }, [camera, gl, invalidate, length, width, focus.x, focus.z]);
   // The rig adds no mesh of its own.
   return null;
 }
@@ -122,13 +131,16 @@ export default function BoxView({ scene, objects }: BoxViewProps) {
     // Section wrapper.
     <section className="flex flex-col gap-3">
       {/* Heading. */}
-      <h3 className="text-base font-semibold text-zinc-900">3D view</h3>
+      <h3 className="font-display text-lg font-semibold text-stone-900">3D view</h3>
       {/* Frame reminder. */}
-      <p className="text-sm text-zinc-600">{BOX_NOTE}</p>
+      <p className="text-sm text-stone-600">{BOX_NOTE}</p>
       {/* Sized parent. The canvas needs a height. */}
-      <div className="h-80 w-full overflow-hidden rounded-lg border border-zinc-300 bg-zinc-200 sm:h-96">
+      <div className="h-80 w-full overflow-hidden rounded-lg border border-stone-300 bg-stone-100 sm:h-96">
         {/* WebGL scene. */}
         <Canvas
+          // Render only when something changes, and cap pixel density.
+          frameloop="demand"
+          dpr={[1, 2]}
           camera={{
             // Field of view.
             fov: 45,
@@ -151,7 +163,7 @@ export default function BoxView({ scene, objects }: BoxViewProps) {
             {/* Floor size is the room size. */}
             <planeGeometry args={[length, width]} />
             {/* Neutral floor. */}
-            <meshStandardMaterial color="#f5f5f4" />
+            <meshStandardMaterial color="#f3ebe0" />
           </mesh>
           {/* Solid wall pieces. Openings are gaps. */}
           {shell.walls.map((box, index) => (
@@ -159,7 +171,7 @@ export default function BoxView({ scene, objects }: BoxViewProps) {
               {/* Wall size. */}
               <boxGeometry args={box.size} />
               {/* Wall paint. */}
-              <meshStandardMaterial color="#d6d3d1" />
+              <meshStandardMaterial color="#e4d9c8" />
             </mesh>
           ))}
           {/* Door and window marks sitting in those gaps. */}
@@ -183,9 +195,9 @@ export default function BoxView({ scene, objects }: BoxViewProps) {
         </Canvas>
       </div>
       {/* Drag hint. */}
-      <p className="text-sm text-zinc-600">Drag to orbit the camera. Furniture stays where the solver put it.</p>
+      <p className="text-sm text-stone-600">Drag to orbit the camera. Furniture stays where the solver put it.</p>
       {/* One line per object so a mesh and a box are visible without inspecting WebGL. */}
-      <ul className="flex flex-col gap-1 text-sm text-zinc-700">
+      <ul className="flex flex-col gap-1 text-sm text-stone-700">
         {/* Design order. */}
         {objects.map((obj) => (
           <li key={obj.id}>

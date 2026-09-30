@@ -22,13 +22,13 @@ function PngFigure({ title, alt, data }: { title: string; alt: string; data: str
     // Figure.
     <figure className="flex min-w-0 flex-col gap-2">
       {/* Caption. */}
-      <figcaption className="text-sm font-semibold text-zinc-900">{title}</figcaption>
+      <figcaption className="text-sm font-semibold text-stone-900">{title}</figcaption>
       {/* The image scales down on a narrow viewport. */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={`data:image/png;base64,${data}`}
         alt={alt}
-        className="h-auto w-full rounded-md border border-zinc-300 bg-white"
+        className="h-auto w-full rounded-md border border-stone-300 bg-white"
       />
     </figure>
   );
@@ -95,11 +95,11 @@ export function VisualizePanel({ designId }: VisualizePanelProps) {
   // The panel.
   return (
     // Section.
-    <section className="flex flex-col gap-3 rounded-lg border border-zinc-200 bg-white p-4">
+    <section className="flex flex-col gap-3 rounded-2xl border border-stone-200 bg-white p-5 shadow-card animate-rise">
       {/* Heading. */}
-      <h3 className="text-base font-semibold text-zinc-900">Generated image</h3>
+      <h3 className="font-display text-lg font-semibold text-stone-900">Generated image</h3>
       {/* What this button does. */}
-      <p className="text-sm text-zinc-600">
+      <p className="text-sm text-stone-600">
         Depth and segmentation are rendered from the scene graph. A diffusion image is added only when Stable
         Diffusion 1.5 and ControlNet-depth weights are already on this machine. The critic note is advisory and
         does not change the design.
@@ -107,7 +107,7 @@ export function VisualizePanel({ designId }: VisualizePanelProps) {
       {/* Trigger. */}
       <button
         type="button"
-        className="w-fit rounded-md bg-zinc-900 px-3 py-2 text-sm text-white disabled:opacity-50"
+        className="w-fit rounded-md bg-stone-900 px-3 py-2 text-sm text-white disabled:opacity-50"
         disabled={pending}
         onClick={() => {
           // One request.
@@ -150,21 +150,21 @@ export function VisualizePanel({ designId }: VisualizePanelProps) {
           </div>
           {/* Lock score, only when an image exists. */}
           {body.unchanged_ssim !== null ? (
-            <p className="text-sm text-zinc-700">Unchanged-region SSIM: {body.unchanged_ssim.toFixed(3)}</p>
+            <p className="text-sm text-stone-700">Unchanged-region SSIM: {body.unchanged_ssim.toFixed(3)}</p>
           ) : null}
           {/* Consistency. */}
-          <p className="text-sm text-zinc-700">
+          <p className="text-sm text-stone-700">
             Consistency: {body.consistency_status}. {body.consistency_note}
           </p>
           {/* Critic. Advisory even when it disagrees. */}
-          <div className="rounded-md border border-zinc-200 bg-zinc-50 p-3">
-            <p className="text-sm font-semibold text-zinc-900">Critic note</p>
-            <p className="mt-1 text-sm text-zinc-700">
+          <div className="rounded-md border border-stone-200 bg-stone-50 p-3">
+            <p className="text-sm font-semibold text-stone-900">Critic note</p>
+            <p className="mt-1 text-sm text-stone-700">
               {body.critic_status}. {body.critic_note}
             </p>
             {/* Aesthetic lines. */}
             {body.critic_issues.length > 0 ? (
-              <ul className="mt-2 list-disc pl-5 text-sm text-zinc-700">
+              <ul className="mt-2 list-disc pl-5 text-sm text-stone-700">
                 {body.critic_issues.map((issue) => (
                   <li key={issue}>{issue}</li>
                 ))}
@@ -172,7 +172,7 @@ export function VisualizePanel({ designId }: VisualizePanelProps) {
             ) : null}
             {/* Disagreements with the geometric checker. */}
             {body.disagreements.length > 0 ? (
-              <ul className="mt-2 list-disc pl-5 text-sm text-zinc-700">
+              <ul className="mt-2 list-disc pl-5 text-sm text-stone-700">
                 {body.disagreements.map((line) => (
                   <li key={line}>{line}</li>
                 ))}

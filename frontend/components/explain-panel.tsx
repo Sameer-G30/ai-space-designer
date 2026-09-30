@@ -305,15 +305,15 @@ export function ExplainPanel({
     // Stack.
     <div className="flex flex-col gap-6">
       {/* Explanation. */}
-      <section className="flex flex-col gap-3 rounded-lg border border-zinc-200 bg-white p-4">
+      <section className="flex flex-col gap-3 rounded-2xl border border-stone-200 bg-white p-5 shadow-card animate-rise">
         {/* Heading. */}
-        <h3 className="text-base font-semibold text-zinc-900">Explanation</h3>
+        <h3 className="font-display text-lg font-semibold text-stone-900">Explanation</h3>
         {/* Which design will be explained. */}
-        <p className="break-all text-sm text-zinc-600">Design {viewDesignId}</p>
+        <p className="break-all text-sm text-stone-600">Design {viewDesignId}</p>
         {/* Ask for the sentences. */}
         <button
           type="button"
-          className="w-fit rounded-md border border-zinc-300 bg-white px-3 py-2 text-sm disabled:opacity-60"
+          className="w-fit rounded-md border border-stone-300 bg-white px-3 py-2 text-sm disabled:opacity-60"
           disabled={explaining}
           onClick={() => {
             // Fire the request. Errors are stored in state.
@@ -323,7 +323,7 @@ export function ExplainPanel({
           Explain this design
         </button>
         {/* Wait. */}
-        {explaining ? <p className="text-sm text-zinc-600">Writing the explanation.</p> : null}
+        {explaining ? <p className="text-sm text-stone-600">Writing the explanation.</p> : null}
         {/* HTTP error. */}
         {explainError ? (
           <p className="whitespace-pre-wrap text-sm text-red-800">{explainError.detail}</p>
@@ -332,25 +332,25 @@ export function ExplainPanel({
         {explanation ? (
           <div className="flex flex-col gap-3">
             {/* How the sentences were produced. */}
-            <p className="text-sm text-zinc-700">
+            <p className="text-sm text-stone-700">
               {explanation.rephrase_note}. Verified {explanation.verified_rate.toFixed(3)}.
             </p>
             {/* Sources. These sentences are the trace, not the model. */}
-            <h4 className="text-sm font-semibold text-zinc-900">Sources</h4>
-            <ul className="flex flex-col gap-2 text-sm text-zinc-800">
+            <h4 className="text-sm font-semibold text-stone-900">Sources</h4>
+            <ul className="flex flex-col gap-2 text-sm text-stone-800">
               {/* One fact. */}
               {explanation.facts.map((fact) => (
                 <li key={fact.ref} className="break-words">
                   {/* Pointer. */}
-                  <span className="font-mono text-xs text-zinc-500">{fact.ref}</span>
+                  <span className="font-mono text-xs text-stone-500">{fact.ref}</span>
                   {/* Sentence. */}
                   <span className="mt-1 block">{fact.text}</span>
                 </li>
               ))}
             </ul>
             {/* Claims, each with a verified badge and its source. */}
-            <h4 className="text-sm font-semibold text-zinc-900">Claims</h4>
-            <ul className="flex flex-col gap-2 text-sm text-zinc-800">
+            <h4 className="text-sm font-semibold text-stone-900">Claims</h4>
+            <ul className="flex flex-col gap-2 text-sm text-stone-800">
               {/* One claim. */}
               {explanation.claims.map((claim) => (
                 <li key={claim.explanation_id} className="break-words">
@@ -359,7 +359,7 @@ export function ExplainPanel({
                     {claim.verified ? "Verified" : "Unverified"}
                   </span>
                   {/* Source pointer. */}
-                  <span className="ml-2 font-mono text-xs text-zinc-500">{claim.supporting_trace_ref}</span>
+                  <span className="ml-2 font-mono text-xs text-stone-500">{claim.supporting_trace_ref}</span>
                   {/* Sentence. */}
                   <span className="mt-1 block">{claim.claim_text}</span>
                 </li>
@@ -369,11 +369,11 @@ export function ExplainPanel({
         ) : null}
       </section>
       {/* What-if. */}
-      <section className="flex flex-col gap-3 rounded-lg border border-zinc-200 bg-white p-4">
+      <section className="flex flex-col gap-3 rounded-2xl border border-stone-200 bg-white p-5 shadow-card animate-rise">
         {/* Heading. */}
-        <h3 className="text-base font-semibold text-zinc-900">What-if</h3>
+        <h3 className="font-display text-lg font-semibold text-stone-900">What-if</h3>
         {/* What the control does. */}
-        <p className="text-sm text-zinc-600">
+        <p className="text-sm text-stone-600">
           Re-solves from this Pareto design. The budget field starts at 10% above the solved budget.
           Leave a field blank to keep it.
         </p>
@@ -435,7 +435,7 @@ export function ExplainPanel({
         {/* Run. */}
         <button
           type="button"
-          className="w-fit rounded-md bg-zinc-900 px-3 py-2 text-sm text-white disabled:opacity-60"
+          className="w-fit rounded-md bg-stone-900 px-3 py-2 text-sm text-white disabled:opacity-60"
           disabled={countering}
           onClick={() => {
             // Fire the request.
@@ -445,7 +445,7 @@ export function ExplainPanel({
           Run what-if
         </button>
         {/* Wait. */}
-        {countering ? <p className="text-sm text-zinc-600">Re-solving with the previous placement as a hint.</p> : null}
+        {countering ? <p className="text-sm text-stone-600">Re-solving with the previous placement as a hint.</p> : null}
         {/* Form error. */}
         {formError ? <p className="text-sm text-red-800">{formError}</p> : null}
         {/* HTTP error. */}
@@ -460,7 +460,7 @@ export function ExplainPanel({
         ) : null}
         {/* Feasible summary and the diff. */}
         {accepted ? (
-          <div className="flex flex-col gap-2 text-sm text-zinc-800">
+          <div className="flex flex-col gap-2 text-sm text-stone-800">
             {/* Score, cost, and time. */}
             <p>
               Score change {accepted.score_change.toFixed(6)}, cost change {formatInr(accepted.cost_change)},{" "}
@@ -488,15 +488,15 @@ export function ExplainPanel({
         ) : null}
       </section>
       {/* Versions of the Pareto design. */}
-      <section className="flex flex-col gap-3 rounded-lg border border-zinc-200 bg-white p-4">
+      <section className="flex flex-col gap-3 rounded-2xl border border-stone-200 bg-white p-5 shadow-card animate-rise">
         {/* Heading. */}
-        <h3 className="text-base font-semibold text-zinc-900">Versions</h3>
+        <h3 className="font-display text-lg font-semibold text-stone-900">Versions</h3>
         {/* Which design the table belongs to. */}
-        <p className="break-all text-sm text-zinc-600">History for Pareto design {anchorDesignId}</p>
+        <p className="break-all text-sm text-stone-600">History for Pareto design {anchorDesignId}</p>
         {/* Load. */}
         <button
           type="button"
-          className="w-fit rounded-md border border-zinc-300 bg-white px-3 py-2 text-sm disabled:opacity-60"
+          className="w-fit rounded-md border border-stone-300 bg-white px-3 py-2 text-sm disabled:opacity-60"
           disabled={loadingVersions}
           onClick={() => {
             // Fire the request.
@@ -506,7 +506,7 @@ export function ExplainPanel({
           Compare versions
         </button>
         {/* Wait. */}
-        {loadingVersions ? <p className="text-sm text-zinc-600">Loading versions.</p> : null}
+        {loadingVersions ? <p className="text-sm text-stone-600">Loading versions.</p> : null}
         {/* HTTP error. */}
         {versionError ? (
           <p className="whitespace-pre-wrap text-sm text-red-800">{versionError.detail}</p>
@@ -517,7 +517,7 @@ export function ExplainPanel({
             <table className="w-full min-w-[36rem] border-collapse text-left text-sm">
               {/* Column names. */}
               <thead>
-                <tr className="border-b border-zinc-200 text-zinc-600">
+                <tr className="border-b border-stone-200 text-stone-600">
                   <th className="py-2 pr-3 font-medium">Version</th>
                   <th className="py-2 pr-3 font-medium">Score</th>
                   <th className="py-2 pr-3 font-medium">Added</th>
@@ -530,7 +530,7 @@ export function ExplainPanel({
               <tbody>
                 {/* One version. */}
                 {versions.versions.map((row) => (
-                  <tr key={row.version} className="border-b border-zinc-100 align-top">
+                  <tr key={row.version} className="border-b border-stone-100 align-top">
                     <td className="py-2 pr-3">{row.version}</td>
                     <td className="py-2 pr-3">{row.score.toFixed(3)}</td>
                     <td className="py-2 pr-3 break-words">{idList(row.diff.items_added)}</td>

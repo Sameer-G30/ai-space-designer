@@ -1,10 +1,16 @@
 """FastAPI application for health, scenes, Pareto optimization, requirements, and explanations."""
 
+# to_thread keeps blocking work off the event loop.
+import asyncio
+
 # Annotated attaches a dependency to a precise store type.
 from typing import Annotated
 
 # FastAPI builds the ASGI application and validates route dependencies.
 from fastapi import Depends, FastAPI, HTTPException, Request
+
+# Compresses large JSON and PNG-as-base64 responses.
+from fastapi.middleware.gzip import GZipMiddleware
 
 # BaseModel types the unchanged health response.
 from pydantic import BaseModel
@@ -131,6 +137,9 @@ MAX_PHOTO_BYTES = 15 * 1024 * 1024
 # Application object uvicorn loads as spacedesigner.api.main:app.
 app = FastAPI(title="PhotoSpace", version="0.1.0")
 
+# Compress responses over 1000 bytes; clients that do not ask for gzip are unaffected.
+app.add_middleware(GZipMiddleware, minimum_size=1000)
+
 
 # Liveness route used by the Phase 0 checks and the Next.js page.
 @app.get("/health", response_model=HealthResponse)
@@ -178,13 +187,13 @@ async def create_scene_from_photo(
     # Run the pipeline (face blur is its first step, before any model).
     try:
         # The runner sees only the metadata-free PNG.
-        result = runner(to_png_bytes(clean.image), clean.focal_35mm)
+        result = await asyncio.to_thread(runner, to_png_bytes(clean.image), clean.focal_35mm)
     # Missing weights, no floor, timeouts.
     except PerceptionFailure as exc:
         # The form stays usable by hand.
         raise HTTPException(status_code=422, detail=str(exc)) from None
     # Next version number continues an existing scene, else starts at 1.
-    existing = store.get_scene(scene_id)
+    existing = await asyncio.to_thread(store.get_scene, scene_id)
     # Version follows the Phase 0 scene versioning.
     version = existing.version + 1 if existing is not None else 1
     # Scale and assemble with a confidence on every dimension.
@@ -198,7 +207,7 @@ async def create_scene_from_photo(
         # Client error.
         raise HTTPException(status_code=422, detail=str(exc)) from None
     # Persist before replying so the optimizer can run on it.
-    store.save_scene(scene)
+    await asyncio.to_thread(store.save_scene, scene)
     # Return the scene and how it was estimated.
     return PhotoSceneResponse(
         scene=scene,
@@ -251,9 +260,16 @@ def optimize_design(
                 solve_time_ms=result.solve_time_ms,
             )
     # Persist the requirement and every audited design in the set.
-    for point in result.points:
-        # Each design has a distinct deterministic id.
-        store.save_design(request.requirement, point.design)
+    batch = getattr(store, "save_designs", None)
+    # One transaction for the whole set when the store supports it.
+    if batch is not None:
+        # Batched write.
+        batch(request.requirement, [point.design for point in result.points])
+    else:
+        # Fallback for stores with only the single-design write.
+        for point in result.points:
+            # Each design has a distinct deterministic id.
+            store.save_design(request.requirement, point.design)
     # Return the Pareto set with traces and BOMs.
     return result
 
