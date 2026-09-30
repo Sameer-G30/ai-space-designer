@@ -62,7 +62,7 @@ async function postJson(path: string, json: unknown): Promise<{ status: number; 
   return { status: response.status, body };
 }
 
-// The Phase 5 page: health, forms, and the selected design.
+// The page: health, the sentence, the forms, and the selected design.
 export function Designer({ initialHealth }: DesignerProps) {
   // Health, starting from the server render.
   const [health, setHealth] = useState(initialHealth);
@@ -212,7 +212,7 @@ export function Designer({ initialHealth }: DesignerProps) {
         {/* Project name. */}
         <h1 className="text-3xl font-semibold tracking-tight">PhotoSpace</h1>
         {/* What this page does. */}
-        <p className="text-zinc-600">Manual room, structured requirement, and Pareto designs.</p>
+        <p className="text-zinc-600">Manual room, a sentence or a structured requirement, and Pareto designs.</p>
         {/* Phase 0 check label, kept so the health line is still obvious. */}
         <p className="text-sm text-zinc-500">Phase 0 API health check</p>
         {/* Status returned by GET /health. */}

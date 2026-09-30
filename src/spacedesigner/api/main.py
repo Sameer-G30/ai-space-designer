@@ -1,4 +1,4 @@
-"""FastAPI application for health, manual scenes, and Phase 4 Pareto optimization."""
+"""FastAPI application for health, scenes, Pareto optimization, and requirement parsing."""
 
 # Annotated attaches a dependency to a precise store type.
 from typing import Annotated
@@ -22,9 +22,27 @@ from spacedesigner.optimizer.models import ParetoResult
 # Stage 2 sweeps weights and returns one Pareto set per solve.
 from spacedesigner.optimizer.stage2_pareto import optimize_pareto
 
+# Hybrid index dependency. Tests override it so weights are not loaded.
+from spacedesigner.rag.hybrid import HybridRetriever, get_hybrid_retriever
+
 # Cached-vector style scorer; CLIP itself is never loaded inside a request.
 from spacedesigner.recommend.scoring import StyleScorer
 from spacedesigner.recommend.service import get_style_scorer
+
+# Parser failures become HTTP 422. The model is not loaded in this process.
+from spacedesigner.requirements.errors import ParserFailure
+
+# Parse route models.
+from spacedesigner.requirements.models import ParseRequest, ParseResponse
+
+# Ollama HTTP client dependency.
+from spacedesigner.requirements.ollama_client import get_chat_client
+
+# Chat contract used by the route annotation.
+from spacedesigner.requirements.parser import ChatClient
+
+# Parse plus retrieval. Constants are copied, not edited.
+from spacedesigner.requirements.service import parse_and_retrieve
 
 # Locked public inputs remain unchanged.
 from spacedesigner.schemas import Requirement, SceneGraph
@@ -47,7 +65,7 @@ class OptimizeRequest(SchemaModel):
 
     # Persisted scene to optimize.
     scene_id: str
-    # Already-structured gold requirement; natural language parsing is Phase 6.
+    # Structured requirement. POST /requirements fills this from a sentence.
     requirement: Requirement
 
 
@@ -56,6 +74,12 @@ StoreDependency = Annotated[DesignStore, Depends(get_design_store)]
 
 # Reusable injected scorer annotation (tests override it with a fake embedder).
 ScorerDependency = Annotated[StyleScorer, Depends(get_style_scorer)]
+
+# Reusable injected chat client. The default talks to Ollama over HTTP.
+ChatDependency = Annotated[ChatClient, Depends(get_chat_client)]
+
+# Reusable injected retriever. The default embeds and reranks on CPU.
+RetrieverDependency = Annotated[HybridRetriever, Depends(get_hybrid_retriever)]
 
 
 # Application object uvicorn loads as spacedesigner.api.main:app.
@@ -122,3 +146,21 @@ def optimize_design(
         store.save_design(request.requirement, point.design)
     # Return the Pareto set with traces and BOMs.
     return result
+
+
+# Natural-language requirement route. The sentence is parsed, then clearances are retrieved.
+@app.post("/requirements", response_model=ParseResponse)
+def create_requirement(
+    body: ParseRequest,
+    chat: ChatDependency,
+    retriever: RetrieverDependency,
+) -> ParseResponse:
+    """Validate one sentence into a Requirement and attach retrieved numbers."""
+    # Model and index failures that are not a bad requirement become 422.
+    try:
+        # Parse, then retrieve. Solver constants are copied unchanged.
+        return parse_and_retrieve(body, chat, retriever)
+    # Unreadable model output, or Ollama did not answer.
+    except ParserFailure as exc:
+        # The form shows this string and does not fill the structured fields.
+        raise HTTPException(status_code=422, detail=str(exc)) from None

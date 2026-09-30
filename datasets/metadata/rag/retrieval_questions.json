@@ -1,0 +1,155 @@
+{
+  "note": "Questions are original. relevant_chunk_ids point at section chunks and the project summaries. No passage text is stored here.",
+  "questions": [
+    {
+      "id": "q01",
+      "question": "What is the minimum clear width of an accessible walking surface?",
+      "relevant_chunk_ids": ["ada_2010_p0121_003", "summary_ada_clearances_001"]
+    },
+    {
+      "id": "q02",
+      "question": "When does an accessible route need a passing space, and how large is that space?",
+      "relevant_chunk_ids": ["ada_2010_p0121_003", "ada_2010_p0123_001", "summary_ada_clearances_001"]
+    },
+    {
+      "id": "q03",
+      "question": "What is the minimum diameter of a circular wheelchair turning space?",
+      "relevant_chunk_ids": ["ada_2010_p0109_003", "summary_ada_clearances_001"]
+    },
+    {
+      "id": "q04",
+      "question": "What is the minimum size of clear floor space for one stationary wheelchair?",
+      "relevant_chunk_ids": ["ada_2010_p0111_002", "summary_ada_clearances_001"]
+    },
+    {
+      "id": "q05",
+      "question": "What is the minimum clear width of an accessible door opening?",
+      "relevant_chunk_ids": ["ada_2010_p0123_002", "summary_ada_clearances_001"]
+    },
+    {
+      "id": "q06",
+      "question": "How wide must a pass-through kitchen be between opposing counters?",
+      "relevant_chunk_ids": ["ada_2010_p0211_001", "summary_ada_clearances_001"]
+    },
+    {
+      "id": "q07",
+      "question": "How wide must a U-shaped kitchen be between opposing sides?",
+      "relevant_chunk_ids": ["ada_2010_p0211_001", "summary_ada_clearances_001"]
+    },
+    {
+      "id": "q08",
+      "question": "What vertical range defines knee clearance under a fixture?",
+      "relevant_chunk_ids": ["ada_2010_p0114_002", "summary_ergonomics_001", "summary_ada_clearances_001"]
+    },
+    {
+      "id": "q09",
+      "question": "How deep must required knee clearance be at the low end and at the high end?",
+      "relevant_chunk_ids": ["ada_2010_p0114_002", "summary_ergonomics_001"]
+    },
+    {
+      "id": "q10",
+      "question": "What is the maximum height of a kitchen work surface?",
+      "relevant_chunk_ids": ["ada_2010_p0211_002", "summary_ergonomics_001"]
+    },
+    {
+      "id": "q11",
+      "question": "What is the maximum running slope of an accessible ramp?",
+      "relevant_chunk_ids": ["ada_2010_p0131_002"]
+    },
+    {
+      "id": "q12",
+      "question": "What handrail height does an accessible ramp or stair require?",
+      "relevant_chunk_ids": ["ada_2010_p0158_001"]
+    },
+    {
+      "id": "q13",
+      "question": "What is the unobstructed side reach height range?",
+      "relevant_chunk_ids": ["ada_2010_p0118_001"]
+    },
+    {
+      "id": "q14",
+      "question": "Where is the centerline of a wheelchair accessible water closet measured from the side wall?",
+      "relevant_chunk_ids": ["ada_2010_p0165_002"]
+    },
+    {
+      "id": "q15",
+      "question": "What one-way corridor clear width does the MoHUA guideline give for a wheelchair?",
+      "relevant_chunk_ids": ["mohua_2021_p0202_001", "summary_mohua_clearances_001"]
+    },
+    {
+      "id": "q16",
+      "question": "How wide must a MoHUA accessible route be for a wheelchair and a walking person to pass?",
+      "relevant_chunk_ids": ["mohua_2021_p0202_001", "summary_mohua_clearances_001"]
+    },
+    {
+      "id": "q17",
+      "question": "How wide must a route be for two wheelchairs to pass under the MoHUA guideline?",
+      "relevant_chunk_ids": ["mohua_2021_p0202_001", "summary_mohua_clearances_001"]
+    },
+    {
+      "id": "q18",
+      "question": "What doorway clear opening does the MoHUA guideline specify?",
+      "relevant_chunk_ids": ["mohua_2021_p0278_003", "summary_mohua_clearances_001"]
+    },
+    {
+      "id": "q19",
+      "question": "How much corridor width does the MoHUA guideline need for a wheelchair to turn through a door?",
+      "relevant_chunk_ids": ["mohua_2021_p0280_001", "summary_mohua_clearances_001"]
+    },
+    {
+      "id": "q20",
+      "question": "At what height does the MoHUA guideline mount door hardware?",
+      "relevant_chunk_ids": ["mohua_2021_p0280_002", "summary_ergonomics_002", "summary_mohua_clearances_001"]
+    },
+    {
+      "id": "q21",
+      "question": "What wheelchair turning space does the MoHUA guideline ask for in a bedroom?",
+      "relevant_chunk_ids": ["mohua_2021_p0345_001", "summary_mohua_clearances_001"]
+    },
+    {
+      "id": "q22",
+      "question": "What resting seat height does the MoHUA guideline give along long routes?",
+      "relevant_chunk_ids": ["mohua_2021_p0202_002", "summary_ergonomics_002"]
+    },
+    {
+      "id": "q23",
+      "question": "What bed height range does the MoHUA guideline give for a wheelchair user?",
+      "relevant_chunk_ids": ["mohua_2021_p0345_001", "summary_ergonomics_002"]
+    },
+    {
+      "id": "q24",
+      "question": "What kitchen shelf height range does the MoHUA residential guidance give?",
+      "relevant_chunk_ids": ["mohua_2021_p0344_003", "summary_ergonomics_002"]
+    },
+    {
+      "id": "q25",
+      "question": "Which project summary lists 2010 ADA clearance notes for doors and turning space?",
+      "relevant_chunk_ids": ["summary_ada_clearances_001"]
+    },
+    {
+      "id": "q26",
+      "question": "Which project summary lists MoHUA corridor and doorway clearances?",
+      "relevant_chunk_ids": ["summary_mohua_clearances_001"]
+    },
+    {
+      "id": "q27",
+      "question": "Which project summary covers ADA kitchen work surface height and knee clearance?",
+      "relevant_chunk_ids": ["summary_ergonomics_001"]
+    },
+    {
+      "id": "q28",
+      "question": "Which project summary covers MoHUA seat, bed, and storage heights?",
+      "relevant_chunk_ids": ["summary_ergonomics_002"]
+    },
+    {
+      "id": "q29",
+      "question": "What clear width does ADA section 403.5.1 require for a walking surface?",
+      "relevant_chunk_ids": ["ada_2010_p0121_003", "summary_ada_clearances_001"]
+    },
+    {
+      "id": "q30",
+      "question": "What minimum office accessible-route width does MoHUA section 4.4.1 state?",
+      "relevant_chunk_ids": ["mohua_2021_p0202_001", "summary_mohua_clearances_001"]
+    }
+  ]
+}

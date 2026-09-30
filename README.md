@@ -1,6 +1,6 @@
 # PhotoSpace
 
-PhotoSpace is a photo-grounded interior redesign project. Phase 0 is the shared schemas, Postgres tables, FastAPI health check, and the Next.js page that displays that check. Phase 1 acquires the public datasets used later for cleaning, training, and geometry checks. Phase 2a cleans the computer-vision datasets and writes a data quality report. Phase 2b mines layout priors, builds the furniture catalog, cleans the Objaverse meshes, chunks the RAG corpus, and adds a synthetic room generator. Phase 3 adds the hard-constrained Stage 1 layout optimizer, independent checker, plan rendering, BOM, trace, and manual-scene optimization API. Phase 4 scores catalog rows and returns one Pareto set. Phase 5 is the Next.js page for that set.
+PhotoSpace is a photo-grounded interior redesign project. Phase 0 is the shared schemas, Postgres tables, FastAPI health check, and the Next.js page that displays that check. Phase 1 acquires the public datasets used later for cleaning, training, and geometry checks. Phase 2a cleans the computer-vision datasets and writes a data quality report. Phase 2b mines layout priors, builds the furniture catalog, cleans the Objaverse meshes, chunks the RAG corpus, and adds a synthetic room generator. Phase 3 adds the hard-constrained Stage 1 layout optimizer, independent checker, plan rendering, BOM, trace, and manual-scene optimization API. Phase 4 scores catalog rows and returns one Pareto set. Phase 5 is the Next.js page for that set. Phase 6 parses a sentence into a requirement and retrieves standards with hybrid search.
 
 This README is updated at the end of every phase with what changed and how to check it. See the "Phase log" section at the bottom.
 
@@ -172,3 +172,30 @@ Each entry says what the phase changed and how to check it.
   - Set the door width to 0.5 m, restore the budget, and solve. Confirm the narrow-door reason and that no plan is drawn.
   - Add two kept objects with the same id and solve. Confirm HTTP 422 and that no plan is drawn.
   - Read `docs/reports/frontend_v1.md`.
+
+### Phase 6: requirement parser and RAG
+
+- Changed:
+  - `POST /requirements` calls local Ollama `qwen2.5:7b` over HTTP, validates the locked `Requirement` shape, and retries once. `scene_id` is the scene being edited. `raw_text` is the sentence. `must_have` is limited to the 23 catalog classes. `style` is limited to the nine generator words. All six weights are required. A failed parse is HTTP 422 and does not invent a requirement.
+  - The 876 existing `rag_chunks` rows now have `bge-small-en-v1.5` vectors (384 dimensions) in `rag_chunks.embedding`. Hybrid retrieval is pgvector cosine distance plus Postgres full-text search, then `bge-reranker-base` on the top 20. Both models run on CPU. `furniture_catalog.embedding` is still the 382 CLIP vectors of 512 dimensions.
+  - The parse response includes retrieved numbers with source, page, and topic, and a copy of the named solver constants. Those constants were not changed. Chunk prose is not returned. MoHUA text is not quoted in the UI or the report.
+  - The Next.js page has a sentence box. It posts to `/api/requirements`, which calls FastAPI with `API_URL`. A successful parse fills the structured fields. Those fields stay editable. A failed parse shows the error and leaves the fields alone. The browser still does not call port 8001. No CORS.
+  - Report: `docs/reports/requirements_rag.md`.
+- Not built: Phase 7 training, SAM2, Depth Anything, YOLO, a schema change, a migration, explanation rows, design versions, and any edit to the optimizer constants. 3D-FRONT and 3D-FUTURE were not used. Retrieved clearances are recorded beside the parse and do not replace the solver.
+- Check:
+  - `uv run ruff check .`
+  - `uv run pytest` (89 passed, one known Starlette warning).
+  - `uv run python scripts/verify_datasets.py`
+  - `uv run python scripts/check_optimizer_200.py`
+  - `uv run python scripts/check_pareto_200.py`
+  - With `DATABASE_URL` exported from `.env` and Postgres up: `uv run python scripts/embed_rag_chunks.py` (876 vectors, dimension 384; catalog dimension stays 512).
+  - With Ollama serving `qwen2.5:7b`: `uv run python scripts/eval_requirement_parser.py` (schema-valid rate and field-level accuracy on 100 gold requirements, seed 20260930).
+  - `uv run python scripts/eval_rag_recall.py` (Recall@5 on the 30 questions in `datasets/metadata/rag/retrieval_questions.json`).
+  - From `frontend/`: `npm run lint` and `npm run build`.
+  - Start the API with `uv run uvicorn spacedesigner.api.main:app --host 127.0.0.1 --port 8001` after exporting `DATABASE_URL` from `.env`, and start the page with `npm run dev` in `frontend/`.
+  - Open http://localhost:3000. Confirm `API status: ok (HTTP 200)`.
+  - Type a room sentence and choose Parse sentence. Confirm the structured fields fill, and that source, page, and topic are shown for retrieved numbers without a copied passage. Edit one field, then choose Save room and solve. Confirm a Pareto set or a readable infeasible reason.
+  - Set the budget to 100 and solve. Confirm the cost reason and that no plan is drawn.
+  - Set the door width to 0.5 m, restore the budget, and solve. Confirm the narrow-door reason and that no plan is drawn.
+  - Click another Pareto point and confirm the plan follows it.
+  - Read `docs/reports/requirements_rag.md`.

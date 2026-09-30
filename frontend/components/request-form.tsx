@@ -9,6 +9,9 @@ import type { FormEvent } from "react";
 // Validate and build the two JSON bodies.
 import { buildRequest } from "@/lib/build-request";
 
+// Reader for POST /api/requirements. A failure does not fill the form.
+import { parseRequirementPayload } from "@/lib/parse-requirement";
+
 // Lists, notes, and classes.
 import {
   ABSENT_NOTE,
@@ -33,7 +36,7 @@ import {
 } from "@/lib/constants";
 
 // Draft shapes and the built request.
-import type { BuiltRequest, ObjectDraft, OpeningDraft, WeightName } from "@/lib/types";
+import type { BuiltRequest, ObjectDraft, OpeningDraft, ParseSuccess, WeightName } from "@/lib/types";
 
 // Props.
 type RequestFormProps = {
@@ -111,6 +114,20 @@ export function RequestForm({ pending, onSolve }: RequestFormProps) {
   const [weights, setWeights] = useState(initialWeights);
   // Local problems. These are shown before any request.
   const [errors, setErrors] = useState<string[]>([]);
+  // The sentence. Parsing fills the structured fields. Editing them stays possible.
+  const [sentence, setSentence] = useState("");
+  // True while POST /api/requirements is in flight.
+  const [parsing, setParsing] = useState(false);
+  // Parser error. Fields are not changed when this is set from a failed parse.
+  const [parseError, setParseError] = useState<string | null>(null);
+  // True only after a response this form accepted.
+  const [parseOk, setParseOk] = useState(false);
+  // Retrieved numbers from the last successful parse.
+  const [retrieved, setRetrieved] = useState<ParseSuccess["retrieved"]>([]);
+  // Unchanged solver constants from that response.
+  const [solverConstants, setSolverConstants] = useState<ParseSuccess["solver_constants_m"]>([]);
+  // Why the retrieved list is empty, or ok.
+  const [retrievalNote, setRetrievalNote] = useState("");
   // Add a window row.
   const addOpening = (): void => {
     // Next key.
@@ -227,6 +244,8 @@ export function RequestForm({ pending, onSolve }: RequestFormProps) {
       accessibility,
       // Weights.
       weights,
+      // The sentence they typed. Empty when the box is empty.
+      rawText: sentence,
     });
     // Show local problems and do not post.
     if (built.value === null) {
@@ -240,6 +259,159 @@ export function RequestForm({ pending, onSolve }: RequestFormProps) {
     // Ask the page to save the scene and solve.
     onSolve(built.value);
   };
+  // Format a whole number without a trailing .0, and leave other numbers as text.
+  const numberText = (value: number): string => {
+    // Integers stay integers so the budget field does not show 80000.0.
+    if (Number.isInteger(value)) {
+      // Decimal-free text.
+      return String(value);
+    }
+    // A fractional weight or budget.
+    return String(value);
+  };
+  // Copy a successful parse into the structured fields.
+  const applyParse = (result: ParseSuccess): void => {
+    // Budget.
+    setBudget(numberText(result.requirement.budget_inr));
+    // People.
+    setOccupants(numberText(result.requirement.occupant_count));
+    // Style token. The reader already checked the closed list.
+    setStyle(result.requirement.style);
+    // Accessibility flag.
+    setAccessibility(result.requirement.accessibility_required);
+    // Catalog classes, in the order the API returned.
+    setMustHave(result.requirement.must_have);
+    // The six weights.
+    setWeights({
+      // Layout.
+      layout: numberText(result.requirement.objective_weights.layout),
+      // Circulation.
+      circulation: numberText(result.requirement.objective_weights.circulation),
+      // Ergonomics.
+      ergonomics: numberText(result.requirement.objective_weights.ergonomics),
+      // Budget.
+      budget: numberText(result.requirement.objective_weights.budget),
+      // Aesthetics.
+      aesthetics: numberText(result.requirement.objective_weights.aesthetics),
+      // Sustainability.
+      sustainability: numberText(result.requirement.objective_weights.sustainability),
+    });
+    // Check keep on objects whose ids the parser named. Other rows stay, unchecked.
+    const keepIds = new Set(result.requirement.must_keep_object_ids);
+    // Update the flag only.
+    setObjects(objects.map((obj) => ({ ...obj, mustKeep: keepIds.has(obj.id) })));
+    // Numbers and constants from this response.
+    setRetrieved(result.retrieved);
+    // Unchanged solver constants.
+    setSolverConstants(result.solver_constants_m);
+    // Note, including an empty-index explanation.
+    setRetrievalNote(result.retrieval_note);
+    // The fields now came from the parser.
+    setParseOk(true);
+    // Clear a previous parser error.
+    setParseError(null);
+  };
+  // Post the sentence. Do not change the structured fields unless the body validates.
+  const parseSentence = async (): Promise<void> => {
+    // A blank sentence is a local error.
+    if (sentence.trim() === "") {
+      // Show it.
+      setParseError("Type a sentence before parsing.");
+      // Do not claim a parse.
+      setParseOk(false);
+      // Stop.
+      return;
+    }
+    // The requirement is tied to the scene id.
+    if (sceneId.trim() === "") {
+      // Show it.
+      setParseError("Enter a scene id before parsing.");
+      // Do not claim a parse.
+      setParseOk(false);
+      // Stop.
+      return;
+    }
+    // In flight.
+    setParsing(true);
+    // Clear the previous error. Fields stay until a success replaces them.
+    setParseError(null);
+    // Post the same-origin route.
+    try {
+      // Objects the sentence may keep. Empty ids are omitted.
+      const objectRefs = objects
+        .filter((obj) => obj.id.trim() !== "" && obj.type.trim() !== "")
+        .map((obj) => ({ id: obj.id.trim(), type: obj.type }));
+      // Same-origin request. The route calls FastAPI.
+      const response = await fetch("/api/requirements", {
+        // Parse.
+        method: "POST",
+        // JSON.
+        headers: { Accept: "application/json", "Content-Type": "application/json" },
+        // Sentence, scene, and object ids.
+        body: JSON.stringify({
+          scene_id: sceneId.trim(),
+          raw_text: sentence,
+          requirement_id: requirementIdFor(sceneId),
+          objects: objectRefs,
+        }),
+        // Do not reuse an older parse.
+        cache: "no-store",
+      });
+      // Body, or null when it is not JSON.
+      let body: unknown = null;
+      // Parse when possible.
+      try {
+        // Route JSON.
+        body = await response.json();
+      } catch {
+        // Leave body null. The reader turns that into an HTTP line.
+        body = null;
+      }
+      // Classify the body.
+      const read = parseRequirementPayload(body, response.status);
+      // 422 and other errors. Do not copy fields.
+      if (read.kind === "failure") {
+        // Show the parser error.
+        setParseError(read.failure.detail);
+        // This sentence was not parsed.
+        setParseOk(false);
+        // Stop.
+        return;
+      }
+      // A 200 body this form will not edit from.
+      if (read.kind === "bad") {
+        // Show that text.
+        setParseError(read.detail);
+        // This sentence was not parsed.
+        setParseOk(false);
+        // Stop.
+        return;
+      }
+      // The scene id on the requirement must be the one in the form.
+      if (read.result.requirement.scene_id !== sceneId.trim()) {
+        // Do not apply a mismatched scene.
+        setParseError("The parser returned a different scene id. The fields were not changed.");
+        // Not applied.
+        setParseOk(false);
+        // Stop.
+        return;
+      }
+      // Copy the structured fields.
+      applyParse(read.result);
+    } catch (error) {
+      // The browser could not reach this Next.js route.
+      const detail = error instanceof Error ? error.message : "unknown error";
+      // Show it. Do not copy fields.
+      setParseError(detail);
+      // Not parsed.
+      setParseOk(false);
+    } finally {
+      // Re-enable the button.
+      setParsing(false);
+    }
+  };
+  // Solving or parsing disables the fields.
+  const busy = pending || parsing;
   // The form.
   return (
     // noValidate lets the page show its own messages, including API 422 text.
@@ -260,7 +432,7 @@ export function RequestForm({ pending, onSolve }: RequestFormProps) {
               className={inputClassName}
               value={sceneId}
               onChange={(event) => setSceneId(event.target.value)}
-              disabled={pending}
+              disabled={busy}
               autoComplete="off"
             />
           </label>
@@ -272,7 +444,7 @@ export function RequestForm({ pending, onSolve }: RequestFormProps) {
               className={inputClassName}
               value={roomType}
               onChange={(event) => setRoomType(event.target.value)}
-              disabled={pending}
+              disabled={busy}
             >
               {/* One option per room type. */}
               {ROOM_TYPES.map((name) => (
@@ -290,7 +462,7 @@ export function RequestForm({ pending, onSolve }: RequestFormProps) {
               className={inputClassName}
               value={confidence}
               onChange={(event) => setConfidence(event.target.value)}
-              disabled={pending}
+              disabled={busy}
             >
               {/* One option per level. */}
               {CONFIDENCE_LEVELS.map((name) => (
@@ -309,7 +481,7 @@ export function RequestForm({ pending, onSolve }: RequestFormProps) {
               inputMode="decimal"
               value={length}
               onChange={(event) => setLength(event.target.value)}
-              disabled={pending}
+              disabled={busy}
             />
           </label>
           {/* Width. */}
@@ -321,7 +493,7 @@ export function RequestForm({ pending, onSolve }: RequestFormProps) {
               inputMode="decimal"
               value={width}
               onChange={(event) => setWidth(event.target.value)}
-              disabled={pending}
+              disabled={busy}
             />
           </label>
           {/* Height. */}
@@ -333,7 +505,7 @@ export function RequestForm({ pending, onSolve }: RequestFormProps) {
               inputMode="decimal"
               value={height}
               onChange={(event) => setHeight(event.target.value)}
-              disabled={pending}
+              disabled={busy}
             />
           </label>
         </div>
@@ -363,7 +535,7 @@ export function RequestForm({ pending, onSolve }: RequestFormProps) {
                 onChange={(event) =>
                   patchOpening(opening.key, { type: event.target.value === "window" ? "window" : "door" })
                 }
-                disabled={pending}
+                disabled={busy}
               >
                 {/* Both kinds. */}
                 {OPENING_TYPES.map((name) => (
@@ -389,7 +561,7 @@ export function RequestForm({ pending, onSolve }: RequestFormProps) {
                     patchOpening(opening.key, { wall });
                   }
                 }}
-                disabled={pending}
+                disabled={busy}
               >
                 {/* One option per wall. */}
                 {WALLS.map((name) => (
@@ -408,7 +580,7 @@ export function RequestForm({ pending, onSolve }: RequestFormProps) {
                 inputMode="decimal"
                 value={opening.position}
                 onChange={(event) => patchOpening(opening.key, { position: event.target.value })}
-                disabled={pending}
+                disabled={busy}
               />
             </label>
             {/* Width. */}
@@ -420,7 +592,7 @@ export function RequestForm({ pending, onSolve }: RequestFormProps) {
                 inputMode="decimal"
                 value={opening.width}
                 onChange={(event) => patchOpening(opening.key, { width: event.target.value })}
-                disabled={pending}
+                disabled={busy}
               />
             </label>
             {/* Remove. */}
@@ -430,7 +602,7 @@ export function RequestForm({ pending, onSolve }: RequestFormProps) {
                 type="button"
                 className="rounded-md border border-zinc-300 px-3 py-2 text-sm"
                 onClick={() => removeOpening(opening.key)}
-                disabled={pending}
+                disabled={busy}
               >
                 Remove opening
               </button>
@@ -442,7 +614,7 @@ export function RequestForm({ pending, onSolve }: RequestFormProps) {
           type="button"
           className="w-fit rounded-md border border-zinc-300 px-3 py-2 text-sm"
           onClick={addOpening}
-          disabled={pending}
+          disabled={busy}
         >
           Add opening
         </button>
@@ -468,7 +640,7 @@ export function RequestForm({ pending, onSolve }: RequestFormProps) {
                 className={inputClassName}
                 value={obj.id}
                 onChange={(event) => patchObject(obj.key, { id: event.target.value })}
-                disabled={pending}
+                disabled={busy}
                 autoComplete="off"
               />
             </label>
@@ -480,7 +652,7 @@ export function RequestForm({ pending, onSolve }: RequestFormProps) {
                 className={inputClassName}
                 value={obj.type}
                 onChange={(event) => patchObject(obj.key, { type: event.target.value })}
-                disabled={pending}
+                disabled={busy}
               >
                 {/* One option per class. */}
                 {FURNITURE_CLASSES.map((name) => (
@@ -499,7 +671,7 @@ export function RequestForm({ pending, onSolve }: RequestFormProps) {
                 inputMode="decimal"
                 value={obj.x}
                 onChange={(event) => patchObject(obj.key, { x: event.target.value })}
-                disabled={pending}
+                disabled={busy}
               />
             </label>
             {/* Centre y. */}
@@ -511,7 +683,7 @@ export function RequestForm({ pending, onSolve }: RequestFormProps) {
                 inputMode="decimal"
                 value={obj.y}
                 onChange={(event) => patchObject(obj.key, { y: event.target.value })}
-                disabled={pending}
+                disabled={busy}
               />
             </label>
             {/* Rotation. */}
@@ -523,7 +695,7 @@ export function RequestForm({ pending, onSolve }: RequestFormProps) {
                 inputMode="decimal"
                 value={obj.rotation}
                 onChange={(event) => patchObject(obj.key, { rotation: event.target.value })}
-                disabled={pending}
+                disabled={busy}
               />
             </label>
             {/* Length. */}
@@ -535,7 +707,7 @@ export function RequestForm({ pending, onSolve }: RequestFormProps) {
                 inputMode="decimal"
                 value={obj.length}
                 onChange={(event) => patchObject(obj.key, { length: event.target.value })}
-                disabled={pending}
+                disabled={busy}
               />
             </label>
             {/* Width. */}
@@ -547,7 +719,7 @@ export function RequestForm({ pending, onSolve }: RequestFormProps) {
                 inputMode="decimal"
                 value={obj.width}
                 onChange={(event) => patchObject(obj.key, { width: event.target.value })}
-                disabled={pending}
+                disabled={busy}
               />
             </label>
             {/* Height. */}
@@ -559,7 +731,7 @@ export function RequestForm({ pending, onSolve }: RequestFormProps) {
                 inputMode="decimal"
                 value={obj.height}
                 onChange={(event) => patchObject(obj.key, { height: event.target.value })}
-                disabled={pending}
+                disabled={busy}
               />
             </label>
             {/* Keep checkbox. */}
@@ -569,7 +741,7 @@ export function RequestForm({ pending, onSolve }: RequestFormProps) {
                 type="checkbox"
                 checked={obj.mustKeep}
                 onChange={(event) => patchObject(obj.key, { mustKeep: event.target.checked })}
-                disabled={pending}
+                disabled={busy}
               />
               Keep this object
             </label>
@@ -580,7 +752,7 @@ export function RequestForm({ pending, onSolve }: RequestFormProps) {
                 type="button"
                 className="rounded-md border border-zinc-300 px-3 py-2 text-sm"
                 onClick={() => removeObject(obj.key)}
-                disabled={pending}
+                disabled={busy}
               >
                 Remove object
               </button>
@@ -592,16 +764,99 @@ export function RequestForm({ pending, onSolve }: RequestFormProps) {
           type="button"
           className="w-fit rounded-md border border-zinc-300 px-3 py-2 text-sm"
           onClick={addObject}
-          disabled={pending}
+          disabled={busy}
         >
           Add kept object
         </button>
       </fieldset>
-      {/* Structured requirement. There is no free-text parser. */}
+      {/* Sentence. A successful parse fills the structured fields. A failure does not. */}
+      <fieldset className="flex flex-col gap-4">
+        {/* Section title. */}
+        <legend className="text-lg font-semibold text-zinc-900">Sentence</legend>
+        {/* What the button does, and what a failure does not do. */}
+        <p className="text-sm text-zinc-600">{PARSER_NOTE}</p>
+        {/* The sentence. */}
+        <label className={labelClassName}>
+          Room sentence
+          {/* Free text. The browser posts it to this app, not to port 8001. */}
+          <textarea
+            className={`${inputClassName} min-h-28`}
+            value={sentence}
+            onChange={(event) => {
+              // Keep the typed sentence.
+              setSentence(event.target.value);
+              // The previous parse no longer matches this text.
+              setParseOk(false);
+              // Drop numbers from the previous sentence.
+              setRetrieved([]);
+              // Drop the previous constants list too.
+              setSolverConstants([]);
+              // Drop the previous note.
+              setRetrievalNote("");
+              // A stale error should not sit under a sentence the user is rewriting.
+              setParseError(null);
+            }}
+            disabled={busy}
+            rows={4}
+          />
+        </label>
+        {/* Parse. This does not solve the room. */}
+        <button
+          type="button"
+          className="w-fit rounded-md border border-zinc-300 px-3 py-2 text-sm disabled:opacity-50"
+          onClick={() => {
+            // Errors are stored in state.
+            void parseSentence();
+          }}
+          disabled={busy}
+        >
+          {parsing ? "Parsing" : "Parse sentence"}
+        </button>
+        {/* Parser error. The structured fields were not replaced. */}
+        {parseError ? (
+          <p className="rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-800" role="alert">
+            {parseError}
+          </p>
+        ) : null}
+        {/* Success. The user can still edit every structured field. */}
+        {parseOk ? (
+          <p className="text-sm text-zinc-700">
+            Parsed. The structured fields came from this sentence. Edit any field before solving.
+          </p>
+        ) : null}
+        {/* Retrieved numbers. Passages are not shown. */}
+        {parseOk && retrieved.length > 0 ? (
+          <div className="flex flex-col gap-2">
+            {/* What the list is. */}
+            <p className="text-sm text-zinc-600">
+              Retrieved clearances and ergonomic numbers. They did not change the solver constants.
+            </p>
+            {/* One row per number. */}
+            <ul className="flex flex-col gap-1 text-sm text-zinc-800">
+              {retrieved.map((item) => (
+                <li key={`${item.chunk_id}-${item.name}-${item.value_m}`}>
+                  {`${item.name.replaceAll("_", " ")}: ${item.value_m.toFixed(3)} m, ${item.source.replaceAll("_", " ")}, ${item.page === null ? "no page" : `page ${item.page}`}, ${item.topic.replaceAll("_", " ")}`}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
+        {/* Retrieval note when the search ran but found no number, or could not run. */}
+        {parseOk && retrievalNote !== "" && retrievalNote !== "ok" ? (
+          <p className="text-sm text-zinc-600">{retrievalNote}</p>
+        ) : null}
+        {/* Constants recorded beside the parse. */}
+        {parseOk && solverConstants.length > 0 ? (
+          <p className="text-sm text-zinc-600">
+            {`Solver constants unchanged: ${solverConstants.map((item) => `${item.name.replaceAll("_", " ")} ${item.value_m} m`).join(", ")}.`}
+          </p>
+        ) : null}
+      </fieldset>
+      {/* Structured requirement. It stays visible after a parse so the user can edit it. */}
       <fieldset className="flex flex-col gap-4">
         {/* Section title. */}
         <legend className="text-lg font-semibold text-zinc-900">Requirement</legend>
-        {/* Parser note. */}
+        {/* The same note, beside the fields the parser fills. */}
         <p className="text-sm text-zinc-600">{PARSER_NOTE}</p>
         {/* Derived requirement id. */}
         <p className="text-sm text-zinc-700">Requirement id: {requirementIdFor(sceneId) || "(scene id)"}</p>
@@ -616,7 +871,7 @@ export function RequestForm({ pending, onSolve }: RequestFormProps) {
               inputMode="decimal"
               value={budget}
               onChange={(event) => setBudget(event.target.value)}
-              disabled={pending}
+              disabled={busy}
             />
           </label>
           {/* Occupants. */}
@@ -628,7 +883,7 @@ export function RequestForm({ pending, onSolve }: RequestFormProps) {
               inputMode="numeric"
               value={occupants}
               onChange={(event) => setOccupants(event.target.value)}
-              disabled={pending}
+              disabled={busy}
             />
           </label>
           {/* Style. */}
@@ -639,7 +894,7 @@ export function RequestForm({ pending, onSolve }: RequestFormProps) {
               className={inputClassName}
               value={style}
               onChange={(event) => setStyle(event.target.value)}
-              disabled={pending}
+              disabled={busy}
             >
               {/* One option per style. */}
               {STYLES.map((name) => (
@@ -656,7 +911,7 @@ export function RequestForm({ pending, onSolve }: RequestFormProps) {
               type="checkbox"
               checked={accessibility}
               onChange={(event) => setAccessibility(event.target.checked)}
-              disabled={pending}
+              disabled={busy}
             />
             Accessibility required
           </label>
@@ -681,7 +936,7 @@ export function RequestForm({ pending, onSolve }: RequestFormProps) {
                   type="checkbox"
                   checked={mustHave.includes(name)}
                   onChange={() => toggleMustHave(name)}
-                  disabled={pending}
+                  disabled={busy}
                 />
                 {readableToken(name)}
               </label>
@@ -706,7 +961,7 @@ export function RequestForm({ pending, onSolve }: RequestFormProps) {
                   inputMode="decimal"
                   value={weights[name]}
                   onChange={(event) => setWeight(name, event.target.value)}
-                  disabled={pending}
+                  disabled={busy}
                 />
               </label>
             ))}
@@ -726,7 +981,7 @@ export function RequestForm({ pending, onSolve }: RequestFormProps) {
       <button
         type="submit"
         className="w-fit rounded-md bg-zinc-900 px-4 py-2 text-sm font-medium text-white disabled:opacity-50"
-        disabled={pending}
+        disabled={busy}
       >
         {pending ? "Solving" : "Save room and solve"}
       </button>

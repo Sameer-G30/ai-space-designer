@@ -366,8 +366,8 @@ export function buildRequest(draft: RequestDraft): { errors: string[]; value: Bu
     requirement_id: requirementIdFor(sceneId),
     // Same scene id. The API returns 422 when these differ.
     scene_id: sceneId,
-    // No natural-language text.
-    raw_text: "",
+    // The sentence they typed. Empty when the box is empty.
+    raw_text: draft.rawText.trim(),
     // Budget.
     budget_inr: budget,
     // Catalog classes. Copy so the draft cannot mutate the body.

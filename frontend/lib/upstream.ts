@@ -22,7 +22,7 @@ export function apiOrigin(): string {
 // Call one FastAPI path. json is sent only when the caller provides it.
 export async function callApi(
   path: string,
-  init: { method: string; json?: unknown },
+  init: { method: string; json?: unknown; timeoutMs?: number },
 ): Promise<Upstream> {
   // Build the upstream URL on the server.
   const url = `${apiOrigin()}${path}`;
@@ -48,6 +48,8 @@ export async function callApi(
       body: init.json === undefined ? undefined : JSON.stringify(init.json),
       // Always ask the upstream again.
       cache: "no-store",
+      // Optional deadline. Other routes keep the previous unlimited wait.
+      signal: init.timeoutMs === undefined ? undefined : AbortSignal.timeout(init.timeoutMs),
     });
     // Read text first so a non-JSON error still has a status.
     const text = await response.text();

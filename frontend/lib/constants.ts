@@ -269,10 +269,10 @@ export const SUSTAINABILITY_NOTE =
   // Shown when the selected design prints its sustainability term.
   "Sustainability is a material lookup, not a certification. leather, rattan, linen_fabric, polyester_fabric, and cotton_fabric are missing from the lookup and use 0.5.";
 
-// This phase does not parse a sentence into a requirement.
+// The sentence box fills the structured fields only after a successful parse.
 export const PARSER_NOTE =
-  // Shown instead of a free-text box.
-  "This form sends a structured requirement. It does not parse a sentence.";
+  // Shown above the sentence box and the structured fields.
+  "Type a sentence and parse it to fill the fields below. You can edit those fields before solving. If parsing fails, the fields stay as they are and the error is shown.";
 
 // Rug, door, and window are absent from the catalog.
 export const ABSENT_NOTE =

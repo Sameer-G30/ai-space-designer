@@ -77,6 +77,8 @@ export type RequestDraft = {
   accessibility: boolean;
   // The six weights as typed text.
   weights: Record<WeightName, string>;
+  // Sentence box. Sent as raw_text. It does not by itself change the structured fields.
+  rawText: string;
 };
 
 // The six weights after they have been parsed.
@@ -145,7 +147,7 @@ export type Requirement = {
   requirement_id: string;
   // Must equal the scene id.
   scene_id: string;
-  // Always an empty string. This phase does not parse text.
+  // The sentence the user typed. Empty when the sentence box is empty.
   raw_text: string;
   // Budget ceiling in INR.
   budget_inr: number;
@@ -273,6 +275,44 @@ export type HealthView = {
   status: string;
   // Failure text. Empty when the check succeeded.
   detail: string;
+};
+
+// One retrieved clearance or ergonomic number. The chunk text is not included.
+export type RetrievedNumber = {
+  // Short name such as door_clear_width.
+  name: string;
+  // Metres.
+  value_m: number;
+  // Document id.
+  source: string;
+  // PDF page, or null for a project summary.
+  page: number | null;
+  // Chunk topic.
+  topic: string;
+  // Chunk id. The page does not have to show it.
+  chunk_id: string;
+};
+
+// One named solver constant copied into the parse response.
+export type SolverConstant = {
+  // Constant name.
+  name: string;
+  // Value in metres. The parser does not change it.
+  value_m: number;
+};
+
+// A successful POST /requirements body.
+export type ParseSuccess = {
+  // Validated requirement.
+  requirement: Requirement;
+  // Retrieved numbers. May be empty.
+  retrieved: RetrievedNumber[];
+  // The five named constants, unchanged.
+  solver_constants_m: SolverConstant[];
+  // ok, or why retrieved is empty.
+  retrieval_note: string;
+  // Model attempts used.
+  attempts: number;
 };
 
 // A failed proxy call shown in the error panel.
