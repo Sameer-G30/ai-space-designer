@@ -27,6 +27,9 @@ node_modules/
 frontend/node_modules/
 frontend/.next/
 frontend/out/
+frontend/test-results/
+frontend/playwright-report/
+frontend/blob-report/
 
 # Ultralytics scratch downloads (CLIP text encoder, AMP-check model).
 weights/

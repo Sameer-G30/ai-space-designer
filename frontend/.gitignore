@@ -12,6 +12,10 @@
 
 # testing
 /coverage
+# Playwright output. The test source stays tracked.
+/test-results/
+/playwright-report/
+/blob-report/
 
 # next.js
 /.next/

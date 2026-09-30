@@ -276,3 +276,20 @@ Each entry says what the phase changed and how to check it.
   - Start Postgres (`docker compose up -d`), the API (`uv run uvicorn spacedesigner.api.main:app --host 127.0.0.1 --port 8001` after exporting `DATABASE_URL` from `.env`), and `npm run dev` in `frontend/`. Open http://localhost:3000. Solve the default room. Confirm a mesh where the catalog item has a cleaned GLB and a box where it does not. Choose Render this design and read the image or the reason it was not generated. Try a narrow window too.
   - Read `docs/reports/visualization_critic.md`.
 
+### Phase 10: full page flow
+
+- Changed:
+  - The existing page is unchanged. Playwright, beside the Next.js app, drives that page through one flow: a SUN RGB-D test photo when the perception weights are on disk, a corrected room width, a parsed sentence, the Pareto set, the 2D plan, the 3D mesh-or-box view, Render this design (depth, segmentation, and either an image or the not-run note, plus the advisory critic line), the bill of materials, an explanation with sources, one what-if, and version comparison. The browser stays on port 3000. If a perception weight is missing, the photo step is skipped with that reason and the typed room continues. Nothing is downloaded.
+  - `npm run test:e2e` from `frontend/` runs the flow at 1280×900 and at 390×844. This run passed both. Photo: `datasets/processed/sun_rgbd/images/test/sun_00030.jpg`, known height 2.7 m, 6 objects, 0 openings. Width 5.47 m corrected to 5.57 m. 4 Pareto points. The rendered point captioned the chair as an Objaverse mesh and the desk as a box. The image was generated. The critic line was advisory and did not change the design.
+  - The IDE browser cannot set a file input, so its walkthrough used a typed room (width 6 m to 5.5 m) and the same sentence. It solved 4 points, showed Objaverse meshes on the best-style point, returned a generated image with depth and segmentation (locked-region SSIM 1.000; consistency mismatched, 0 of 2, one extra detection), an advisory critic note, a verified explanation (rate 1.000), a what-if (budget 88000, 2 hints, score change 0.002860), and versions 1 and 2. At 390 px the finished page did not overflow.
+  - Report: `docs/reports/frontend_v2.md`.
+- Not built: a page rewrite, a schema change, a migration, a CLIP fine-tune, SDXL, a second ControlNet, a second 3D engine, and any edit to the parser, the retriever, the recommender, the photo pipeline, the optimizer, the explanations, the named clearance constants, or the Phase 9 diffusion and critic models. Phase 11 was not started.
+- Check:
+  - `uv run ruff check .`
+  - `uv run pytest` (145 passed, 1 skipped; the skipped face-blur test needs OpenCV and runs only in `.venv-train`; one known Starlette warning).
+  - `uv run python scripts/verify_datasets.py`
+  - `uv run python scripts/check_optimizer_200.py`
+  - From `frontend/`: `npm run lint`, `npm run build`, and `npm run test:e2e`.
+  - Postgres and the API on port 8001 must already be up. `npm run test:e2e` uses http://localhost:3000 and starts `npm run dev` only when that port is free.
+  - Read `docs/reports/frontend_v2.md`.
+
