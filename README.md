@@ -13,6 +13,7 @@ Python 3.11.9, uv, Docker, and Node.js are required.
 ```bash
 cd 'Project-3 Gen-AI'
 cp .env.example .env
+set -a source .env set +a
 uv sync --all-groups
 docker compose up -d
 uv run alembic upgrade head
