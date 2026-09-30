@@ -1,4 +1,4 @@
-"""FastAPI application for health, scenes, Pareto optimization, and requirement parsing."""
+"""FastAPI application for health, scenes, Pareto optimization, requirements, and explanations."""
 
 # Annotated attaches a dependency to a precise store type.
 from typing import Annotated
@@ -14,6 +14,24 @@ from spacedesigner.api.store import DesignStore, get_design_store
 
 # The independent critic prevents a broken design from crossing the API boundary.
 from spacedesigner.critic import audit_design
+
+# Phase 8 failures become HTTP status codes. The solver itself is unchanged.
+from spacedesigner.explain.errors import ExplainError
+
+# Counterfactual, explanation, and version payloads.
+from spacedesigner.explain.models import (
+    CounterfactualRequest,
+    CounterfactualResult,
+    ExplanationResponse,
+    VersionsResponse,
+)
+
+# Explanation, what-if, and version orchestration.
+from spacedesigner.explain.service import (
+    build_explanation,
+    list_design_versions,
+    run_counterfactual,
+)
 
 # Result models keep successful and failed HTTP payloads explicit.
 from spacedesigner.optimizer import InfeasibleOptimization
@@ -241,3 +259,55 @@ def create_requirement(
     except ParserFailure as exc:
         # The form shows this string and does not fill the structured fields.
         raise HTTPException(status_code=422, detail=str(exc)) from None
+
+
+# Explanation route. The optimizer routes above are unchanged.
+@app.get("/designs/{design_id}/explanation", response_model=ExplanationResponse)
+def read_explanation(
+    design_id: str,
+    store: StoreDependency,
+    scorer: ScorerDependency,
+    chat: ChatDependency,
+) -> ExplanationResponse:
+    """Rephrase the templated trace, or return the claims already stored for this design."""
+    # Missing rows and a replay failure become 404 or 422.
+    try:
+        # Phrase on the first call. Later calls read the stored claims.
+        return build_explanation(store, design_id, scorer, chat)
+    # Not found, or the stored design cannot be replayed.
+    except ExplainError as exc:
+        # Keep the status the service chose.
+        raise HTTPException(status_code=exc.status_code, detail=exc.detail) from None
+
+
+# What-if route. Warm-starts CP-SAT from the stored design and appends a version diff.
+@app.post("/designs/{design_id}/counterfactual", response_model=CounterfactualResult)
+def create_counterfactual(
+    design_id: str,
+    body: CounterfactualRequest,
+    store: StoreDependency,
+    scorer: ScorerDependency,
+) -> CounterfactualResult:
+    """Re-solve one parameter change. An infeasible change is returned without a new design."""
+    # Missing rows become 404. A bad catalog id becomes 422.
+    try:
+        # Persist only when the warm-started solve is feasible.
+        return run_counterfactual(store, design_id, body, scorer)
+    # Not found, or the stored design cannot be replayed.
+    except ExplainError as exc:
+        # Keep the status the service chose.
+        raise HTTPException(status_code=exc.status_code, detail=exc.detail) from None
+
+
+# Version route. The first read stores version 1, an append-only snapshot.
+@app.get("/designs/{design_id}/versions", response_model=VersionsResponse)
+def read_versions(design_id: str, store: StoreDependency) -> VersionsResponse:
+    """Return the append-only version rows for one design."""
+    # An unknown design is 404. The snapshot insert does not need the solver.
+    try:
+        # Create version 1 when this design has no rows yet.
+        return list_design_versions(store, design_id)
+    # Not found.
+    except ExplainError as exc:
+        # Keep the status the service chose.
+        raise HTTPException(status_code=exc.status_code, detail=exc.detail) from None

@@ -42,8 +42,13 @@ class OllamaChatClient:
         # Seconds to wait for one JSON answer.
         self.timeout_s = timeout_s
 
-    # One non-streaming chat call.
-    def complete(self, messages: list[dict[str, str]], schema: dict) -> str:
+    # One non-streaming chat call. num_predict stays 400 unless a caller asks for more.
+    def complete(
+        self,
+        messages: list[dict[str, str]],
+        schema: dict,
+        num_predict: int = 400,
+    ) -> str:
         """Return the assistant content. Raise ParserFailure when Ollama does not answer."""
         # Body requested by the Ollama chat API.
         payload = {
@@ -57,8 +62,8 @@ class OllamaChatClient:
             "stream": False,
             # Keep the model loaded across the 100-sentence check.
             "keep_alive": "30m",
-            # Greedy decoding for a repeatable extraction.
-            "options": {"temperature": 0, "num_predict": 400},
+            # Greedy decoding. The parser keeps the default token cap.
+            "options": {"temperature": 0, "num_predict": num_predict},
         }
         # Encode the body as UTF-8 JSON.
         data = json.dumps(payload).encode("utf-8")

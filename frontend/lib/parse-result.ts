@@ -314,7 +314,7 @@ export function readScene(value: unknown): SceneGraph | null {
 }
 
 // Read one BOM line.
-function readBomLine(value: unknown): BomLine | null {
+export function readBomLine(value: unknown): BomLine | null {
   // Object shape.
   if (!isRecord(value)) {
     // Reject.
@@ -356,7 +356,7 @@ function readBomLine(value: unknown): BomLine | null {
 }
 
 // Read a trace that sits beside a design.
-function readTrace(value: unknown): OptimizerTrace | null {
+export function readTrace(value: unknown): OptimizerTrace | null {
   // Object shape.
   if (!isRecord(value)) {
     // Reject.
@@ -427,7 +427,7 @@ function readTrace(value: unknown): OptimizerTrace | null {
 }
 
 // Read one design. Trace must not be required inside it.
-function readDesign(value: unknown): Design | null {
+export function readDesign(value: unknown): Design | null {
   // Object shape.
   if (!isRecord(value)) {
     // Reject.

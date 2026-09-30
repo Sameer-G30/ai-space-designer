@@ -1,6 +1,6 @@
 # PhotoSpace
 
-PhotoSpace is a photo-grounded interior redesign project. Phase 0 is the shared schemas, Postgres tables, FastAPI health check, and the Next.js page that displays that check. Phase 1 acquires the public datasets used later for cleaning, training, and geometry checks. Phase 2a cleans the computer-vision datasets and writes a data quality report. Phase 2b mines layout priors, builds the furniture catalog, cleans the Objaverse meshes, chunks the RAG corpus, and adds a synthetic room generator. Phase 3 adds the hard-constrained Stage 1 layout optimizer, independent checker, plan rendering, BOM, trace, and manual-scene optimization API. Phase 4 scores catalog rows and returns one Pareto set. Phase 5 is the Next.js page for that set. Phase 6 parses a sentence into a requirement and retrieves standards with hybrid search. Phase 7a trains the room classifier and detector. Phase 7b turns a photo into a scene graph.
+PhotoSpace is a photo-grounded interior redesign project. Phase 0 is the shared schemas, Postgres tables, FastAPI health check, and the Next.js page that displays that check. Phase 1 acquires the public datasets used later for cleaning, training, and geometry checks. Phase 2a cleans the computer-vision datasets and writes a data quality report. Phase 2b mines layout priors, builds the furniture catalog, cleans the Objaverse meshes, chunks the RAG corpus, and adds a synthetic room generator. Phase 3 adds the hard-constrained Stage 1 layout optimizer, independent checker, plan rendering, BOM, trace, and manual-scene optimization API. Phase 4 scores catalog rows and returns one Pareto set. Phase 5 is the Next.js page for that set. Phase 6 parses a sentence into a requirement and retrieves standards with hybrid search. Phase 7a trains the room classifier and detector. Phase 7b turns a photo into a scene graph. Phase 8 explains a design from the optimizer trace, re-solves a what-if from the previous placement, and stores version diffs.
 
 This README is updated at the end of every phase with what changed and how to check it. See the "Phase log" section at the bottom.
 
@@ -238,3 +238,23 @@ Each entry says what the phase changed and how to check it.
   - From `frontend/`: `npm run lint` and `npm run build`.
   - Start Postgres (`docker compose up -d`), the API (`uv run uvicorn spacedesigner.api.main:app --host 127.0.0.1 --port 8001` after exporting `DATABASE_URL` from `.env`), and `npm run dev` in `frontend/`. Open http://localhost:3000, choose a photo, optionally type a known length, choose Estimate room from photo, correct a number, then Save room and solve. Try a 390 px wide window too.
   - Read `docs/reports/photo_to_scene.md`.
+
+### Phase 8: explanations, counterfactuals, and versions
+
+- Changed:
+  - `src/spacedesigner/explain/` fills the empty package. A template is built from the optimizer trace (cost, score, binding constraints, objective terms, rejected-item count). `qwen2.5:7b` only rephrases those sentences over HTTP. Each sentence is checked against the facts and stored in `explanations.verified`. If Ollama is down, the template is stored and marked verified. The trace is replayed from the stored design. No new column and no migration. Alembic head is still `c550d1f16744`.
+  - `POST /designs/{id}/counterfactual` warm-starts CP-SAT with hints from the previous placement. Sensitivity is the score change divided by the budget change when the budget changes. A room-size change is saved under a new scene id. `GET /designs/{id}/versions` reads the existing `design_versions` table: version 1 is a snapshot, and a what-if appends a diff (items added, removed, moved; cost change; score change). `GET /designs/{id}/explanation` returns the facts and the claims.
+  - `POST /requirements`, `POST /designs/optimize`, `POST /scenes`, and `POST /scenes/photo` are unchanged. Named clearance constants are unchanged.
+  - The Next.js page keeps the existing solve flow and adds an explanation with sources, a what-if control (the budget field starts at 10 percent above the solved budget), and a version comparison. On the default room the walkthrough solved 5 points, showed verified sources, ran the prefilled 88000 budget what-if (2 hints, score change 0.001364, no item changes), and compared versions 1 and 2. The page did not overflow at desktop width or at 390 px.
+  - Report: `docs/reports/explanations.md`. On 8 fixed rooms the median full re-solve was 5.332 ms and the median warm start was 6.040 ms (hints did not speed up these ~5 ms solves). All 8 version diffs matched. Trace-grounded explanations verified 96 of 96 claims (rate 1.0). Explanations with no trace access verified 8 of 16 claims (rate 0.5). `qwen2.5:7b`, temperature 0.
+- Not built: Phase 9 (3D assets, inpainting, ControlNet, a Qwen critic), a schema change, a migration, a CLIP fine-tune, and any edit to the parser, the retriever, the recommender, the photo pipeline, or the named clearance constants.
+- Check:
+  - `uv run ruff check .`
+  - `uv run pytest` (130 passed, 1 skipped; the skipped face-blur test needs OpenCV and runs only in `.venv-train`; one known Starlette warning).
+  - `uv run python scripts/verify_datasets.py`
+  - `uv run python scripts/check_optimizer_200.py`
+  - `uv run python scripts/eval_explanations.py` (latency, diff check, and faithfulness; prints `faithfulness not_run ollama_down` when Ollama is down).
+  - From `frontend/`: `npm run lint` and `npm run build`.
+  - Start Postgres (`docker compose up -d`), the API (`uv run uvicorn spacedesigner.api.main:app --host 127.0.0.1 --port 8001` after exporting `DATABASE_URL` from `.env`), and `npm run dev` in `frontend/`. Open http://localhost:3000. Solve the default room. Choose Explain this design and read the sources. Run one what-if. Choose Compare versions. Try a narrow window too.
+  - Read `docs/reports/explanations.md`.
+

@@ -1,1 +1,1 @@
-"""Reserved for trace-faithful explanations in a later phase."""
+"""Trace-faithful explanations, warm-started counterfactuals, and design version diffs."""

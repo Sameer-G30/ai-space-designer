@@ -1,10 +1,16 @@
 "use client"; // Selecting a point and drawing WebGL happen in the browser.
 
+// What-if overlay state.
+import { useState } from "react";
+
 // Load the box view only in the browser.
 import dynamic from "next/dynamic";
 
 // Bill of materials.
 import { BomTable } from "@/components/bom-table";
+
+// Explanation, what-if, and versions.
+import { ExplainPanel } from "@/components/explain-panel";
 
 // Pareto scatter.
 import { ParetoChart } from "@/components/pareto-chart";
@@ -19,7 +25,13 @@ import { SUSTAINABILITY_NOTE, WEIGHT_LABELS, WEIGHT_NAMES } from "@/lib/constant
 import { formatInr, formatMs } from "@/lib/format";
 
 // Result shapes.
-import type { InfeasibleBody, ParetoBody, SceneGraph } from "@/lib/types";
+import type {
+  CounterfactualDesign,
+  InfeasibleBody,
+  ParetoBody,
+  Requirement,
+  SceneGraph,
+} from "@/lib/types";
 
 // Box view. The server does not render the canvas.
 const BoxView = dynamic(() => import("@/components/box-view"), {
@@ -31,8 +43,14 @@ const BoxView = dynamic(() => import("@/components/box-view"), {
 
 // A finished solve: either a set or a reason.
 type Outcome =
-  // Feasible set plus the scene the plan needs.
-  | { kind: "pareto"; scene: SceneGraph; result: ParetoBody; selected: number }
+  // Feasible set plus the scene the plan needs and the requirement the what-if starts from.
+  | {
+      kind: "pareto";
+      scene: SceneGraph;
+      result: ParetoBody;
+      selected: number;
+      requirement: Requirement;
+    }
   // Infeasible reason. No design is drawn.
   | { kind: "infeasible"; result: InfeasibleBody };
 
@@ -46,6 +64,18 @@ type OutcomePanelProps = {
 
 // Render a reason, or the selected design.
 export function OutcomePanel({ outcome, onSelect }: OutcomePanelProps) {
+  // Pareto design the overlay belongs to. A different point ignores the stored overlay.
+  const anchorId =
+    outcome.kind === "pareto"
+      ? (outcome.result.points[Math.min(outcome.selected, outcome.result.points.length - 1)]?.design
+          .design_id ?? "")
+      : "";
+  // What-if design, remembered with the Pareto id it was started from.
+  const [overlay, setOverlay] = useState<{ anchorId: string; result: CounterfactualDesign } | null>(
+    null,
+  );
+  // Ignore an overlay that belongs to a different Pareto point.
+  const activeOverlay = overlay !== null && overlay.anchorId === anchorId ? overlay.result : null;
   // Infeasible solves stop here.
   if (outcome.kind === "infeasible") {
     // Reason only.
@@ -70,8 +100,16 @@ export function OutcomePanel({ outcome, onSelect }: OutcomePanelProps) {
     // Nothing to draw.
     return <p className="text-sm text-red-800">The API returned no designs.</p>;
   }
-  // Selected design.
+  // Selected design from the Pareto set.
   const design = point.design;
+  // The what-if replaces the drawn design until the user goes back or picks another point.
+  const activeDesign = activeOverlay?.design ?? design;
+  // Trace for the drawn design.
+  const activeTrace = activeOverlay?.trace ?? point.trace;
+  // Bill for the drawn design.
+  const activeBom = activeOverlay?.bom ?? point.bom;
+  // Scene for the drawn design. A room-size what-if uses a new scene.
+  const activeScene = activeOverlay?.scene ?? outcome.scene;
   // The feasible layout.
   return (
     // Results stack.
@@ -96,15 +134,16 @@ export function OutcomePanel({ outcome, onSelect }: OutcomePanelProps) {
       <section className="flex flex-col gap-2 rounded-lg border border-zinc-200 bg-white p-4">
         {/* Labels as the API sent them. */}
         <h3 className="text-base font-semibold text-zinc-900">{point.labels.join(", ")}</h3>
-        {/* Design id. */}
-        <p className="text-sm text-zinc-700">Design id: {design.design_id}</p>
+        {/* Design id of whatever is drawn. */}
+        <p className="break-all text-sm text-zinc-700">Design id: {activeDesign.design_id}</p>
         {/* Parent, only when one was returned. */}
-        {design.parent_design_id ? (
-          <p className="text-sm text-zinc-700">Parent design: {design.parent_design_id}</p>
+        {activeDesign.parent_design_id ? (
+          <p className="break-all text-sm text-zinc-700">Parent design: {activeDesign.parent_design_id}</p>
         ) : null}
-        {/* Score, cost, and this point's solve time. */}
+        {/* Score, cost, and this point's solve time. A what-if uses its own time. */}
         <p className="text-sm text-zinc-700">
-          Score {design.score.toFixed(3)}, cost {formatInr(design.cost)}, point time {formatMs(point.solve_time_ms)}
+          Score {activeDesign.score.toFixed(3)}, cost {formatInr(activeDesign.cost)}, point time{" "}
+          {formatMs(activeOverlay ? activeOverlay.solve_time_ms : point.solve_time_ms)}
         </p>
         {/* Weights used for this point. They can differ across the set. */}
         <h4 className="pt-2 text-sm font-semibold text-zinc-900">Weights</h4>
@@ -113,7 +152,7 @@ export function OutcomePanel({ outcome, onSelect }: OutcomePanelProps) {
           {/* The six weights. */}
           {WEIGHT_NAMES.map((name) => (
             <li key={name}>
-              {WEIGHT_LABELS[name]}: {design.weights[name].toFixed(2)}
+              {WEIGHT_LABELS[name]}: {activeDesign.weights[name].toFixed(2)}
             </li>
           ))}
         </ul>
@@ -124,7 +163,7 @@ export function OutcomePanel({ outcome, onSelect }: OutcomePanelProps) {
           {/* The six terms. */}
           {WEIGHT_NAMES.map((name) => (
             <li key={name}>
-              {WEIGHT_LABELS[name]}: {point.trace.objective_terms[name].toFixed(3)}
+              {WEIGHT_LABELS[name]}: {activeTrace.objective_terms[name].toFixed(3)}
             </li>
           ))}
         </ul>
@@ -133,12 +172,12 @@ export function OutcomePanel({ outcome, onSelect }: OutcomePanelProps) {
         {/* Binding constraints recorded on the trace. */}
         <h4 className="pt-2 text-sm font-semibold text-zinc-900">Binding constraints</h4>
         {/* Empty and non-empty lists. */}
-        {point.trace.binding_constraints.length === 0 ? (
+        {activeTrace.binding_constraints.length === 0 ? (
           <p className="text-sm text-zinc-600">No binding constraints were recorded.</p>
         ) : (
           <ul className="list-disc pl-5 text-sm text-zinc-700">
             {/* One recorded constraint. */}
-            {point.trace.binding_constraints.map((item) => (
+            {activeTrace.binding_constraints.map((item) => (
               <li key={`${item.name}-${item.detail}`}>
                 {item.name}: {item.detail}
               </li>
@@ -146,17 +185,44 @@ export function OutcomePanel({ outcome, onSelect }: OutcomePanelProps) {
           </ul>
         )}
         {/* Rejected rows are counted. The full catalog is not printed. */}
-        <p className="text-sm text-zinc-600">Rejected catalog rows: {point.trace.rejected_items.length}</p>
+        <p className="text-sm text-zinc-600">Rejected catalog rows: {activeTrace.rejected_items.length}</p>
+        {/* The what-if banner. The Pareto chart above still shows the original set. */}
+        {activeOverlay ? (
+          <div className="flex flex-col gap-2 rounded-md border border-sky-200 bg-sky-50 p-3">
+            <p className="text-sm text-sky-950">Showing the what-if design. The Pareto set above is unchanged.</p>
+            <button
+              type="button"
+              className="w-fit rounded-md border border-sky-300 bg-white px-3 py-2 text-sm"
+              onClick={() => {
+                // Draw the selected Pareto point again.
+                setOverlay(null);
+              }}
+            >
+              Back to this Pareto point
+            </button>
+          </div>
+        ) : null}
       </section>
       {/* Plan and boxes follow the selected point. */}
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         {/* Top-down plan. */}
-        <PlanView scene={outcome.scene} objects={design.objects} />
+        <PlanView scene={activeScene} objects={activeDesign.objects} />
         {/* Box view. */}
-        <BoxView scene={outcome.scene} objects={design.objects} />
+        <BoxView scene={activeScene} objects={activeDesign.objects} />
       </div>
-      {/* Bill of materials for the same point. */}
-      <BomTable design={design} lines={point.bom} />
+      {/* Bill of materials for the same drawn design. */}
+      <BomTable design={activeDesign} lines={activeBom} />
+      {/* Explanation, what-if, and version comparison for this Pareto point. */}
+      <ExplainPanel
+        key={design.design_id}
+        anchorDesignId={design.design_id}
+        viewDesignId={activeDesign.design_id}
+        budgetInr={outcome.requirement.budget_inr}
+        onCounterfactual={(result) => {
+          // Remember which Pareto point this what-if belongs to.
+          setOverlay({ anchorId, result });
+        }}
+      />
     </div>
   );
 }

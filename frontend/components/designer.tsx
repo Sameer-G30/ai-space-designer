@@ -25,7 +25,13 @@ import type {
 // A finished solve kept beside the form.
 type Outcome =
   // Feasible set.
-  | { kind: "pareto"; scene: SceneGraph; result: ParetoBody; selected: number }
+  | {
+      kind: "pareto";
+      scene: SceneGraph;
+      result: ParetoBody;
+      selected: number;
+      requirement: BuiltRequest["requirement"];
+    }
   // Infeasible reason.
   | { kind: "infeasible"; result: InfeasibleBody };
 
@@ -174,6 +180,8 @@ export function Designer({ initialHealth }: DesignerProps) {
         result: optimizeRead.result,
         // First point.
         selected: 0,
+        // Requirement the what-if starts from. The form can change later without rewriting this.
+        requirement: value.requirement,
       });
     } catch (error) {
       // The browser could not reach this Next.js route.
@@ -212,7 +220,10 @@ export function Designer({ initialHealth }: DesignerProps) {
         {/* Project name. */}
         <h1 className="text-3xl font-semibold tracking-tight">PhotoSpace</h1>
         {/* What this page does. */}
-        <p className="text-zinc-600">Manual room, a sentence or a structured requirement, and Pareto designs.</p>
+        <p className="text-zinc-600">
+          Manual room, a sentence or a structured requirement, Pareto designs, explanations, what-if, and version
+          comparison.
+        </p>
         {/* Phase 0 check label, kept so the health line is still obvious. */}
         <p className="text-sm text-zinc-500">Phase 0 API health check</p>
         {/* Status returned by GET /health. */}

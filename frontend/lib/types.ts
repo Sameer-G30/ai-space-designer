@@ -354,3 +354,143 @@ export type PhotoResult = {
   // Plain-language notes.
   warnings: string[];
 };
+
+// One templated fact. The ref is the source shown beside the sentence.
+export type TemplatedFact = {
+  // Trace or design field, such as design.cost.
+  ref: string;
+  // Sentence the checker allows the model to rephrase.
+  text: string;
+};
+
+// One stored explanation claim.
+export type ExplanationClaim = {
+  // Row id.
+  explanation_id: string;
+  // Sentence.
+  claim_text: string;
+  // Source pointer, or the closest fact when the claim failed the check.
+  supporting_trace_ref: string;
+  // True when every number and domain word is in the facts.
+  verified: boolean;
+};
+
+// GET /designs/{id}/explanation.
+export type ExplanationBody = {
+  // Design that was explained.
+  design_id: string;
+  // Sources.
+  facts: TemplatedFact[];
+  // Stored claims.
+  claims: ExplanationClaim[];
+  // Fraction of claims that verified.
+  verified_rate: number;
+  // True when a model wrote the claims.
+  rephrased: boolean;
+  // Why the model did or did not rephrase.
+  rephrase_note: string;
+};
+
+// One object that kept its id and changed pose.
+export type MovedItem = {
+  // Object id.
+  id: string;
+  // Category.
+  type: string;
+  // Previous centre.
+  from_position: [number, number];
+  // New centre.
+  to_position: [number, number];
+  // Previous rotation in degrees.
+  from_rotation: number;
+  // New rotation in degrees.
+  to_rotation: number;
+};
+
+// Diff stored on a design version and returned by a what-if.
+export type VersionDiff = {
+  // Object ids present only in the later design.
+  items_added: string[];
+  // Object ids present only in the earlier design.
+  items_removed: string[];
+  // Objects that kept their id and changed pose.
+  items_moved: MovedItem[];
+  // Later cost minus earlier cost.
+  cost_change: number;
+  // Later score minus earlier score.
+  score_change: number;
+};
+
+// One append-only version row.
+export type DesignVersionRow = {
+  // Design this row belongs to.
+  design_id: string;
+  // Scene this row belongs to.
+  scene_id: string;
+  // Version number, starting at 1.
+  version: number;
+  // Previous version of the same design, or null for version 1.
+  parent_version: number | null;
+  // Diff payload.
+  diff: VersionDiff;
+  // Score stored with this version.
+  score: number;
+  // ISO timestamp.
+  timestamp: string;
+};
+
+// GET /designs/{id}/versions.
+export type VersionsBody = {
+  // Design the rows belong to.
+  design_id: string;
+  // Ordered versions.
+  versions: DesignVersionRow[];
+};
+
+// A feasible what-if.
+export type CounterfactualDesign = {
+  // Discriminator.
+  feasible: true;
+  // New design.
+  design: Design;
+  // Trace of the warm-started solve.
+  trace: OptimizerTrace;
+  // Bill of materials.
+  bom: BomLine[];
+  // Scene the new design was solved against.
+  scene: SceneGraph;
+  // Design the what-if started from.
+  parent_design_id: string;
+  // CP-SAT time in milliseconds.
+  solve_time_ms: number;
+  // New score minus the parent score.
+  score_change: number;
+  // New cost minus the parent cost.
+  cost_change: number;
+  // New budget minus the parent budget.
+  budget_change_inr: number;
+  // score_change / budget_change_inr, or null when the budget did not change.
+  sensitivity_score_per_inr: number | null;
+  // How many previous poses were passed as hints.
+  hint_count: number;
+  // True when at least one hint was passed.
+  warm_started: boolean;
+  // The diff stored on the version row.
+  diff: VersionDiff;
+};
+
+// An infeasible what-if. No design is drawn.
+export type CounterfactualRejected = {
+  // Discriminator.
+  feasible: false;
+  // Solver or selection reason.
+  reason: string;
+  // Design the what-if started from.
+  parent_design_id: string;
+  // Time spent, in milliseconds.
+  solve_time_ms: number;
+  // True when hints were passed.
+  warm_started: boolean;
+  // Hints passed.
+  hint_count: number;
+};

@@ -9,6 +9,9 @@ import time
 # uuid creates deterministic design identifiers from input identifiers.
 import uuid
 
+# Mapping is the optional warm-start hint table. The default solve passes none.
+from collections.abc import Mapping
+
 # dataclass keeps internal placement variables explicit.
 from dataclasses import dataclass
 
@@ -292,6 +295,7 @@ def optimize(
     selection: list[CatalogItem] | None = None,
     variant: str | None = None,
     term_overrides: dict[str, float] | None = None,
+    hints: Mapping[str, tuple[int, int, int]] | None = None,
 ) -> OptimizationResult:
     """Produce one hard-feasible design, optionally for a caller-chosen item selection."""
     # Start wall-clock measurement before preflight checks.
@@ -540,12 +544,52 @@ def optimize(
             )
     # Minimize starts for deterministic lower-left placement.
     model.minimize(sum(var.x + var.y + var.rotated for var in placements))
+    # Count hints actually attached, so a missing item id is not treated as a warm start.
+    hints_applied = 0
+    # Attach warm-start hints only when a counterfactual caller supplied them.
+    if hints:
+        # Each hint is (start x cell, start y cell, rotation bit) for one catalog item.
+        for placement in placements:
+            # Skip items the previous design did not place.
+            hinted = hints.get(placement.item.item_id)
+            # This item has no previous pose.
+            if hinted is None:
+                # Leave it for a normal search.
+                continue
+            # Unpack the previous cell pose.
+            hint_x, hint_y, hint_rotated = hinted
+            # Local edges in cells, matching the rotation encoding below.
+            base_x = _ceil_cells(placement.item.dims.length)
+            # Width is independent of length.
+            base_y = _ceil_cells(placement.item.dims.width)
+            # Bit 1 swaps the local edges, which is the only rotation Stage 1 uses.
+            swapped = int(hint_rotated) == 1
+            # World x size that agrees with the rotation bit.
+            hint_size_x = base_y if swapped else base_x
+            # World y size that agrees with the rotation bit.
+            hint_size_y = base_x if swapped else base_y
+            # Hint the unpadded x start. A bad value is repaired rather than fixed.
+            model.add_hint(placement.x, int(hint_x))
+            # Hint the unpadded y start.
+            model.add_hint(placement.y, int(hint_y))
+            # Hint the 0-or-90 rotation bit.
+            model.add_hint(placement.rotated, 1 if swapped else 0)
+            # Hint the x extent so the hint assignment is complete.
+            model.add_hint(placement.size_x, int(hint_size_x))
+            # Hint the y extent so the hint assignment is complete.
+            model.add_hint(placement.size_y, int(hint_size_y))
+            # Record that this item received a hint.
+            hints_applied += 1
     # Configure the finite-domain solver.
     solver = cp_model.CpSolver()
     # Apply the short per-room time limit.
     solver.parameters.max_time_in_seconds = MAX_SOLVE_TIME_SECONDS
     # Use one worker for reproducible benchmark behavior.
     solver.parameters.num_search_workers = 1
+    # Repair an infeasible hint instead of changing the no-hint search.
+    if hints_applied:
+        # The default path leaves this parameter unset.
+        solver.parameters.repair_hint = True
     # Solve the complete hard-constraint model.
     status = solver.solve(model)
     # Reject unknown, invalid, and infeasible statuses.
