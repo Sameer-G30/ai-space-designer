@@ -13,7 +13,7 @@ Python 3.11.9, uv, Docker, and Node.js are required.
 ```bash
 cd 'Project-3 Gen-AI'
 cp .env.example .env
-set -a source .env set +a
+set -a && source .env && set +a
 uv sync --all-groups
 docker compose up -d
 uv run alembic upgrade head
@@ -27,6 +27,9 @@ API, on port 8001:
 
 ```bash
 uv run uvicorn spacedesigner.api.main:app --host 127.0.0.1 --port 8001
+OR
+uv run --env-file .env uvicorn spacedesigner.api.main:app --host 127.0.0.1 --port 8001
+
 ```
 
 Frontend, from `frontend/`:
