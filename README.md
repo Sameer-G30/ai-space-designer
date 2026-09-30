@@ -11,11 +11,14 @@ Dataset bytes stay on disk under `datasets/raw/` and are not committed. The file
 Python 3.11.9, uv, Docker, and Node.js are required.
 
 ```bash
+cd 'Project-3 Gen-AI'
 cp .env.example .env
 uv sync --all-groups
 docker compose up -d
 uv run alembic upgrade head
 ```
+
+
 
 ## Run
 
@@ -33,7 +36,7 @@ npm install
 npm run dev
 ```
 
-Open http://localhost:3000. The page reads `API_URL` on the server and shows the `/health` response. The room form posts to Next.js route handlers, which call the API. The browser does not call port 8001.
+Open [http://localhost:3000](http://localhost:3000). The page reads `API_URL` on the server and shows the `/health` response. The room form posts to Next.js route handlers, which call the API. The browser does not call port 8001.
 
 ## Tests
 
@@ -42,6 +45,8 @@ uv run pytest
 uv run ruff check .
 uv run python scripts/verify_datasets.py
 ```
+
+
 
 ## Phase 1 datasets
 
@@ -63,6 +68,8 @@ Not taken:
 - FurniScene. Skipped. The paper still says the dataset will be public soon, and no download was found.
 - NYU raw video, Places365 high-resolution and challenge sets, and the rest of Objaverse. Those were out of scope for this phase.
 
+
+
 ## Phase log
 
 Each entry says what the phase changed and how to check it.
@@ -72,10 +79,14 @@ Each entry says what the phase changed and how to check it.
 - Changed: Pydantic schemas, Alembic tables, FastAPI `/health`, Next.js status page.
 - Check: `uv run pytest`, then the API and frontend steps under "Run".
 
+
+
 ### Phase 1: dataset acquisition
 
 - Changed: download scripts, `docs/DATASETS.md`, `docs/LICENSES.md`, checksums and license logs in `datasets/metadata/`.
 - Check: `uv run python scripts/verify_datasets.py` prints `phase1_complete` and exits 0.
+
+
 
 ### Phase 2a: cleaning the CV datasets
 
@@ -96,6 +107,8 @@ Each entry says what the phase changed and how to check it.
   - Rebuild the exports with `uv run python scripts/clean_sun_rgbd.py`, `clean_nyu.py`, `clean_places.py` (after SUN), `clean_cubicasa.py`, `clean_structured3d.py`, then `clean_report.py`.
   - Read `docs/reports/data_quality_cv.md` for counts, class histograms, and dropped-record reasons.
 
+
+
 ### Phase 2b: layout, catalog, 3D, knowledge, and synthetic data
 
 - Changed:
@@ -111,6 +124,8 @@ Each entry says what the phase changed and how to check it.
   - `docker compose up -d && uv run alembic upgrade head`, then `uv run python scripts/load_layout_db.py --counts` prints 382 catalog rows and 876 chunk rows, with the same number of null embeddings.
   - Rebuild in order: `scripts/mine_layout_priors.py`, `clean_objaverse.py`, `build_catalog.py`, `chunk_rag.py`, `generate_synthetic.py`, `load_layout_db.py`, `layout_report.py`.
   - Read `docs/reports/data_quality_layout.md` for counts, drop reasons, omitted priors, and what 3D-FRONT and 3D-FUTURE would have provided.
+
+
 
 ### Phase 3: Stage 1 optimizer
 
@@ -130,6 +145,8 @@ Each entry says what the phase changed and how to check it.
   - `uv run pytest tests/api/test_phase3_routes.py` exercises both new routes with `TestClient`.
   - Read `docs/reports/optimizer_stage1.md` for gate counts, constants, infeasibility handling, and scope limitations.
 
+
+
 ### Phase 4: recommendation scoring and Stage 2 Pareto set
 
 - Changed:
@@ -147,6 +164,8 @@ Each entry says what the phase changed and how to check it.
   - `uv run pytest tests/optimizer/test_stage2.py tests/api/test_phase3_routes.py` covers non-dominance and the route via `TestClient`.
   - Rebuild vectors with `uv run python scripts/build_catalog_embeddings.py` (add `--write-db` with the database up and `DATABASE_URL` exported).
   - Read `docs/reports/optimizer_stage2.md`.
+
+
 
 ### Phase 5: Next.js v1
 
@@ -166,12 +185,14 @@ Each entry says what the phase changed and how to check it.
   - `uv run python scripts/check_optimizer_200.py`
   - From `frontend/`: `npm install`, `npm run lint`, `npm run build`.
   - Start the API with `uv run uvicorn spacedesigner.api.main:app --host 127.0.0.1 --port 8001` after exporting `DATABASE_URL` from `.env`, and start the page with `npm run dev` in `frontend/`.
-  - Open http://localhost:3000. Confirm `API status: ok (HTTP 200)`.
+  - Open [http://localhost:3000](http://localhost:3000). Confirm `API status: ok (HTTP 200)`.
   - Leave the default home office (6 m by 6 m, south door width 0.9 m, budget 80000, desk and chair) and choose Save room and solve. Confirm a Pareto set, then click another point and confirm the plan, the BOM total, and the box view follow it.
   - Set the budget to 100 and solve again. Confirm the cost reason and that no plan is drawn.
   - Set the door width to 0.5 m, restore the budget, and solve. Confirm the narrow-door reason and that no plan is drawn.
   - Add two kept objects with the same id and solve. Confirm HTTP 422 and that no plan is drawn.
   - Read `docs/reports/frontend_v1.md`.
+
+
 
 ### Phase 6: requirement parser and RAG
 
@@ -193,12 +214,14 @@ Each entry says what the phase changed and how to check it.
   - `uv run python scripts/eval_rag_recall.py` (Recall@5 on the 30 questions in `datasets/metadata/rag/retrieval_questions.json`).
   - From `frontend/`: `npm run lint` and `npm run build`.
   - Start the API with `uv run uvicorn spacedesigner.api.main:app --host 127.0.0.1 --port 8001` after exporting `DATABASE_URL` from `.env`, and start the page with `npm run dev` in `frontend/`.
-  - Open http://localhost:3000. Confirm `API status: ok (HTTP 200)`.
+  - Open [http://localhost:3000](http://localhost:3000). Confirm `API status: ok (HTTP 200)`.
   - Type a room sentence and choose Parse sentence. Confirm the structured fields fill, and that source, page, and topic are shown for retrieved numbers without a copied passage. Edit one field, then choose Save room and solve. Confirm a Pareto set or a readable infeasible reason.
   - Set the budget to 100 and solve. Confirm the cost reason and that no plan is drawn.
   - Set the door width to 0.5 m, restore the budget, and solve. Confirm the narrow-door reason and that no plan is drawn.
   - Click another Pareto point and confirm the plan follows it.
   - Read `docs/reports/requirements_rag.md`.
+
+
 
 ### Phase 7a: training the CV models
 
@@ -218,6 +241,8 @@ Each entry says what the phase changed and how to check it.
   - `.venv-train/bin/python scripts/eval_detector.py` (mAP50 and mAP50-95, zero-shot and fine-tuned, on the test split).
   - Read `docs/reports/cv_training.md`.
 
+
+
 ### Phase 7b: photo to scene graph
 
 - Changed:
@@ -236,8 +261,10 @@ Each entry says what the phase changed and how to check it.
   - `.venv-train/bin/python scripts/eval_photo_to_scene.py seg`
   - `.venv-train/bin/python scripts/eval_photo_to_scene.py dims` (SUN RGB-D room-dimension error in cm, with and without one measurement)
   - From `frontend/`: `npm run lint` and `npm run build`.
-  - Start Postgres (`docker compose up -d`), the API (`uv run uvicorn spacedesigner.api.main:app --host 127.0.0.1 --port 8001` after exporting `DATABASE_URL` from `.env`), and `npm run dev` in `frontend/`. Open http://localhost:3000, choose a photo, optionally type a known length, choose Estimate room from photo, correct a number, then Save room and solve. Try a 390 px wide window too.
+  - Start Postgres (`docker compose up -d`), the API (`uv run uvicorn spacedesigner.api.main:app --host 127.0.0.1 --port 8001` after exporting `DATABASE_URL` from `.env`), and `npm run dev` in `frontend/`. Open [http://localhost:3000](http://localhost:3000), choose a photo, optionally type a known length, choose Estimate room from photo, correct a number, then Save room and solve. Try a 390 px wide window too.
   - Read `docs/reports/photo_to_scene.md`.
+
+
 
 ### Phase 8: explanations, counterfactuals, and versions
 
@@ -255,8 +282,10 @@ Each entry says what the phase changed and how to check it.
   - `uv run python scripts/check_optimizer_200.py`
   - `uv run python scripts/eval_explanations.py` (latency, diff check, and faithfulness; prints `faithfulness not_run ollama_down` when Ollama is down).
   - From `frontend/`: `npm run lint` and `npm run build`.
-  - Start Postgres (`docker compose up -d`), the API (`uv run uvicorn spacedesigner.api.main:app --host 127.0.0.1 --port 8001` after exporting `DATABASE_URL` from `.env`), and `npm run dev` in `frontend/`. Open http://localhost:3000. Solve the default room. Choose Explain this design and read the sources. Run one what-if. Choose Compare versions. Try a narrow window too.
+  - Start Postgres (`docker compose up -d`), the API (`uv run uvicorn spacedesigner.api.main:app --host 127.0.0.1 --port 8001` after exporting `DATABASE_URL` from `.env`), and `npm run dev` in `frontend/`. Open [http://localhost:3000](http://localhost:3000). Solve the default room. Choose Explain this design and read the sources. Run one what-if. Choose Compare versions. Try a narrow window too.
   - Read `docs/reports/explanations.md`.
+
+
 
 ### Phase 9: visualization and the design critic
 
@@ -273,8 +302,10 @@ Each entry says what the phase changed and how to check it.
   - `uv run python scripts/check_optimizer_200.py`
   - `uv run python scripts/eval_visualization.py` (mask-lock SSIM, then one live image when the fp16 weights and `qwen2.5vl:7b` are installed).
   - From `frontend/`: `npm run lint` and `npm run build`.
-  - Start Postgres (`docker compose up -d`), the API (`uv run uvicorn spacedesigner.api.main:app --host 127.0.0.1 --port 8001` after exporting `DATABASE_URL` from `.env`), and `npm run dev` in `frontend/`. Open http://localhost:3000. Solve the default room. Confirm a mesh where the catalog item has a cleaned GLB and a box where it does not. Choose Render this design and read the image or the reason it was not generated. Try a narrow window too.
+  - Start Postgres (`docker compose up -d`), the API (`uv run uvicorn spacedesigner.api.main:app --host 127.0.0.1 --port 8001` after exporting `DATABASE_URL` from `.env`), and `npm run dev` in `frontend/`. Open [http://localhost:3000](http://localhost:3000). Solve the default room. Confirm a mesh where the catalog item has a cleaned GLB and a box where it does not. Choose Render this design and read the image or the reason it was not generated. Try a narrow window too.
   - Read `docs/reports/visualization_critic.md`.
+
+
 
 ### Phase 10: full page flow
 
@@ -290,8 +321,10 @@ Each entry says what the phase changed and how to check it.
   - `uv run python scripts/verify_datasets.py`
   - `uv run python scripts/check_optimizer_200.py`
   - From `frontend/`: `npm run lint`, `npm run build`, and `npm run test:e2e`.
-  - Postgres and the API on port 8001 must already be up. `npm run test:e2e` uses http://localhost:3000 and starts `npm run dev` only when that port is free.
+  - Postgres and the API on port 8001 must already be up. `npm run test:e2e` uses [http://localhost:3000](http://localhost:3000) and starts `npm run dev` only when that port is free.
   - Read `docs/reports/frontend_v2.md`.
+
+
 
 ### Phase 11: evaluation and ablation
 
@@ -312,6 +345,7 @@ Each entry says what the phase changed and how to check it.
   - `uv run python scripts/eval_ablation.py` (seed 20261001; calls local Ollama and Postgres; does not pull a model).
   - The Next.js page was not part of this phase. The Phase 10 Playwright run remains `npm run test:e2e` from `frontend/` (2 passed).
   - Read `docs/reports/evaluation_ablation.md`. The preference sheet is `docs/reports/preference/rater_sheet.md`.
+
 
 
 ## Optimization and visual refresh
