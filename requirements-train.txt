@@ -8,6 +8,8 @@
 #   uv pip install --python .venv-train/bin/python -e .
 timm
 ultralytics
+# Phase 7b: SAM2 and Depth Anything V2 load through transformers (already a main dependency).
+transformers>=5.17.0
 pillow
 pyyaml
 git+https://github.com/ultralytics/CLIP.git

@@ -336,12 +336,15 @@ export function buildRequest(draft: RequestDraft): { errors: string[]; value: Bu
   }
   // Ids marked keep, in form order.
   const mustKeepIds = objects.filter((obj) => obj.must_keep).map((obj) => obj.id);
-  // Scene body. Version is always 1.
+  // Scene body. Version is 1 unless a photo estimate came first.
   const scene: BuiltRequest["scene"] = {
     // Trimmed id.
     scene_id: sceneId,
-    // First version.
-    version: SCENE_VERSION,
+    // First version, or the next one after a photo estimate.
+    version:
+      Number.isInteger(draft.sceneVersion) && (draft.sceneVersion ?? 0) >= 1
+        ? (draft.sceneVersion as number)
+        : SCENE_VERSION,
     // Room type token.
     room_type: draft.roomType,
     // Dimensions object.

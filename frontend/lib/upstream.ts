@@ -22,7 +22,13 @@ export function apiOrigin(): string {
 // Call one FastAPI path. json is sent only when the caller provides it.
 export async function callApi(
   path: string,
-  init: { method: string; json?: unknown; timeoutMs?: number },
+  init: {
+    method: string;
+    json?: unknown;
+    // Raw bytes and their content type, used by the photo route.
+    raw?: { bytes: ArrayBuffer; contentType: string };
+    timeoutMs?: number;
+  },
 ): Promise<Upstream> {
   // Build the upstream URL on the server.
   const url = `${apiOrigin()}${path}`;
@@ -36,6 +42,11 @@ export async function callApi(
     // The body is JSON.
     headers["Content-Type"] = "application/json";
   }
+  // A raw body carries its own content type.
+  if (init.raw !== undefined) {
+    // Image bytes.
+    headers["Content-Type"] = init.raw.contentType;
+  }
   // Network failures have no status code.
   try {
     // Send the request and do not cache it.
@@ -45,7 +56,11 @@ export async function callApi(
       // Headers built above.
       headers,
       // Omit the body for GET.
-      body: init.json === undefined ? undefined : JSON.stringify(init.json),
+      body: init.raw !== undefined
+        ? init.raw.bytes
+        : init.json === undefined
+          ? undefined
+          : JSON.stringify(init.json),
       // Always ask the upstream again.
       cache: "no-store",
       // Optional deadline. Other routes keep the previous unlimited wait.

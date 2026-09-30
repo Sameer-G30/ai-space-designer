@@ -61,6 +61,8 @@ export type RequestDraft = {
   height: string;
   // Room confidence token.
   confidence: string;
+  // Scene version to send. A corrected photo estimate is saved as the next version.
+  sceneVersion?: number;
   // Opening rows.
   openings: OpeningDraft[];
   // Existing object rows.
@@ -321,4 +323,34 @@ export type FailureView = {
   statusCode: number | null;
   // Readable detail. FastAPI validation text is kept. Unexpected bodies are not.
   detail: string;
+};
+
+// Confidence label on one dimension of a photo estimate.
+export type PhotoConfidence = {
+  // Length confidence.
+  length: ConfidenceName;
+  // Width confidence.
+  width: ConfidenceName;
+  // Height confidence.
+  height: ConfidenceName;
+};
+
+// A photo estimate the form accepted from POST /api/scenes/photo.
+export type PhotoResult = {
+  // Scene the API stored, already validated by the API.
+  scene: SceneGraph;
+  // Confidence on every dimension.
+  dimensionConfidence: PhotoConfidence;
+  // "user_length" or "metric_depth".
+  scaleSource: string;
+  // Factor applied to the metric depth estimate.
+  scaleFactor: number;
+  // Best room type guesses.
+  roomGuesses: { roomType: string; probability: number }[];
+  // Detected classes with scores.
+  detections: string[];
+  // Faces blurred before any model ran.
+  facesBlurred: number;
+  // Plain-language notes.
+  warnings: string[];
 };

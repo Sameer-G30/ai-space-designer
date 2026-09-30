@@ -9,6 +9,9 @@ import type { FormEvent } from "react";
 // Validate and build the two JSON bodies.
 import { buildRequest } from "@/lib/build-request";
 
+// Reader for POST /api/scenes/photo. A failed reply does not fill the form.
+import { parsePhotoPayload } from "@/lib/parse-photo";
+
 // Reader for POST /api/requirements. A failure does not fill the form.
 import { parseRequirementPayload } from "@/lib/parse-requirement";
 
@@ -36,7 +39,14 @@ import {
 } from "@/lib/constants";
 
 // Draft shapes and the built request.
-import type { BuiltRequest, ObjectDraft, OpeningDraft, ParseSuccess, WeightName } from "@/lib/types";
+import type {
+  BuiltRequest,
+  ObjectDraft,
+  OpeningDraft,
+  ParseSuccess,
+  PhotoResult,
+  WeightName,
+} from "@/lib/types";
 
 // Props.
 type RequestFormProps = {
@@ -128,6 +138,20 @@ export function RequestForm({ pending, onSolve }: RequestFormProps) {
   const [solverConstants, setSolverConstants] = useState<ParseSuccess["solver_constants_m"]>([]);
   // Why the retrieved list is empty, or ok.
   const [retrievalNote, setRetrievalNote] = useState("");
+  // Scene version to send. A corrected photo estimate is saved as the next version.
+  const [sceneVersion, setSceneVersion] = useState(1);
+  // The photo the user picked, if any.
+  const [photoFile, setPhotoFile] = useState<File | null>(null);
+  // Optional known length, as typed.
+  const [knownLength, setKnownLength] = useState("");
+  // Which dimension that length belongs to.
+  const [knownAxis, setKnownAxis] = useState("length");
+  // True while POST /api/scenes/photo is in flight.
+  const [estimating, setEstimating] = useState(false);
+  // Error from the last photo attempt. The fields are not changed when this is set.
+  const [photoError, setPhotoError] = useState<string | null>(null);
+  // The last accepted estimate, shown above the room fields.
+  const [photo, setPhoto] = useState<PhotoResult | null>(null);
   // Add a window row.
   const addOpening = (): void => {
     // Next key.
@@ -246,6 +270,8 @@ export function RequestForm({ pending, onSolve }: RequestFormProps) {
       weights,
       // The sentence they typed. Empty when the box is empty.
       rawText: sentence,
+      // Version 1, or the next version after a photo estimate.
+      sceneVersion,
     });
     // Show local problems and do not post.
     if (built.value === null) {
@@ -410,18 +436,257 @@ export function RequestForm({ pending, onSolve }: RequestFormProps) {
       setParsing(false);
     }
   };
+  // Copy a photo estimate into the room fields. Every field stays editable afterwards.
+  const applyPhoto = (result: PhotoResult): void => {
+    // Scene the API stored.
+    const scene = result.scene;
+    // Room type from the classifier.
+    setRoomType(scene.room_type);
+    // Room size to two decimals; the user can correct it.
+    setLength(scene.dimensions.length.toFixed(2));
+    // Width.
+    setWidth(scene.dimensions.width.toFixed(2));
+    // Height.
+    setHeight(scene.dimensions.height.toFixed(2));
+    // Room confidence: low when the size came from depth alone.
+    setConfidence(scene.dimensions.confidence);
+    // Openings found in the photo.
+    setOpenings(
+      scene.openings.map((opening, index) => ({
+        key: `opening-photo-${index + 1}`,
+        type: opening.type === "window" ? "window" : "door",
+        wall: opening.wall as OpeningDraft["wall"],
+        position: opening.position.toFixed(2),
+        width: opening.width.toFixed(2),
+      })),
+    );
+    // Keys for rows the user adds later.
+    setNextOpening(scene.openings.length + 1);
+    // Objects seen in the photo. None is held in place unless the user checks keep.
+    setObjects(
+      scene.objects.map((obj, index) => ({
+        key: `object-photo-${index + 1}`,
+        id: obj.id,
+        type: obj.type,
+        x: obj.position[0].toFixed(2),
+        y: obj.position[1].toFixed(2),
+        rotation: String(obj.rotation),
+        length: obj.dimensions[0].toFixed(2),
+        width: obj.dimensions[1].toFixed(2),
+        height: obj.dimensions[2].toFixed(2),
+        mustKeep: false,
+      })),
+    );
+    // Keys for rows the user adds later.
+    setNextObject(scene.objects.length + 1);
+    // The API saved the photo estimate as this version; a corrected save is the next one.
+    setSceneVersion(scene.version + 1);
+    // Show the estimate details.
+    setPhoto(result);
+  };
+  // Send the photo to the API and fill the room fields from the estimate.
+  const estimateFromPhoto = async (): Promise<void> => {
+    // A file is required.
+    if (photoFile === null) {
+      // Say what is missing.
+      setPhotoError("Choose a photo first.");
+      // Stop.
+      return;
+    }
+    // The estimate is saved under the scene id.
+    if (sceneId.trim() === "") {
+      // Say what is missing.
+      setPhotoError("Enter a scene id before estimating.");
+      // Stop.
+      return;
+    }
+    // Query for the route.
+    const query = new URLSearchParams({ scene_id: sceneId.trim() });
+    // A typed length is optional.
+    if (knownLength.trim() !== "") {
+      // The value must be a positive number.
+      const metres = Number(knownLength);
+      // Reject anything else before any request.
+      if (!Number.isFinite(metres) || metres <= 0) {
+        // Say what is wrong.
+        setPhotoError("The known length must be a number of metres greater than 0.");
+        // Stop.
+        return;
+      }
+      // Send the length and which dimension it is.
+      query.set("known_length_m", String(metres));
+      // Axis name.
+      query.set("known_axis", knownAxis);
+    }
+    // In flight.
+    setEstimating(true);
+    // Clear the last error.
+    setPhotoError(null);
+    // Call the same-origin route.
+    try {
+      // The body is the raw image.
+      const response = await fetch(`/api/scenes/photo?${query.toString()}`, {
+        method: "POST",
+        headers: { Accept: "application/json", "Content-Type": photoFile.type || "image/jpeg" },
+        body: photoFile,
+        cache: "no-store",
+      });
+      // Body, or null when it is not JSON.
+      let body: unknown = null;
+      // Parse when possible.
+      try {
+        // Route JSON.
+        body = await response.json();
+      } catch {
+        // Leave body null.
+        body = null;
+      }
+      // Classify the reply.
+      const read = parsePhotoPayload(body, response.status);
+      // A failure keeps the fields as they were.
+      if (read.kind === "failure") {
+        // Show the reason.
+        setPhotoError(read.detail);
+        // Stop.
+        return;
+      }
+      // Copy the estimate into the form.
+      applyPhoto(read.result);
+    } catch (error) {
+      // The browser could not reach this Next.js route.
+      setPhotoError(error instanceof Error ? error.message : "unknown error");
+    } finally {
+      // Re-enable the button.
+      setEstimating(false);
+    }
+  };
   // Solving or parsing disables the fields.
-  const busy = pending || parsing;
+  const busy = pending || parsing || estimating;
   // The form.
   return (
     // noValidate lets the page show its own messages, including API 422 text.
     <form className="flex flex-col gap-8" onSubmit={onSubmit} noValidate>
+      {/* Photo upload. Optional: the fields below can still be typed by hand. */}
+      <fieldset className="flex flex-col gap-4">
+        {/* Section title. */}
+        <legend className="text-lg font-semibold text-zinc-900">Room from a photo (optional)</legend>
+        {/* Privacy note. */}
+        <p className="text-sm text-zinc-600">
+          The server removes EXIF and GPS data and blurs faces before any model sees the photo. The
+          room size is read from the photo, then you can correct it below before solving.
+        </p>
+        {/* Upload controls. */}
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {/* File picker. */}
+          <label className={labelClassName}>
+            Photo
+            {/* Image file. */}
+            <input
+              className={inputClassName}
+              type="file"
+              accept="image/jpeg,image/png,image/webp"
+              onChange={(event) => setPhotoFile(event.target.files?.[0] ?? null)}
+              disabled={busy}
+            />
+          </label>
+          {/* Optional known length. */}
+          <label className={labelClassName}>
+            One known length in metres (optional)
+            {/* Number field. */}
+            <input
+              className={inputClassName}
+              inputMode="decimal"
+              value={knownLength}
+              onChange={(event) => setKnownLength(event.target.value)}
+              disabled={busy}
+              placeholder="for example 4.2"
+            />
+          </label>
+          {/* Which dimension the length is. */}
+          <label className={labelClassName}>
+            That length is the room
+            {/* Dimension choice. */}
+            <select
+              className={inputClassName}
+              value={knownAxis}
+              onChange={(event) => setKnownAxis(event.target.value)}
+              disabled={busy}
+            >
+              <option value="length">length (longer floor side)</option>
+              <option value="width">width (shorter floor side)</option>
+              <option value="height">height (floor to ceiling)</option>
+            </select>
+          </label>
+        </div>
+        {/* Action row. */}
+        <div>
+          {/* Estimate button. */}
+          <button
+            type="button"
+            className="rounded bg-zinc-800 px-4 py-2 text-sm font-medium text-white disabled:opacity-50"
+            onClick={() => void estimateFromPhoto()}
+            disabled={busy}
+          >
+            {estimating ? "Estimating from photo..." : "Estimate room from photo"}
+          </button>
+        </div>
+        {/* Photo error. The fields were not changed. */}
+        {photoError !== null ? (
+          <p className="text-sm text-red-800" role="alert">
+            {photoError}
+          </p>
+        ) : null}
+        {/* Estimate details. */}
+        {photo !== null ? (
+          <div className="flex flex-col gap-1 rounded border border-zinc-200 bg-zinc-50 p-3 text-sm text-zinc-800">
+            {/* Source of the scale. */}
+            <p>
+              {photo.scaleSource === "user_length"
+                ? `Scaled to your ${knownAxis} (factor ${photo.scaleFactor.toFixed(2)}).`
+                : "No length typed, so the depth model's metric estimate was used."}
+            </p>
+            {/* Confidence on every dimension. */}
+            <p>
+              Confidence: length {photo.dimensionConfidence.length}, width{" "}
+              {photo.dimensionConfidence.width}, height {photo.dimensionConfidence.height}.
+              {photo.scene.dimensions.confidence === "low"
+                ? " Low confidence insets every wall by 0.10 m when you solve."
+                : ""}
+            </p>
+            {/* Room guesses. */}
+            <p>
+              Room type guesses:{" "}
+              {photo.roomGuesses
+                .map((g) => `${readableToken(g.roomType)} ${(g.probability * 100).toFixed(0)}%`)
+                .join(", ")}
+              .
+            </p>
+            {/* Objects and privacy counter. */}
+            <p>
+              Found {photo.scene.objects.length} objects and {photo.scene.openings.length} openings.
+              Faces blurred: {photo.facesBlurred}.
+            </p>
+            {/* Notes about assumptions. */}
+            {photo.warnings.map((note) => (
+              <p key={note} className="text-amber-900">
+                {note}
+              </p>
+            ))}
+            {/* Reminder to correct. */}
+            <p className="font-medium">Check the numbers in Room below and correct them before solving.</p>
+          </div>
+        ) : null}
+      </fieldset>
       {/* Room measurements. */}
       <fieldset className="flex flex-col gap-4">
         {/* Section title. */}
         <legend className="text-lg font-semibold text-zinc-900">Room</legend>
-        {/* Version is fixed. */}
-        <p className="text-sm text-zinc-600">Scene version is 1. This form does not upload a photo.</p>
+        {/* Version changes only after a photo estimate. */}
+        <p className="text-sm text-zinc-600">
+          {sceneVersion === 1
+            ? "Scene version is 1."
+            : `Scene version is ${sceneVersion}. The photo estimate was saved as version ${sceneVersion - 1}. Your corrected room is saved as version ${sceneVersion}.`}
+        </p>
         {/* Measurement grid. */}
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {/* Scene id. */}

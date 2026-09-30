@@ -4,7 +4,7 @@
 from typing import Annotated
 
 # FastAPI builds the ASGI application and validates route dependencies.
-from fastapi import Depends, FastAPI, HTTPException
+from fastapi import Depends, FastAPI, HTTPException, Request
 
 # BaseModel types the unchanged health response.
 from pydantic import BaseModel
@@ -21,6 +21,12 @@ from spacedesigner.optimizer.models import ParetoResult
 
 # Stage 2 sweeps weights and returns one Pareto set per solve.
 from spacedesigner.optimizer.stage2_pareto import optimize_pareto
+
+# Photo pipeline pieces. The GPU worker runs in a child process behind an injectable runner.
+from spacedesigner.perception.assemble import InvalidMeasurement, build_scene
+from spacedesigner.perception.models import DimensionConfidence, PhotoSceneResponse, RoomGuess
+from spacedesigner.perception.privacy import UnreadableImage, strip_metadata, to_png_bytes
+from spacedesigner.perception.runner import PerceptionFailure, get_perception_runner
 
 # Hybrid index dependency. Tests override it so weights are not loaded.
 from spacedesigner.rag.hybrid import HybridRetriever, get_hybrid_retriever
@@ -82,6 +88,13 @@ ChatDependency = Annotated[ChatClient, Depends(get_chat_client)]
 RetrieverDependency = Annotated[HybridRetriever, Depends(get_hybrid_retriever)]
 
 
+# Reusable injected photo runner (tests replace it so no GPU or weights are used).
+RunnerDependency = Annotated[object, Depends(get_perception_runner)]
+
+# Largest photo upload in bytes.
+MAX_PHOTO_BYTES = 15 * 1024 * 1024
+
+
 # Application object uvicorn loads as spacedesigner.api.main:app.
 app = FastAPI(title="PhotoSpace", version="0.1.0")
 
@@ -102,6 +115,70 @@ def create_scene(scene: SceneGraph, store: StoreDependency) -> SceneGraph:
     store.save_scene(scene)
     # Echo the canonical validated representation.
     return scene
+
+
+# Photo route under the same /scenes prefix. The body is the raw image, so no parser is added.
+@app.post("/scenes/photo", response_model=PhotoSceneResponse)
+async def create_scene_from_photo(
+    request: Request,
+    store: StoreDependency,
+    runner: RunnerDependency,
+    scene_id: str,
+    known_length_m: float | None = None,
+    known_axis: str = "length",
+) -> PhotoSceneResponse:
+    """Strip metadata, run the vision pipeline, scale to metres, and save a new scene version."""
+    # Read the raw image bytes.
+    data = await request.body()
+    # Empty and oversized uploads are client errors.
+    if not data or len(data) > MAX_PHOTO_BYTES:
+        # Tell the client what is allowed.
+        raise HTTPException(status_code=422, detail="upload one image of at most 15 MB")
+    # Privacy pass step one: pixels only, no EXIF or GPS.
+    try:
+        # Decode and re-encode.
+        clean = strip_metadata(data)
+    # Not an image.
+    except UnreadableImage as exc:
+        # Client error.
+        raise HTTPException(status_code=422, detail=str(exc)) from None
+    # Run the pipeline (face blur is its first step, before any model).
+    try:
+        # The runner sees only the metadata-free PNG.
+        result = runner(to_png_bytes(clean.image), clean.focal_35mm)
+    # Missing weights, no floor, timeouts.
+    except PerceptionFailure as exc:
+        # The form stays usable by hand.
+        raise HTTPException(status_code=422, detail=str(exc)) from None
+    # Next version number continues an existing scene, else starts at 1.
+    existing = store.get_scene(scene_id)
+    # Version follows the Phase 0 scene versioning.
+    version = existing.version + 1 if existing is not None else 1
+    # Scale and assemble with a confidence on every dimension.
+    try:
+        # Build the locked scene graph.
+        scene, confidence, factor = build_scene(
+            result, scene_id, version, known_length_m, known_axis
+        )
+    # A typed length that cannot be used.
+    except InvalidMeasurement as exc:
+        # Client error.
+        raise HTTPException(status_code=422, detail=str(exc)) from None
+    # Persist before replying so the optimizer can run on it.
+    store.save_scene(scene)
+    # Return the scene and how it was estimated.
+    return PhotoSceneResponse(
+        scene=scene,
+        dimension_confidence=DimensionConfidence(**confidence),
+        scale_source="metric_depth" if known_length_m is None else "user_length",
+        scale_factor=factor,
+        room_guesses=[
+            RoomGuess(room_type=name, probability=prob) for name, prob in result["room_type_scores"]
+        ],
+        detections=[f"{name} {score:.2f}" for name, score in result["detections"]],
+        faces_blurred=result["faces_blurred"],
+        warnings=result["warnings"],
+    )
 
 
 # Stage 2 optimization route: a Pareto set from a persisted scene and gold requirement.

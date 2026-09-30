@@ -1,6 +1,6 @@
 # PhotoSpace
 
-PhotoSpace is a photo-grounded interior redesign project. Phase 0 is the shared schemas, Postgres tables, FastAPI health check, and the Next.js page that displays that check. Phase 1 acquires the public datasets used later for cleaning, training, and geometry checks. Phase 2a cleans the computer-vision datasets and writes a data quality report. Phase 2b mines layout priors, builds the furniture catalog, cleans the Objaverse meshes, chunks the RAG corpus, and adds a synthetic room generator. Phase 3 adds the hard-constrained Stage 1 layout optimizer, independent checker, plan rendering, BOM, trace, and manual-scene optimization API. Phase 4 scores catalog rows and returns one Pareto set. Phase 5 is the Next.js page for that set. Phase 6 parses a sentence into a requirement and retrieves standards with hybrid search.
+PhotoSpace is a photo-grounded interior redesign project. Phase 0 is the shared schemas, Postgres tables, FastAPI health check, and the Next.js page that displays that check. Phase 1 acquires the public datasets used later for cleaning, training, and geometry checks. Phase 2a cleans the computer-vision datasets and writes a data quality report. Phase 2b mines layout priors, builds the furniture catalog, cleans the Objaverse meshes, chunks the RAG corpus, and adds a synthetic room generator. Phase 3 adds the hard-constrained Stage 1 layout optimizer, independent checker, plan rendering, BOM, trace, and manual-scene optimization API. Phase 4 scores catalog rows and returns one Pareto set. Phase 5 is the Next.js page for that set. Phase 6 parses a sentence into a requirement and retrieves standards with hybrid search. Phase 7a trains the room classifier and detector. Phase 7b turns a photo into a scene graph.
 
 This README is updated at the end of every phase with what changed and how to check it. See the "Phase log" section at the bottom.
 
@@ -217,3 +217,24 @@ Each entry says what the phase changed and how to check it.
   - `.venv-train/bin/python scripts/eval_room_classifier.py --split test` (top-1 and confusion matrix).
   - `.venv-train/bin/python scripts/eval_detector.py` (mAP50 and mAP50-95, zero-shot and fine-tuned, on the test split).
   - Read `docs/reports/cv_training.md`.
+
+### Phase 7b: photo to scene graph
+
+- Changed:
+  - `src/spacedesigner/perception/` now holds the photo pipeline: privacy pass (EXIF and GPS stripped in the API, faces blurred first in the worker), room classifier, detector, SAM2.1 Hiera-Tiny masks, Depth Anything V2 Small metric-indoor depth, RANSAC floor, ceiling, and wall fits, and scene assembly. The GPU stages run in a child process in `.venv-train`, one model at a time (largest stage 517 MiB). The main `.venv` is unchanged and still has CPU torch.
+  - `POST /scenes/photo?scene_id=..&known_length_m=..&known_axis=..` (raw image body) under the existing `/scenes` prefix. A typed length gives `high` confidence; otherwise the metric depth gives `low`, and the existing 0.10 m low-confidence inset applies. A confidence is returned for each dimension. The scene is saved with the existing versioning (repeat uploads add 1). `POST /scenes`, `/requirements`, and `/designs/optimize` are unchanged.
+  - The Next.js page has a photo upload, an optional known length and which dimension it is, and fills the room fields so they can be corrected before solving. The corrected room is saved as the next version.
+  - Approved downloads: SAM2.1 Hiera-Tiny, Depth Anything V2 Metric-Indoor-Small, and the 230 KB YuNet face model (gitignored under `models/pretrained/`). `transformers` was added to `.venv-train` only.
+  - Report: `docs/reports/photo_to_scene.md`. Depth AbsRel 0.213 (0.074 after median scaling) on NYU test; segmentation mean IoU 0.347 on 64 frames; room-dimension errors on 473 SUN RGB-D layouts are in the report.
+- Not built or not run: Structured3D room-dimension check (the perspective bytes are not on disk), Phase 8, a Qwen critic, inpainting, a 3D view. No schema change and no migration.
+- Check:
+  - `uv run ruff check .`
+  - `uv run pytest` (115 passed, 1 skipped; the skipped face-blur test needs OpenCV and runs only in `.venv-train`; one known Starlette warning).
+  - `uv run python scripts/verify_datasets.py`
+  - `uv run python scripts/check_optimizer_200.py`
+  - `.venv-train/bin/python scripts/eval_photo_to_scene.py depth` (NYU test AbsRel, RMSE, delta1)
+  - `.venv-train/bin/python scripts/eval_photo_to_scene.py seg`
+  - `.venv-train/bin/python scripts/eval_photo_to_scene.py dims` (SUN RGB-D room-dimension error in cm, with and without one measurement)
+  - From `frontend/`: `npm run lint` and `npm run build`.
+  - Start Postgres (`docker compose up -d`), the API (`uv run uvicorn spacedesigner.api.main:app --host 127.0.0.1 --port 8001` after exporting `DATABASE_URL` from `.env`), and `npm run dev` in `frontend/`. Open http://localhost:3000, choose a photo, optionally type a known length, choose Estimate room from photo, correct a number, then Save room and solve. Try a 390 px wide window too.
+  - Read `docs/reports/photo_to_scene.md`.
