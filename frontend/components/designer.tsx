@@ -1,4 +1,4 @@
-"use client"; // Health rechecks and solves stay on this origin.
+"use client"; // Solves stay on this origin.
 
 // State and the results anchor.
 import { useEffect, useRef, useState } from "react";
@@ -16,7 +16,6 @@ import { parseOptimizePayload, parseScenePayload } from "@/lib/parse-result";
 import type {
   BuiltRequest,
   FailureView,
-  HealthView,
   InfeasibleBody,
   ParetoBody,
   SceneGraph,
@@ -34,12 +33,6 @@ type Outcome =
     }
   // Infeasible reason.
   | { kind: "infeasible"; result: InfeasibleBody };
-
-// Props from the server page.
-type DesignerProps = {
-  // Health read while the page was rendered.
-  initialHealth: HealthView;
-};
 
 // POST JSON to a same-origin route and return the status plus the parsed body.
 async function postJson(path: string, json: unknown): Promise<{ status: number; body: unknown }> {
@@ -68,10 +61,8 @@ async function postJson(path: string, json: unknown): Promise<{ status: number; 
   return { status: response.status, body };
 }
 
-// The page: health, the sentence, the forms, and the selected design.
-export function Designer({ initialHealth }: DesignerProps) {
-  // Health, starting from the server render.
-  const [health, setHealth] = useState(initialHealth);
+// The page: the sentence, the forms, and the selected design.
+export function Designer() {
   // True while the two posts are in flight.
   const [pending, setPending] = useState(false);
   // HTTP failure, including 404 and 422.
@@ -82,9 +73,6 @@ export function Designer({ initialHealth }: DesignerProps) {
   const [outcome, setOutcome] = useState<Outcome | null>(null);
   // The results block, scrolled into view after a solve.
   const resultsRef = useRef<HTMLDivElement>(null);
-  // Status line in the Phase 0 shape.
-  const statusLine =
-    health.statusCode === null ? health.status : `${health.status} (HTTP ${health.statusCode})`;
   // Scroll to the result when one arrives.
   useEffect(() => {
     // Only after a solve has produced something to read.
@@ -93,23 +81,6 @@ export function Designer({ initialHealth }: DesignerProps) {
       resultsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   }, [failure, badDetail, outcome]);
-  // Ask the health route again without losing the form.
-  const recheck = async (): Promise<void> => {
-    // The route answers even when the API is down.
-    try {
-      // Same-origin health check.
-      const response = await fetch("/api/health", { cache: "no-store" });
-      // Parsed payload.
-      const body = (await response.json()) as HealthView;
-      // Replace the status line.
-      setHealth(body);
-    } catch (error) {
-      // The route itself could not be reached.
-      const detail = error instanceof Error ? error.message : "unknown error";
-      // Show unreachable.
-      setHealth({ statusCode: null, status: "unreachable", detail });
-    }
-  };
   // Save the scene, then solve.
   const solve = async (value: BuiltRequest): Promise<void> => {
     // Clear the previous design before the new request so an old plan cannot linger.
@@ -215,7 +186,7 @@ export function Designer({ initialHealth }: DesignerProps) {
   return (
     // Page column.
     <main className="mx-auto flex min-h-full w-full max-w-7xl flex-col gap-8 px-4 py-8 sm:px-6">
-      {/* Hero: name, tagline, and the Phase 0 health line. */}
+      {/* Hero: name and tagline. */}
       <header className="flex flex-col gap-3 rounded-3xl border border-stone-200 bg-white/70 p-6 shadow-card backdrop-blur">
         {/* Project name. */}
         <h1 className="font-display text-4xl font-semibold tracking-tight text-stone-900">PhotoSpace</h1>
@@ -224,25 +195,6 @@ export function Designer({ initialHealth }: DesignerProps) {
           Manual room, a sentence or a structured requirement, Pareto designs, a 3D view, a generated image,
           explanations, what-if, and version comparison.
         </p>
-        {/* Phase 0 check label, kept so the health line is still obvious. */}
-        <p className="text-sm text-stone-500">Phase 0 API health check</p>
-        {/* Status returned by GET /health. */}
-        <div className="flex flex-wrap items-center gap-3">
-          <p className="rounded-full border border-stone-200 bg-stone-50 px-4 py-2 text-base">API status: {statusLine}</p>
-          {/* Recheck without posting a room. */}
-          <button
-            type="button"
-            className="w-fit rounded-lg border border-stone-300 bg-white px-3 py-2 text-sm font-medium shadow-sm hover:bg-stone-50"
-            onClick={() => {
-              // Fire the recheck. Errors are stored in state.
-              void recheck();
-            }}
-          >
-            Recheck API
-          </button>
-        </div>
-        {/* Failure detail from the health check. */}
-        {health.detail ? <p className="text-sm text-red-700">{health.detail}</p> : null}
       </header>
       {/* Two columns on wide screens: inputs left, results right. */}
       <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-[minmax(0,460px)_minmax(0,1fr)]">

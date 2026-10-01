@@ -168,6 +168,365 @@ def _opening_box(scene: SceneGraph, index: int) -> tuple[int, int, int, int]:
     raise ValueError(f"opening {index} has unsupported wall '{opening.wall}'")
 
 
+# Large pieces read correctly against a wall. Earlier names take the first walls.
+_WALL_CATEGORIES = (
+    # Sleeping and seating anchors.
+    "bed",
+    "sofa",
+    "armchair",
+    "bench",
+    # Work and storage anchors.
+    "desk",
+    "dresser",
+    "cabinet",
+    "shelf",
+    "tv_stand",
+    "tv",
+)
+
+# A companion sits beside its anchor instead of claiming a wall of its own.
+_COMPANION_OF = {
+    # A chair belongs at a desk, or at a table when there is no desk.
+    "chair": ("desk", "table"),
+    # A stool belongs at a table.
+    "stool": ("table", "desk"),
+    # A nightstand belongs beside the bed.
+    "nightstand": ("bed",),
+    # An end table belongs beside seating or the bed.
+    "side_table": ("sofa", "armchair", "bed"),
+    # A coffee table belongs in front of seating.
+    "coffee_table": ("sofa", "armchair"),
+    # An ottoman belongs with seating.
+    "ottoman": ("sofa", "armchair"),
+    # A lamp belongs on a work or bedside surface.
+    "lamp": ("desk", "side_table", "nightstand"),
+}
+
+# A dining or general table reads better in the open floor than on a wall.
+_CENTER_CATEGORIES = frozenset({"table"})
+
+# Walls are handed out in this order so the first piece is not on the usual door wall.
+_WALL_CYCLE = ("north", "east", "south", "west")
+
+# Leaving an assigned wall costs far more than any other placement term.
+_WALL_WEIGHT = 1000
+
+# Sliding along the assigned wall costs enough to separate pieces that share it.
+_ALONG_WEIGHT = 20
+
+# A companion moves toward its anchor, and never pulls the anchor off its wall.
+_PAIR_WEIGHT = 8
+
+# A table is drawn toward the middle of the floor.
+_CENTER_WEIGHT = 30
+
+# The long side of a wall piece lies along that wall when the two sides differ.
+_ROTATION_WEIGHT = 40
+
+
+# Build the integer centre of one new piece, in half-cells, on one axis.
+def _half_center(
+    model: cp_model.CpModel,
+    placement: _PlacementVars,
+    axis: str,
+    room_cells: int,
+) -> cp_model.IntVar:
+    """Return 2 * start + size so the centre stays an integer."""
+    # The variable covers every legal centre in this room.
+    center = model.new_int_var(0, room_cells * 2, f"c{axis}_{placement.item.item_id}")
+    # Horizontal centre.
+    if axis == "x":
+        # Twice the start plus the width is twice the centre.
+        model.add(center == 2 * placement.x + placement.size_x)
+    # Vertical centre.
+    else:
+        # Twice the start plus the depth is twice the centre.
+        model.add(center == 2 * placement.y + placement.size_y)
+    # The caller costs the distance between centres.
+    return center
+
+
+# Distance from a new piece to the inset of one wall, in cells.
+def _wall_gap(
+    model: cp_model.CpModel,
+    placement: _PlacementVars,
+    wall: str,
+    room_x: int,
+    room_y: int,
+    margin: int,
+) -> cp_model.IntVar:
+    """Return how many cells separate the footprint from the named wall."""
+    # A stable suffix for the new variables.
+    name = f"{placement.item.item_id}_{wall}"
+    # West is a small x start.
+    if wall == "west":
+        # Gap inside the confidence inset.
+        gap = model.new_int_var(0, room_x, f"gap_{name}")
+        # The start is already at least the margin.
+        model.add(gap == placement.x - margin)
+        # Cells of air on the west side.
+        return gap
+    # South is a small y start.
+    if wall == "south":
+        # Gap inside the confidence inset.
+        gap = model.new_int_var(0, room_y, f"gap_{name}")
+        # The start is already at least the margin.
+        model.add(gap == placement.y - margin)
+        # Cells of air on the south side.
+        return gap
+    # East is a large x end.
+    if wall == "east":
+        # The unpadded east edge.
+        end = model.new_int_var(0, room_x, f"end_{name}")
+        # Edge follows the chosen rotation.
+        model.add(end == placement.x + placement.size_x)
+        # Gap inside the confidence inset.
+        gap = model.new_int_var(0, room_x, f"gap_{name}")
+        # Air between the edge and the east inset.
+        model.add(gap == (room_x - margin) - end)
+        # Cells of air on the east side.
+        return gap
+    # North is a large y end.
+    end = model.new_int_var(0, room_y, f"end_{name}")
+    # Edge follows the chosen rotation.
+    model.add(end == placement.y + placement.size_y)
+    # Gap inside the confidence inset.
+    gap = model.new_int_var(0, room_y, f"gap_{name}")
+    # Air between the edge and the north inset.
+    model.add(gap == (room_y - margin) - end)
+    # Cells of air on the north side.
+    return gap
+
+
+# How far a piece sits from its station along a wall.
+def _along_delta(
+    model: cp_model.CpModel,
+    placement: _PlacementVars,
+    wall: str,
+    room_x: int,
+    room_y: int,
+    margin: int,
+    slot: int,
+    count: int,
+) -> cp_model.IntVar:
+    """Return the absolute miss from this piece's station on its wall."""
+    # North and south slide along x. East and west slide along y.
+    horizontal = wall in {"north", "south"}
+    # Usable length of that slide.
+    span_room = room_x if horizontal else room_y
+    # Interior length after the confidence inset.
+    span = max(1, span_room - 2 * margin)
+    # Stations sit at 1/(n+1), 2/(n+1), ... so a single piece uses the middle.
+    target = margin + (slot + 1) * span // (count + 1)
+    # The start on the sliding axis.
+    start = placement.x if horizontal else placement.y
+    # Absolute miss, in cells.
+    delta = model.new_int_var(0, span_room, f"along_{placement.item.item_id}_{wall}")
+    # Exact absolute value.
+    model.add_abs_equality(delta, start - target)
+    # The caller weights this miss.
+    return delta
+
+
+# Manhattan distance between two half-cell centres.
+def _pair_distance(
+    model: cp_model.CpModel,
+    placement: _PlacementVars,
+    anchor: _PlacementVars | tuple[int, int],
+    room_x: int,
+    room_y: int,
+) -> cp_model.IntVar:
+    """Return the Manhattan distance from a companion to its anchor."""
+    # Companion centre.
+    cx = _half_center(model, placement, "x", room_x)
+    # Companion centre on the other axis.
+    cy = _half_center(model, placement, "y", room_y)
+    # A placed catalog anchor has variable centres.
+    if isinstance(anchor, _PlacementVars):
+        # Anchor centre.
+        ax = _half_center(model, anchor, "x", room_x)
+        # Anchor centre on the other axis.
+        ay = _half_center(model, anchor, "y", room_y)
+        # Horizontal separation.
+        dx = model.new_int_var(0, room_x * 2, f"dx_{placement.item.item_id}")
+        # Vertical separation.
+        dy = model.new_int_var(0, room_y * 2, f"dy_{placement.item.item_id}")
+        # Exact absolute differences.
+        model.add_abs_equality(dx, cx - ax)
+        # Exact absolute difference on y.
+        model.add_abs_equality(dy, cy - ay)
+    # A kept object is a fixed centre in the same half-cell units.
+    else:
+        # Stored half-cell centre.
+        ax, ay = anchor
+        # Horizontal separation from the fixed centre.
+        dx = model.new_int_var(0, room_x * 2, f"dx_{placement.item.item_id}")
+        # Vertical separation from the fixed centre.
+        dy = model.new_int_var(0, room_y * 2, f"dy_{placement.item.item_id}")
+        # Exact absolute difference.
+        model.add_abs_equality(dx, cx - ax)
+        # Exact absolute difference on y.
+        model.add_abs_equality(dy, cy - ay)
+    # Sum of the two axes.
+    distance = model.new_int_var(0, (room_x + room_y) * 2, f"pair_{placement.item.item_id}")
+    # Manhattan distance.
+    model.add(distance == dx + dy)
+    # The caller weights this distance.
+    return distance
+
+
+# Half-cell centre of a kept object.
+def _fixed_half_center(obj: SceneObject) -> tuple[int, int]:
+    """Return a kept object's centre in the same units as a new piece."""
+    # Horizontal half-cells.
+    cx = int(round(obj.position[0] / GRID_SIZE_M * 2))
+    # Vertical half-cells.
+    cy = int(round(obj.position[1] / GRID_SIZE_M * 2))
+    # Both axes.
+    return cx, cy
+
+
+# Place anchors on different walls and companions beside those anchors.
+def _add_layout_objective(
+    model: cp_model.CpModel,
+    placements: list[_PlacementVars],
+    fixed_objects: list[SceneObject],
+    room_x: int,
+    room_y: int,
+    margin: int,
+) -> None:
+    """Minimize a weighted placement cost. Hard constraints stay unchanged."""
+    # Nothing new to place.
+    if not placements:
+        # The model has no placement decision.
+        return
+    # New pieces grouped by category. Stage 1 selects one row per category.
+    by_category: dict[str, list[_PlacementVars]] = {}
+    # Preserve solver order inside a category.
+    for placement in placements:
+        # Append to that category.
+        by_category.setdefault(placement.item.category, []).append(placement)
+    # Identities already given a role.
+    used: set[int] = set()
+    # Pieces that should sit on a wall.
+    wall_items: list[_PlacementVars] = []
+    # Assign the named wall categories first, in a stable order.
+    for category in _WALL_CATEGORIES:
+        # Every new piece of that category.
+        for placement in by_category.get(category, []):
+            # It takes the next wall.
+            wall_items.append(placement)
+            # It is no longer a leftover.
+            used.add(id(placement))
+    # Weighted linear terms.
+    terms: list[cp_model.LinearExpr] = []
+    # Hand walls out round-robin, then record who shares a wall.
+    assigned: list[tuple[_PlacementVars, str]] = []
+    # One wall per anchor, cycling when there are more than four.
+    for index, placement in enumerate(wall_items):
+        # North, east, south, then west.
+        assigned.append((placement, _WALL_CYCLE[index % len(_WALL_CYCLE)]))
+    # Stations along one wall.
+    by_wall: dict[str, list[_PlacementVars]] = {}
+    # Group the assignment.
+    for placement, wall in assigned:
+        # Keep the round-robin order.
+        by_wall.setdefault(wall, []).append(placement)
+    # Cost each wall piece.
+    for wall, group in by_wall.items():
+        # How many pieces share this wall.
+        count = len(group)
+        # Each piece has its own station.
+        for slot, placement in enumerate(group):
+            # Pull the footprint onto the wall.
+            terms.append(_wall_gap(model, placement, wall, room_x, room_y, margin) * _WALL_WEIGHT)
+            # Slide it to its station so shared walls do not stack in one spot.
+            terms.append(
+                _along_delta(model, placement, wall, room_x, room_y, margin, slot, count)
+                * _ALONG_WEIGHT
+            )
+            # North and south want the long side running east-west, which is rotation 0.
+            if wall in {"north", "south"}:
+                # One means the long side runs north-south.
+                terms.append(placement.rotated * _ROTATION_WEIGHT)
+            # East and west want the opposite rotation.
+            else:
+                # Zero means the long side still runs east-west.
+                terms.append((1 - placement.rotated) * _ROTATION_WEIGHT)
+    # Companions, centre pieces, and anything left over.
+    for placement in placements:
+        # Already on a wall.
+        if id(placement) in used:
+            # Skip it.
+            continue
+        # Preferred anchor categories, if this is a companion.
+        partners = _COMPANION_OF.get(placement.item.category, ())
+        # The anchor, once found.
+        anchor: _PlacementVars | tuple[int, int] | None = None
+        # Try each partner category in order.
+        for category in partners:
+            # A new piece of that category.
+            if by_category.get(category):
+                # Sit beside the first one.
+                anchor = by_category[category][0]
+                # Stop searching.
+                break
+            # A kept piece of that category.
+            fixed = next((obj for obj in fixed_objects if obj.type == category), None)
+            # Use its fixed centre.
+            if fixed is not None:
+                # Half-cell centre.
+                anchor = _fixed_half_center(fixed)
+                # Stop searching.
+                break
+        # A companion with somewhere to go.
+        if anchor is not None:
+            # Pull it against that anchor. The anchor's wall weight keeps the anchor put.
+            terms.append(_pair_distance(model, placement, anchor, room_x, room_y) * _PAIR_WEIGHT)
+            # This piece has a role.
+            used.add(id(placement))
+            # Next piece.
+            continue
+        # An open-floor piece such as a dining table.
+        if placement.item.category in _CENTER_CATEGORIES:
+            # Its centre.
+            cx = _half_center(model, placement, "x", room_x)
+            # Its other centre.
+            cy = _half_center(model, placement, "y", room_y)
+            # Room middle in the same half-cell units.
+            mid_x = room_x
+            # Room middle on y. room_y cells is the full width, so the middle is room_y.
+            mid_y = room_y
+            # Horizontal miss.
+            dx = model.new_int_var(0, room_x * 2, f"mdx_{placement.item.item_id}")
+            # Vertical miss.
+            dy = model.new_int_var(0, room_y * 2, f"mdy_{placement.item.item_id}")
+            # Exact absolute misses.
+            model.add_abs_equality(dx, cx - mid_x)
+            # Exact absolute miss on y.
+            model.add_abs_equality(dy, cy - mid_y)
+            # Pull toward the middle.
+            terms.append((dx + dy) * _CENTER_WEIGHT)
+            # This piece has a role.
+            used.add(id(placement))
+    # Leftovers take the next walls after the anchors.
+    leftovers = [placement for placement in placements if id(placement) not in used]
+    # Continue the wall cycle so they do not fall back to the south-west corner.
+    for index, placement in enumerate(leftovers):
+        # Next wall after the anchors.
+        wall = _WALL_CYCLE[(len(wall_items) + index) % len(_WALL_CYCLE)]
+        # Onto that wall.
+        terms.append(_wall_gap(model, placement, wall, room_x, room_y, margin) * _WALL_WEIGHT)
+        # A tiny rotation preference so equal layouts stay repeatable.
+        terms.append(placement.rotated * 1)
+    # A final tie-break. It is too small to pull a piece off its wall or its partner.
+    for placement in placements:
+        # Lower-left wins only when every other term is equal.
+        terms.append(placement.x * 1 + placement.y * 1 + placement.rotated * 1)
+    # One linear objective.
+    model.minimize(sum(terms))
+
+
 # Pick one deterministic catalog item for every missing category.
 def _select_items(
     scene: SceneGraph,
@@ -542,8 +901,8 @@ def optimize(
                 [furniture_x, obstacle_x],
                 [furniture_y, obstacle_y],
             )
-    # Minimize starts for deterministic lower-left placement.
-    model.minimize(sum(var.x + var.y + var.rotated for var in placements))
+    # Spread anchors across walls and sit companions beside them.
+    _add_layout_objective(model, placements, fixed_objects, room_x, room_y, margin)
     # Count hints actually attached, so a missing item id is not treated as a warm start.
     hints_applied = 0
     # Attach warm-start hints only when a counterfactual caller supplied them.

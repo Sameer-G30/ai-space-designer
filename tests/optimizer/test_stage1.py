@@ -48,6 +48,81 @@ def test_must_keep_object_stays_at_180_degree_pose() -> None:
     assert result.bom == []
 
 
+# Several purchases must use the room instead of one corner.
+def test_several_items_spread_along_walls_with_the_chair_at_the_desk() -> None:
+    """Put anchors on walls and the chair beside the desk."""
+    # Four categories in one office.
+    requirement = sample_requirement().model_copy(
+        update={"must_have": ["desk", "chair", "shelf", "sofa"]}
+    )
+    # One compact row per category.
+    catalog = tuple(sample_catalog(category=name)[0] for name in requirement.must_have)
+    # Solve the real model.
+    result = optimize(sample_scene(), requirement, catalog)
+    # The room is large enough for four small pieces.
+    assert result.feasible
+    # Hard constraints still hold.
+    assert audit_design(sample_scene(), requirement, result.design, result.bom) == []
+    # Look up each placed piece.
+    by_type = {obj.type: obj for obj in result.design.objects}
+    # Footprint gap to the nearest wall, in metres.
+    def wall_gap(obj) -> float:
+        # Rotated floor edges.
+        quarter = round(obj.rotation / 90.0) % 4
+        # Swap edges on a quarter turn.
+        swapped = quarter in {1, 3}
+        # World length and width.
+        length = obj.dimensions[1] if swapped else obj.dimensions[0]
+        # The other edge.
+        width = obj.dimensions[0] if swapped else obj.dimensions[1]
+        # Air on each side.
+        gaps = (
+            obj.position[0] - length / 2,
+            6.0 - (obj.position[0] + length / 2),
+            obj.position[1] - width / 2,
+            6.0 - (obj.position[1] + width / 2),
+        )
+        # The nearest wall.
+        return min(gaps)
+    # The three anchors sit on a wall, not in the middle of the floor.
+    for name in ("desk", "shelf", "sofa"):
+        # One grid cell of slack.
+        assert wall_gap(by_type[name]) <= 0.1
+    # They are not the same corner: at least two different nearest walls.
+    nearest = set()
+    # Record which side each anchor touches.
+    for name in ("desk", "shelf", "sofa"):
+        # This piece.
+        obj = by_type[name]
+        # Gap on each side, same order as above.
+        quarter = round(obj.rotation / 90.0) % 4
+        # Edges.
+        swapped = quarter in {1, 3}
+        # World length and width.
+        length = obj.dimensions[1] if swapped else obj.dimensions[0]
+        # The other edge.
+        width = obj.dimensions[0] if swapped else obj.dimensions[1]
+        # Named gaps.
+        sides = {
+            "west": obj.position[0] - length / 2,
+            "east": 6.0 - (obj.position[0] + length / 2),
+            "south": obj.position[1] - width / 2,
+            "north": 6.0 - (obj.position[1] + width / 2),
+        }
+        # The side it actually touches.
+        nearest.add(min(sides, key=sides.get))
+    # Three walls are assigned before a wall is reused.
+    assert len(nearest) == 3
+    # The chair is next to the desk, not across the room.
+    desk = by_type["desk"]
+    # The companion.
+    chair = by_type["chair"]
+    # Manhattan distance between centres.
+    apart = abs(desk.position[0] - chair.position[0]) + abs(desk.position[1] - chair.position[1])
+    # Close enough to read as a desk and its chair.
+    assert apart < 2.0
+
+
 # Confirm hard budget failures never leak a design.
 def test_infeasible_budget_has_readable_reason() -> None:
     """Return no design when the cheapest item exceeds budget."""

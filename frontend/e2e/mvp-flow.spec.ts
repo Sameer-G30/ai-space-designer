@@ -582,8 +582,8 @@ async function runFlow(page: Page, info: TestInfo): Promise<void> {
   const meshStatuses = watchMeshes(page);
   // Open the page.
   await page.goto("/");
-  // The health line is served by the Next.js proxy.
-  await expect(page.getByText("API status: ok (HTTP 200)")).toBeVisible();
+  // The page title is the signal that the app rendered.
+  await expect(page.getByRole("heading", { name: "PhotoSpace" })).toBeVisible();
   // A fresh scene id so this run does not depend on an older version number.
   const sceneId = `e2e-${info.project.name}-${Date.now()}`;
   // Scene id field.
